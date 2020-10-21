@@ -1,4 +1,7 @@
-
+<?php
+session_start();
+$con=mysqli_connect("localhost","root","","projectdb");
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -577,21 +580,28 @@ footer
 		</li>
 	<li class=""> 
 		  <a class="nav-link text-left active"  role="button" 
-		  aria-haspopup="true" aria-expanded="false" href="#">
+		  aria-haspopup="true" aria-expanded="false" href="#" name="alc" id="s1">
        <i class="flaticon-bar-chart-1"></i>  Admin Location Control
          </a>
           </li>
+
+          <li class=""> 
+            <a class="nav-link text-left active"  role="button" 
+            aria-haspopup="true" aria-expanded="false" href="#" name="cm" id="s2">
+         <i class="flaticon-bar-chart-1"></i>  Category Management
+           </a>
+            </li>
           
           <li class=""> 
             <a class="nav-link text-left active"  role="button" 
-            aria-haspopup="true" aria-expanded="false" href="#">
+            aria-haspopup="true" aria-expanded="false" href="#" name="sp" id="s2">
          <i class="flaticon-bar-chart-1"></i>  Service Provider
            </a>
             </li>
 
             <li class=""> 
                 <a class="nav-link text-left active"  role="button" 
-                aria-haspopup="true" aria-expanded="false" href="#">
+                aria-haspopup="true" aria-expanded="false" href="#" name="s3">
              <i class="flaticon-bar-chart-1"></i>  Employees
                </a>
                 </li>
@@ -757,19 +767,19 @@ footer
 									4 New Notifications
 								</div>
 								<div class="list-group">
-									<a href="#" class="list-group-item">
+									<!-- <a href="#" class="list-group-item"> -->
 										<div class="row no-gutters align-items-center">
-											<div class="col-2">
+											<!-- <div class="col-2"> -->
 												<!-- <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-alert-circle text-danger"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> -->
-                                                <span class="glyphicon glyphicon-bell"></span>
-                                            </div>
+                                                <!-- <span class="glyphicon glyphicon-bell"></span>
+                                            </div> -->
 											<div class="" id="notifications">
 												<div class="text-dark"><a href="#">4 new Messages</a></div>
-												<div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-												<div class="text-muted small mt-1">30m ago</div>
+												<!-- <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
+												<div class="text-muted small mt-1">30m ago</div> -->
 											</div>
 										</div>
-									</a>
+									<!-- </a> -->
 									
 								</div>
 								<div class="dropdown-menu-footer">
@@ -777,22 +787,24 @@ footer
 								</div>
 							</div>
 						</li>
-            <!-- Nav Item - Messages -->
-            <li class="nav-item">
-              <a class="nav-link " href="#"
-			 role="button">
-                <i class="fas fa-envelope"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-            </li>
+          
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><label ></label></span>
-                <img class="img-profile rounded-circle" src="img/logo3.png">
-              </a>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><label ><b style="font-famiy: Times New Roman, Times, serif;">Profile</b></label></span>
+                <!-- <img class="img-profile rounded-circle" src="#"> -->
+              </a>                                 
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Update</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
+                           
+                    </div>
+                                              
+			<!-- </div>
+								
+									
+								</div> -->
             </li>
 
           </ul>
@@ -813,10 +825,23 @@ footer
 		  </div>
 <div class="col-md-12">
        <div class="row">
-									<div class="col-sm-3">
+									<div class="col-sm-4">
 										<div class="card">
 											<div class="card-body">
-												<h5 class="card-title mb-4">Sales</h5>
+												<h5 class="card-title mb-4">Sevice Providers</h5>
+												<h1 class="display-5 mt-1 mb-3">2.382</h1>
+												<div class="mb-1">
+													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
+													<span class="text-muted"></span>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+									<div class="col-sm-4">
+										<div class="card">
+											<div class="card-body">
+												<h5 class="card-title mb-4">Customers</h5>
 												<h1 class="display-5 mt-1 mb-3">2.382</h1>
 												<div class="mb-1">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
@@ -826,10 +851,10 @@ footer
 										</div>
 										
 									</div>
-									<div class="col-sm-3">
+									<div class="col-sm-4">
 										<div class="card">
 											<div class="card-body">
-												<h5 class="card-title mb-4">Sales</h5>
+												<h5 class="card-title mb-4">Employess</h5>
 												<h1 class="display-5 mt-1 mb-3">2.382</h1>
 												<div class="mb-1">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
@@ -839,20 +864,7 @@ footer
 										</div>
 										
 									</div>
-									<div class="col-sm-3">
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title mb-4">Sales</h5>
-												<h1 class="display-5 mt-1 mb-3">2.382</h1>
-												<div class="mb-1">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-													<span class="text-muted">Since last week</span>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-									<div class="col-sm-3">
+									<!-- <div class="col-sm-3">
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title mb-4">Earnings</h5>
@@ -865,7 +877,7 @@ footer
 										</div>
 										
 									</div>
-									
+									 -->
 									
 								</div>
 </div>
@@ -879,8 +891,8 @@ footer
                                 <!-- title -->
                                 <div class="d-md-flex align-items-center">
                                     <div>
-                                        <h4 class="card-title">Top Selling Products</h4>
-                                        <h5 class="card-subtitle">Overview of Top Selling Items</h5>
+                                        <h4 class="card-title">Top Booked Category</h4>
+                                        <h5 class="card-subtitle">Overview of Top booked category</h5>
                                     </div>
                                     <div class="ml-auto">
                                         <div class="dl">
@@ -895,7 +907,7 @@ footer
                                 </div>
                                 <!-- title -->
                             </div>
-                            <div class="table-responsive">
+                            <!-- <div class="table-responsive">
                                 <table class="table v-middle">
                                     <thead>
                                         <tr class="bg-light">
@@ -993,7 +1005,7 @@ footer
                                 </table>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                    
 
         </div>
@@ -1002,15 +1014,84 @@ footer
         <!-- /.container-fluid -->
 
       </div>
-			
-			
+		<!-- Service providers and emplyee details -->
+
+        <div class="table-responsive">
+                                <table class="table v-middle">
+                                    <thead>
+                                        <tr class="bg-light">
+                                            <th class="border-top-0">Category</th>
+                                            <th class="border-top-0">Service Providers</th>
+                                            <th class="border-top-0">Licensce Number</th>
+                                            <th class="border-top-0">Employess</th>
+                                            <th class="border-top-0">Customers</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white">PM</a></div>
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16">Plumbing</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16">Anil</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td rowspan="4">
+                                                <div class="d-flex align-items-center">
+                                                   
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16">Sunil</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                   
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16">Sunil</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <!-- <td>
+                                                <div class="d-flex align-items-center">
+                                                   
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16">Plumbing</h4>
+                                                    </div>
+                                                </div>
+                                            </td> -->
+                                            <td rowspan="4">
+                                                <div class="d-flex align-items-center">
+                                                   
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16">Sunil</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                   
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16">Sunil</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            </tr>
+                                            
 			
 			
         
 			
+		<!-- Service providers and emplyee details -->
+	
 			
-			
-			<footer class="footer">
+			<!-- <footer class="footer">
 				<div class="container-fluid">
 					<div class="row text-muted">
 						<div class="col-6 text-left">
@@ -1039,7 +1120,7 @@ footer
 			</footer>
 			
         </div>
-		</div>
+		</div> -->
         <!-- /#page-content-wrapper -->
 
     </div>
@@ -1055,7 +1136,7 @@ footer
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     
   
  <script>

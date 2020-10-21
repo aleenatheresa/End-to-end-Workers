@@ -1,3 +1,21 @@
+
+<?php
+session_start();
+$con=mysqli_connect("localhost","root","","projectdb");
+
+$sql="SELECT * FROM tbl_district WHERE is_delete=1";
+$result1=mysqli_query($con,$sql);
+
+$loc="SELECT * FROM tbl_location WHERE is_delete=1";
+$result_loc=mysqli_query($con,$loc);
+// if(!mysqli_select_db($con,"projectdb"))
+// {
+//     echo "db not selected";
+// }
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +73,7 @@ blockquote:before, blockquote:after, q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 10px;
+
 }
 
 /*-- start editing from here --*/
@@ -71,9 +90,9 @@ a {
   position: relative;
   display: block;
   color: #4ABCBC ;
-  margin-bottom: 5px;
+  margin-bottom: 7px;
   cursor: pointer;
-  padding: 10px 5px 0px 12px;
+  padding: 10px 15px 10px 12px;
   font-family: 'Courier New', Courier, monospace;
   border: 1px solid;
   color: rgba(74, 233, 220, 0.884);
@@ -153,21 +172,21 @@ select
               return false;
           }
         }
-        function myphno()
+        function myphone()
         {
           var n4=document.getElementById("txt3");
-          var p=/([789][0-9]{9})+$/;
+          var p=/^[789]\d{9}$/;
           if(n4.value == "")
           {
             document.getElementById("consid3").innerHTML = "<span class='error'>Please enter a valid Phone number</span>";
-            phno.focus();
+            txt3.focus();
                 return false;
         }
         if(!n4.value.match(p))
         {
-          document.getElementById("consid3").innerHTML = "<span class='error'>This is not a valid Phone number. Please try again</span>";
-          phno.focus();
-              return false;
+            document.getElementById("consid3").innerHTML= "<span class='error'>This is not a valid Phone number. Please try again</span>";
+            txt3.focus();
+            return false;
         }
         else if(n4.value.match(p))
             {
@@ -197,7 +216,7 @@ select
                   return false;
             }
         }
-        function myusername()
+        function myuname()
         {
           var n5=document.getElementById("txt6");
           var u=/[a-zA-Z]+$/;
@@ -263,50 +282,8 @@ select
               return false;
         }
   }
-  // function mydistrict()
-  //       {
-  //         var n=document.getElementById("txt5");
-  //         var letter=/[A-Za-z]+$/;
-  //         if(n.value == "")
-  //         {
-  //           document.getElementById("consid5").innerHTML = "<span class='error'>Please enter a valid Address</span>";
-  //           textarea1.focus();
-  //               return false;
-  //       }
-  //       else if(!n.value.match(letter))
-  //         {
-  //           document.getElementById("consid5").innerHTML = "<span class='error'>This is not a valid address. Please try again</span>";
-  //           textarea1.focus();
-  //               return false;
-  //         }
-  //         else if(n.value.match(letter))
-  //         {
-  //             document.getElementById("consid5").innerHTML = "<span class='error'></span>";
-  //             return false;
-  //         }
-  //       }
-  //       function mycity()
-  //       {
-  //         var n=document.getElementById("txt9");
-  //         var letter=/[A-Za-z]+$/;
-  //         if(n.value == "")
-  //         {
-  //           document.getElementById("consid9").innerHTML = "<span class='error'>Please enter a valid Address</span>";
-  //           textarea1.focus();
-  //               return false;
-  //       }
-  //       else if(!n.value.match(letter))
-  //         {
-  //           document.getElementById("consid9").innerHTML = "<span class='error'>This is not a valid address. Please try again</span>";
-  //           textarea1.focus();
-  //               return false;
-  //         }
-  //         else if(n.value.match(letter))
-  //         {
-  //             document.getElementById("consid9").innerHTML = "<span class='error'></span>";
-  //             return false;
-  //         }
-  //       }
+  
+
 </script>
 </head>
 <body>
@@ -315,36 +292,55 @@ select
 		<h1>Create Account</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
-				<form action="reg.php" method="post">
+				<form method="POST" name="form" action="reg.php">
                     <input class="text" type="text" name="name" id="txt1" placeholder="Name" required="" onblur="myname()"><span id ="consid"></span>
                     <input class="text" type="text" name="address" id="txt2" placeholder="Address" required="" onblur="myaddress()"><span id = "consid2"></span>
                     <input class="text" type="text" name="phone" id="txt3" placeholder="Phone" required="" onblur="myphone()"><span id = "consid3"></span>
+                   
                     <div class="dropdown">
-                      <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown">
-                      <!-- <span class="caret-dropdown-menu"></span> -->
-                        <option value="0">--District--</option>
-                        <option value="1"></option>
+                      <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="district" required="">
+                      <span class="caret-dropdown-menu"></span>
+                        <option disabled selected>--District--</option>
+                   
+                        <?php
+                                while($data_dis=mysqli_fetch_array($result1))
+                                {
+                                    echo "<option value='".$data_dis['district_id'] ."'>" .$data_dis['district_name'] ."</option>";
+                                }
+                            
+                        ?>
+                        
                       </select>
                     </div>
+                  
                     <div class="dropdown">
-                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown">
-                      <!-- <span class="caret-dropdown-menu"></span> -->
-                        <option value="0">--City--</option>
-                        <option value="1"></option>
+                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="location" required="">
+                      <span class="caret-dropdown-menu"></span>
+                        <option disabled selected>--City--</option>
+                        <?php
+                           
+                           while($data_loc=mysqli_fetch_array($result_loc))
+                           {
+                               echo "<option value='".$data_loc['location_id'] ."'>" .$data_loc['location'] ."</option>";
+                           }  
+                                
+
+                            ?>
+                        
                         </select>
                     </div>
                     <input class="text email" type="email" name="email" id="txt4" placeholder="Email" required="" onblur="myemail()"><span id = "consid4"></span>
-                    <input class="text" type="text" name="Username" placeholder="Username" id="txt6" required="" onblur="myuname()"><span id = "consid6"></span>
+                    <input class="text" type="text" name="username" placeholder="Username" id="txt6" required="" onblur="myuname()"><span id = "consid6"></span>
                     <input class="text" type="password" name="password" placeholder="Password" required="" id="txt7" onblur="mypassword()"><span id = "consid7"></span>
 					<input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" id="txt8" required="" onblur="mycpassword()"><span id = "consid8"></span>
 					<div class="wthree-text">
 						<label class="anim">
-							<input type="checkbox" class="checkbox" required="">
+							<input type="checkbox" class="checkbox" name="checkbox" required>
 							<span>I Agree To The Terms & Conditions</span>
 						</label>
 						<div class="clear"> </div>
 					</div>
-					<input type="submit" value="SIGNUP">
+					<input type="submit" value="SIGNUP" name="submit">
 				</form>
 				<p>Have an Account? <a href="#"> Login Now!</a></p>
 			</div>
@@ -355,7 +351,11 @@ select
   <!-- //main -->
   <script>
     document.addEventListener("click", closeAllSelect);
+    
 </script>
   </script>
+  <?php
+    mysqli_close($con);
+  ?>
 </body>
 </html>
