@@ -48,7 +48,32 @@ $pass=$_POST['password'];
     }
     }
 
-    $insert_login="INSERT into tbl_login(uname,password,role_id,aproval_status,is_delete)values('$uname','$pass',2,1,1)";
+    // $status="SELECT aproval_status from tbl_login where uname='$uname'";
+    // $status_result=mysqli_query($con,$status);
+    // while($status_data=mysqli_fetch_array($status_result))
+    // {
+    //     $aproval_id=$status_data['aproval_status'];
+        
+    // }
+
+    // if($aproval_id==1)
+    // {
+    //     header("refresh:2; url=login.php");
+
+
+    // }
+    $checkuname="select * from tbl_login where uname='$uname' and password='$pass'";
+    $check_query=mysqli_query($con,$checkuname);
+    $uname_rows=mysqli_num_rows($check_query);
+    if($uname_rows>0)
+    {
+       echo '<script>alert("user already exists")
+       location.href ="cust_registration.php";
+       </script>';
+    }
+    else{
+    
+    $insert_login="INSERT into tbl_login(uname,password,role_id,aproval_status,is_delete)values('$uname','$pass',2,0,1)";
     $login_result=mysqli_query($con,$insert_login);
 
    
@@ -62,21 +87,22 @@ $pass=$_POST['password'];
 
     $insert_sql="INSERT into tbl_customer(customer_name,customer_address,customer_phone,customer_email,district_id,location_id,login_id,created_on) VALUES('$name','$addr','$phone','$email','$dis_id',' $loc_id','$login_id','$now')";
     $insert_result=mysqli_query($con,$insert_sql);
-    
-    
-    if($aproval_id==1)
+
+    $num=mysqli_num_rows($insert_result);
+
+    if($num>0)
     {
-        // header("refresh:2; url=login.php");
-
-
+        header("refresh:2; url=login.php");
     }
+    
+} 
+    
     // $num_row=mysqli_num_rows($insert_result);
     // if($num_row>0)
     // {
     //     echo "sucessfully enterted";
     // }
    
-
 
 
 

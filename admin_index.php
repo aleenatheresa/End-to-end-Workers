@@ -1,6 +1,17 @@
 <?php
 session_start();
 $con=mysqli_connect("localhost","root","","projectdb");
+
+
+
+$sc="SELECT sc_id,sc_name FROM tbl_services Where iS_delete=1";
+$sc_query=mysqli_query($con,$sc);
+
+$sp="SELECT sp_name,lisenceno FROM tbl_serviceproviders";
+$sp_query=mysqli_query($con,$sp);
+
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,11 +30,27 @@ $con=mysqli_connect("localhost","root","","projectdb");
        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
         integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 		
-		 <link rel="stylesheet" href="font/font/flaticon.css">
+         <link rel="stylesheet" href="font/font/flaticon.css">
+         <script src="js/sidebarfun.js"></script>
   </head>
   
 
    <style>
+       /* sidebar page content*/
+       .container {
+  padding: 2rem 0rem;
+}
+
+h4 {
+  margin: 2rem 0rem 1rem;
+}
+
+.table-image {
+  td, th {
+    vertical-align: middle;
+  }
+}
+/* close */
   
   
 body {
@@ -578,16 +605,13 @@ footer
         <li class="sidebar-header">	
                 Pages
 		</li>
-	<li class=""> 
-		  <a class="nav-link text-left active"  role="button" 
-		  aria-haspopup="true" aria-expanded="false" href="#" name="alc" id="s1">
+	<li class=""><a class="nav-link text-left active"  href="#alc" onclick="adminlocation()">
        <i class="flaticon-bar-chart-1"></i>  Admin Location Control
          </a>
           </li>
 
           <li class=""> 
-            <a class="nav-link text-left active"  role="button" 
-            aria-haspopup="true" aria-expanded="false" href="#" name="cm" id="s2">
+            <a class="nav-link text-left active" href="#" name="cm" id="s2">
          <i class="flaticon-bar-chart-1"></i>  Category Management
            </a>
             </li>
@@ -830,10 +854,10 @@ footer
 											<div class="card-body">
 												<h5 class="card-title mb-4">Sevice Providers</h5>
 												<h1 class="display-5 mt-1 mb-3">2.382</h1>
-												<div class="mb-1">
+												<!-- <div class="mb-1">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
 													<span class="text-muted"></span>
-												</div>
+												</div> -->
 											</div>
 										</div>
 										
@@ -843,10 +867,10 @@ footer
 											<div class="card-body">
 												<h5 class="card-title mb-4">Customers</h5>
 												<h1 class="display-5 mt-1 mb-3">2.382</h1>
-												<div class="mb-1">
+												<!-- <div class="mb-1">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
 													<span class="text-muted">Since last week</span>
-												</div>
+												</div> -->
 											</div>
 										</div>
 										
@@ -856,10 +880,10 @@ footer
 											<div class="card-body">
 												<h5 class="card-title mb-4">Employess</h5>
 												<h1 class="display-5 mt-1 mb-3">2.382</h1>
-												<div class="mb-1">
+												<!-- <div class="mb-1">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
 													<span class="text-muted">Since last week</span>
-												</div>
+												</div> -->
 											</div>
 										</div>
 										
@@ -907,105 +931,71 @@ footer
                                 </div>
                                 <!-- title -->
                             </div>
-                            <!-- <div class="table-responsive">
+                            <div class="table-responsive">
                                 <table class="table v-middle">
                                     <thead>
                                         <tr class="bg-light">
-                                            <th class="border-top-0">Products</th>
-                                            <th class="border-top-0">License</th>
-                                            <th class="border-top-0">Support Agent</th>
-                                            <th class="border-top-0">Technology</th>
-                                            <th class="border-top-0">Tickets</th>
-                                            <th class="border-top-0">Sales</th>
-                                            <th class="border-top-0">Earnings</th>
+                                            <th class="border-top-0">Service ID</th>
+                                            <th class="border-top-0">Service Category</th>
+                                            <th class="border-top-0">Service Provider</th>
+                                            <th class="border-top-0">Lisence Number</th>
+                                           
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white">EA</a></div>
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Elite Admin</h4>
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white">
+                                                    <?php
+                                                        while($data=mysqli_fetch_array($sc_query))
+                                                        {
+                                                            echo $data['sc_id'];
+                                                            $sc_name= $data['sc_name'] ;
+
+                                                        }
+                                                    
+                                                    ?>
+                                                    </a>
+                                                    </div>
+                                                    </td>
+                                                    
+                                                    <td>  
+                                                    <div class="d-flex align-items-center">
+                                                        <h5 class="m-b-0 font-10">
+                                                        <?php
+                                                              echo $sc_name;
+                                                        ?>
+                                                        </h5>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td>Single Use</td>
-                                            <td>John Doe</td>
+
                                             <td>
-                                                <label class="label label-danger">Angular</label>
+                                            <?php
+                                                   while($data_sp=mysqli_fetch_array($sp_query))
+                                                     {
+                                                         echo $data_sp['sp_name'] ;
+                                                         $lisenceno=$data_sp['lisenceno'] ;
+                                                         
+                                                    }
+                                            ?>
                                             </td>
-                                            <td>46</td>
-                                            <td>356</td>
+
                                             <td>
-                                                <h5 class="m-b-0">$2850.06</h5>
+                                             
+                                            <?php
+                           
+                                               echo $lisenceno;
+
+                                            ?>
                                             </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-orange text-white">MA</a></div>
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Monster Admin</h4>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Single Use</td>
-                                            <td>Venessa Fern</td>
-                                            <td>
-                                                <label class="label label-info">Vue Js</label>
-                                            </td>
-                                            <td>46</td>
-                                            <td>356</td>
-                                            <td>
-                                                <h5 class="m-b-0">$2850.06</h5>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-success text-white">MP</a></div>
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Material Pro Admin</h4>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Single Use</td>
-                                            <td>John Doe</td>
-                                            <td>
-                                                <label class="label label-success">Bootstrap</label>
-                                            </td>
-                                            <td>46</td>
-                                            <td>356</td>
-                                            <td>
-                                                <h5 class="m-b-0">$2850.06</h5>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-purple text-white">AA</a></div>
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Ample Admin</h4>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>Single Use</td>
-                                            <td>John Doe</td>
-                                            <td>
-                                                <label class="label label-purple">React</label>
-                                            </td>
-                                            <td>46</td>
-                                            <td>356</td>
-                                            <td>
-                                                <h5 class="m-b-0">$2850.06</h5>
-                                            </td>
-                                        </tr>
+                                            </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                    
 
         </div>
@@ -1016,118 +1006,68 @@ footer
       </div>
 		<!-- Service providers and emplyee details -->
 
-        <div class="table-responsive">
-                                <table class="table v-middle">
-                                    <thead>
-                                        <tr class="bg-light">
-                                            <th class="border-top-0">Category</th>
-                                            <th class="border-top-0">Service Providers</th>
-                                            <th class="border-top-0">Licensce Number</th>
-                                            <th class="border-top-0">Employess</th>
-                                            <th class="border-top-0">Customers</th>
-                                            
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white">PM</a></div>
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Plumbing</h4>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="d-flex align-items-center">
-                                                    
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Anil</h4>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td rowspan="4">
-                                                <div class="d-flex align-items-center">
-                                                   
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Sunil</h4>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                   
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Sunil</h4>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <!-- <td>
-                                                <div class="d-flex align-items-center">
-                                                   
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Plumbing</h4>
-                                                    </div>
-                                                </div>
-                                            </td> -->
-                                            <td rowspan="4">
-                                                <div class="d-flex align-items-center">
-                                                   
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Sunil</h4>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                   
-                                                    <div class="">
-                                                        <h4 class="m-b-0 font-16">Sunil</h4>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            </tr>
-                                            
-			
-			
-        
-			
-		<!-- Service providers and emplyee details -->
-	
-			
-			<!-- <footer class="footer">
-				<div class="container-fluid">
-					<div class="row text-muted">
-						<div class="col-6 text-left">
-							<p class="mb-0">
-								<a href="index.html" class="text-muted"><strong>Dashboard Vishweb Design </strong></a> &copy
-							</p>
-						</div>
-						<div class="col-6 text-right">
-							<ul class="list-inline">
-								<li class="footer-item">
-									<a class="text-muted" href="#">Support</a>
-								</li>
-								<li class="footer-item">
-									<a class="text-muted" href="#">Help Center</a>
-								</li>
-								<li class="footer-item">
-									<a class="text-muted" href="#">Privacy</a>
-								</li>
-								<li class="footer-item">
-									<a class="text-muted" href="#">Terms</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</footer>
-			
-        </div>
-		</div> -->
-        <!-- /#page-content-wrapper -->
-
-    </div>
+       
     <!-- /#wrapper -->
-  
-  
 
+    <!-- Admin Location control -->
+  <div class="" >
+  <div class="container" style="display:none" id="alc">
+  <div class="row">
+    <div class="col-12">
+    <button class="btn btn-primary"> Add New</button>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">slno</th>
+            <th scope="col">City</th>
+            <th scope="col">Location</th>
+            <!-- <th scope="col">Shares</th> -->
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Bootstrap 4 CDN and Starter Template</td>
+            <td>Cristina</td>
+            <!-- <td>2.846</td> -->
+            <td>
+              <!-- <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button> -->
+              <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Bootstrap Grid 4 Tutorial and Examples</td>
+            <td>Cristina</td>
+            <!-- <td>3.417</td> -->
+            <td>
+              <!-- <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button> -->
+              <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Bootstrap Flexbox Tutorial and Examples</td>
+            <td>Cristina</td>
+            <!-- <td>1.234</td> -->
+            <td>
+              <!-- <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button> -->
+              <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
+            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+  </div>
+  
+<!-- #admin location control -->
 
 
     <!-- Optional JavaScript -->
