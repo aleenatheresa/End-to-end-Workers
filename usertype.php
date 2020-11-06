@@ -23,11 +23,11 @@ if($status==1)
 	{
 		if($a['role_id']=='1')
 		{
-			header("location:admin_index.html");
+			header("location:admin_index.php");
 		}
 		elseif($a['role_id']=='2')
 		{
-			header("location:cust_indext.html");
+			header("location:customer_indext.html");
 		}
 		elseif($a['role_id']=='3')
 		{
@@ -35,7 +35,7 @@ if($status==1)
 		}
 		elseif($a['role_id']=='4')
 		{
-			header("location:sp_indext.html");
+			header("location:sp_indext.php");
 		}
 	
 	}

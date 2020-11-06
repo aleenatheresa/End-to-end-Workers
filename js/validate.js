@@ -16,9 +16,13 @@ function checkName(text){
 function checkAddress(text){
     return (/[A-Za-z0-9,()]+$/.test(text));
 }
-// function checkPin(number){
-//     return (/^[0-9]{6}$/.test(number));
-// }
+function checkUname(text){
+    return (/[A-Za-z0-9,()]+$/.test(text));
+}
+function checkLno(text){
+    return (/[A-Za-z0-9,()]+$/.test(text));
+}
+
 
 
 function custName()
@@ -159,6 +163,22 @@ function custPhone()
 //                    document.getElementById("Mpin").style.borderColor = "red"; 
 //                 }
 //     }   
+
+function custuname()
+    {
+        var u = document.getElementsByName('username')[0];
+            if (checkUname(u.value)){
+                document.getElementById("txt6").style.borderColor = "green";
+                // document.getElementById("consid6").innerHTML = "<span class='error'></span>";
+                } 
+            else
+                {
+                   document.getElementById("txt6").style.borderColor = "red"; 
+                   document.getElementById("consid6").innerHTML = "<span class='error'>Please enter a valid Username</span>";
+                }
+    }      
+
+
     function pass()
     {
         var p= document.getElementsByName('password')[0];
@@ -198,3 +218,19 @@ function custPhone()
           return false;
         }
   }
+  function mylicense()
+  {
+    var lno= document.getElementsByName('licensceno')[0];
+    if (checkLno(lno.value)){
+        document.getElementById("txt9").style.borderColor = "green";
+        document.getElementById("consid9").innerHTML = "<span class='error'></span>";
+        } 
+    else
+        {
+           document.getElementById("txt9").style.borderColor = "red"; 
+           document.getElementById("cconsid9").innerHTML = "<span class='error'>Lisence num should contain Letters and numbers</span>";
+        }
+
+
+  }
+  

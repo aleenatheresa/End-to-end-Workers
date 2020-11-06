@@ -4,14 +4,15 @@ $con=mysqli_connect("localhost","root","","projectdb");
 
 
 
-$sc="SELECT sc_id,sc_name FROM tbl_services Where iS_delete=1";
-$sc_query=mysqli_query($con,$sc);
+//  total num of customers
+$count="SELECT * from tbl_customer";
+$count_query=mysqli_query($con,$count);
+$row = mysqli_num_rows($count_query);
 
-$sp="SELECT sp_name,lisenceno FROM tbl_serviceproviders";
-$sp_query=mysqli_query($con,$sp);
-
-
-
+//total num of service providers
+$count_sp="SELECT * from tbl_serviceproviders";
+$countsp_query=mysqli_query($con,$count_sp);
+$row_sp = mysqli_num_rows($countsp_query);
 ?>
 <!doctype html>
 <html lang="en">
@@ -21,570 +22,25 @@ $sp_query=mysqli_query($con,$sp);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-    <title>Admin Index</title>
-	
-	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-	    <!--fontawesome-->
-       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" 
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+        <title>Admin Index</title>
+        
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+	      <!--fontawesome-->
+         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 		
-         <link rel="stylesheet" href="font/font/flaticon.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="admin_stylesheet.css">
          <script src="js/sidebarfun.js"></script>
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
   </head>
-  
-
-   <style>
-       /* sidebar page content*/
-       .container {
-  padding: 2rem 0rem;
-}
-
-h4 {
-  margin: 2rem 0rem 1rem;
-}
-
-.table-image {
-  td, th {
-    vertical-align: middle;
-  }
-}
-/* close */
-  
-  
-body {
-    position: relative;
-    overflow-x:hidden;
-    background: #f7f7fc;
-    font-family: 'Roboto', sans-serif;
-}
-
-a:hover{
-  color:white;
-  text-decoration:none;
-}
-
-body,
-html { height: 100%;}
-
-
-
-
-
-/*---------------------------------
-sidebar
-----------------------*/
-
-#sidebar-wrapper {
-    z-index: 1000;
-    height: 100%;
-	width:0px;
-	left: -50px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background: #222e3c;
-    transition: all 0.5s ease;
-}
-
-#sidebar-wrapper::-webkit-scrollbar {
-    width: 8px;
-    background: #222e3c;
-}
-
-#sidebar-wrapper::-webkit-scrollbar-thumb {
-    background-color:#989898;
-	border-radius:10px;
-}
-
-
-.sidebar-brand {
-    font-weight: 600;
-    font-size: 1.15rem;
-    padding: 1.15rem 1.5rem;
-    display: block;
-    color: #f8f9fa;
-}
-.sidebar-header{
-	text-transform:capitalize;
-    padding: 1.5rem 1.5rem .375rem!important;
-    font-size: 14px;
-    color: #ced4da;
-}
-
-.navbar-nav > li > a ,.submenu-box ul li a{
-    color:gray!important;
-    text-transform: capitalize;
-    font-size: 14px;
-	  padding:10px 10px 10px 20px!important;
-    display: block;
-    font-weight: 400;
-    position: relative;
-    z-index: 2;
-    font-family: 'Roboto', sans-serif;
-    letter-spacing: .2px;
-}
-
-.submenu-box ul li a{
- padding:4px 10px 4px 20px!important;
-  color:#c1c1c1!important;
-}
-
-
-
-.navbar-nav > li > a.active{
-     color: #e9ecef!important;
-    background: linear-gradient(90deg,rgba(59,125,221,.1),rgba(59,125,221,.0875) 50%,transparent);
-    border-left:4px solid #3b7ddd;
-}
-
-.navbar-nav .has-sub > a.collapsed::after {
-    transition: 0.4s ease;
-}
-
-.navbar-nav .has-sub > a.collapsed::after {
-    color:gray;
-    font-size: 10px;
-    content: "\f078";
-}
-.navbar-nav .has-sub > a.collapsed::after {
-   color:gray;
-}
-
-.navbar-nav .has-sub > a::after {
-    position: absolute;
-    right: 0px;
-    top: 50%;
-    height: 30px;
-    width: 30px;
-    text-align: center;
-    color:gray;
-    display: block;
-    content: "\f077";
-    font-family: 'Font Awesome\ 5 Free';
-    font-weight: 900;
-    font-size: 13px;
-    line-height: 30px;
-    margin-top: -15px;
-}
-
-
-
-#wrapper.toggled {
-    padding-left: 270px;
-}
-
-
-
-.toggled#sidebar-wrapper {
-    width:270px!important;
-    height: 100%;
-     left: 0px;
-    overflow-y:auto;
-    overflow-x:hidden;
-    transition: all 0.5s ease;
-}
-
-.navbar-nav li{
-  display:block!important;
-  margin:2px 0px;
-}
-
-
-.nav-item .nav-link{
-    display:block;
-    color:white!important;
-	text-transform:capitalize;
-    text-decoration: none;
-    padding:6px 10px; 
-    transition:0.4s ease;	
-}
-
-.navbar-nav > li > a i:before{
-  margin:0px 5px 0px 0px;
-  font-size:14px;
-}
-
-
-/*---------------------------------
-sidebar
-----------------------*/
-
-
-
-
-
-
-/*---------------------------------
-  main-content
-----------------------*/
-
-#page-content-wrapper {
-    width: 100%;
-	transition: all 0.5s ease;
-}
-
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -270px;
-
-	transition: all 0.5s ease;
-}
-
- .toggled#page-content-wrapper{
-  margin-left:270px;
-  transition: all 0.5s ease;
- }
- 
- @media only screen and (min-width:992px){
- .toggled#page-content-wrapper{
-    width:calc(100% - 270px); 
-	}
- }
-
-/*---------------------------------
-  main-content
-----------------------*/
-
-
-
-/*---------------------------------
-cross-bar animation
-----------------------*/
-
-
-.nav-icon1{
-  z-index: 999;
-  position:relative;
-  display: block;
-  width:23px;
-  margin:0px 30px 0px 25px;
-   cursor:pointer;
-  height: 25px;
-}
-
-
-.nav-icon1 span{
-  position:absolute;
-  top:0;
-  width:100%;
-  height:3px;
-  cursor:pointer;
-  background-color:#5d5d5d;
-  left:0;
-  transform:rotate(0deg);
-  transition:.30s ease-in-out;
-}
-
-.nav-icon1:hover span:nth-of-type(1){
-  top:-3px
-}
-
-.nav-icon1:hover span:nth-of-type(3){
-  top:19px;
-}
-
-.nav-icon1 span:nth-of-type(1){
-   top:0;
-}
-
-.nav-icon1 span:nth-of-type(2){
-   top:8px;
-}
-
-.nav-icon1 span:nth-of-type(3){
-   top:16px;
-}
-
-.nav-icon1.open span:nth-of-type(1){
-   top:8px;
-   transform:rotate(135deg);
-}
-
-.nav-icon1.open span:nth-of-type(2){
-   top:8px;
-   opacity:0;
-   left:-30px;
-}
-
-.nav-icon1.open span:nth-of-type(3){
-   top:8px;
-   transform:rotate(-135deg);
-}
-
-
-/*---------------------------------
-cross-bar animation
-----------------------*/
-
-
-
-/*---------------------------------
-header navbar design
-----------------------*/
-.my-navbar{
-  padding:0px;
-  background-color:white;
-  box-shadow: 0 1px 1px 0 rgba(0,0,0,.16);
-}
-
-.text-gray-600 {
-    color: #858796!important;
-}
-.nav-link .img-profile {
-    height:40px;
-    width:40px;
-}
-
-.navbar-nav > li > a >i{
-    font-size: 18px;
-    color:#b3b3b3;
-	margin:8px 0px 0px 0px;
-	padding:0px;
-}
-
-.badge-counter {
-    position: absolute;
-    transform:scale(.7);
-    transform-origin: top right;
-    right:6px;
-	margin-top:4px;
-}
-
-
-.dropdown, .dropleft, .dropright, .dropup {
-    position: relative;
-}
-
-.nav-flag, .nav-icon {
-    padding: .1rem .8rem;
-    display: block;
-    font-size: 1.5rem;
-    color: #6c757d;
-    transition: background .1s ease-in-out,color .1s ease-in-out;
-    line-height: 1.4;
-}
-
-
-.navbar-expand .navbar-nav .dropdown-menu {
-    position: absolute;
-}
-.navbar-nav .dropdown-menu {
-    box-shadow: 0 0.1rem 0.2rem rgba(0,0,0,.05);
-}
-.navbar-nav .dropdown-menu {
-    position: static;
-    float: none;
-}
-.dropdown-menu-lg {
-    min-width: 20rem;
-}
-
-
-.position-relative {
-    position: relative!important;
-}
-
-.nav-item .indicator {
-    background: #3b7ddd;
-    box-shadow: 0 0.1rem 0.2rem rgba(0,0,0,.05);
-    border-radius: 50%;
-    display: block;
-    height: 18px;
-    width: 18px;
-    padding: 1px;
-    position: absolute;
-    top: 0;
-    right: -8px;
-    text-align: center;
-    transition: top .1s ease-out;
-    font-size: .675rem;
-    color: #fff;
-}
-
-/*---------------------------------
- header navbar design
-----------------------*/
-
-
-
-/*---------------------------------
-main-top card
-----------------------*/
-
-.card {
-    margin-bottom: 24px;
-	border:none;
-    box-shadow: 0 0 0.875rem 0 rgba(33,37,41,.05);
-}
-
-.card-body {
-    flex: 1 1 auto;
-    min-height: 1px;
-    padding: 1.25rem;
-}
-.card-title {
-    font-size: .875rem;
-    color: #495057;
-}
-
-.card-body h1{
-font-size: 1.75rem;
-font-weight: 400;
-    line-height: 1.2;
-    color: #000;
-}
-
-
-.text-gray-800 {
-    color: #5a5c69!important;
-	font-size: 1.75rem;
-	font-weight: 400;
-    line-height: 1.2;
-}
-.shadow-sm {
-    box-shadow: 0 .125rem .25rem 0 rgba(58,59,69,.2)!important;
-}
-
-
-.btn-sm {
-    padding: .25rem .5rem;
-    font-size: .875rem;
-    line-height: 1.5;
-    border-radius: .2rem;
-}
-
-
-.font-16 {
-    font-size: 16px;
-}
-
-
-
-/*---------------------------------
-main-top card
-----------------------*/
-/* Top- bar notificatio*/
-
-#notifications a:hover
-{
-    color: black;
-}
-/*top-bar notification close */
-
-
-
-/*---------------------------------
-main-table
-----------------------*/
-
-
- .m-r-10 {
-    margin-right: 10px;
-}
-.btn-circle {
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    padding: 10px;
-}
-
-.btn-info {
-    color: #fff;
-    background-color: #2962FF;
-    border-color: #2962FF;
-}
-
-.btn-orange {
-    color: #212529;
-    background-color: #fb8c00;
-    border-color: #fb8c00;
-}
-
-.btn-success {
-    color: #fff;
-    background-color: #36bea6;
-    border-color: #36bea6;
-}
-.btn-purple {
-    color: #fff;
-    background-color: #7460ee;
-    border-color: #7460ee;
-}
-
-.card .card-title {
-    position: relative;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-
-.card .card-subtitle {
-    font-weight: 300;
-    margin-bottom: 10px;
-    color: #a1aab2;
-	  margin-top: -0.375rem;
-}
-
-
-.table td, .table th {
-    padding: 1rem;
-	font-size:14px;
-	color:#333;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6;
-}
-
-.table h5{
-      font-size: 16px;
-	  font-weight:600;
-	  color:#585858;
-}
-
-
-
-/*---------------------------------
-main-table
-----------------------*/
-
-
-
-
-/*---------------------------------
- footer
-----------------------*/
-
-footer.footer {
-    padding: 1rem .875rem;
-    direction: ltr;
-    background: #fff;
-}
-
-footer.footer ul {
-    margin:0px;
-	list-style:none;
-}
-
-.footer ul  li{
- display:inline-block;
- margin:0px 7px;
-}
-
-.text-muted {
-    color: #6c757d!important;
-	font-size:14px;
-}
- 
-
-/*---------------------------------
-footer
-----------------------*/
-
-
-
-
-
-</style>
   
   
   <body>
@@ -605,13 +61,34 @@ footer
         <li class="sidebar-header">	
                 Pages
 		</li>
-	<li class=""><a class="nav-link text-left active"  href="#alc" onclick="adminlocation()">
-       <i class="flaticon-bar-chart-1"></i>  Admin Location Control
+	<li class=""><a class="nav-link text-left active"  href="#sp_tbale" onclick="adminhome()">Home
+       <i class="flaticon-bar-chart-1"></i>  
          </a>
           </li>
-
+          <li class="has-sub"> 
+		  <a class="nav-link collapsed text-left active" href="#collapseExample2" role="button" data-toggle="collapse">
+        <i class="flaticon-user"></i>  Admin Location Control
+         </a>
+		  <div class="collapse menu mega-dropdown" id="collapseExample2">
+        <div class="dropmenu" aria-labelledby="navbarDropdown">
+		<div class="container-fluid ">
+							<div class="row">
+								<div class="col-lg-12 px-2">
+									<div class="submenu-box"> 
+										<ul class="list-unstyled m-0">
+											<li><a href="#new-district" onclick="admindist()">Add District</a></li>
+											<li><a href="#new-location" onclick="adminloc()">Add Location</a></li>
+										</ul>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+		     </div>
+		  </div>
+		  </li>
           <li class=""> 
-            <a class="nav-link text-left active" href="#" name="cm" id="s2">
+            <a class="nav-link text-left active" href="#ascm" onclick="adminscmanagment()">
          <i class="flaticon-bar-chart-1"></i>  Category Management
            </a>
             </li>
@@ -629,101 +106,10 @@ footer
              <i class="flaticon-bar-chart-1"></i>  Employees
                </a>
                 </li>
-<!-- 	 
-       <li class="has-sub"> 
-		  <a class="nav-link collapsed text-left active" href="#collapseExample2" role="button" data-toggle="collapse" >
-        <i class="flaticon-user"></i>   Profile
-         </a>
-		  <div class="collapse menu mega-dropdown" id="collapseExample2">
-        <div class="dropmenu" aria-labelledby="navbarDropdown">
-		<div class="container-fluid ">
-							<div class="row">
-								<div class="col-lg-12 px-2">
-									<div class="submenu-box"> 
-										<ul class="list-unstyled m-0">
-											<li><a href="">PHP Frameworks</a></li>
-											<li><a href="">Laravel</a></li>
-										    <li><a href=""> Codeigniter</a></li>
-										    <li><a href="">Node.js</a></li>
-										    <li><a href="">AngularJS</a></li> 
-											 <li><a href="">ReactJS</a></li> 
-										  
-										</ul>
-									</div>
-								</div>
-								
-							</div>
-						</div>
-		     </div>
-		  </div>
-		  </li> -->
-		  <!-- <li class=""> 
-		  <a class="nav-link text-left"  role="button" >
-       <i class="flaticon-bar-chart-1"></i>  setting 
-         </a>
-		  </li>
-		 
-		 <li class=""> 
-		  <a class="nav-link text-left"  role="button" >
-       <i class="flaticon-bar-chart-1"></i> invoice 
-         </a>
-		  </li>
-		<li class=""> 
-		  <a class="nav-link text-left"  role="button" >
-       <i class="flaticon-bar-chart-1"></i>  Bank 
-         </a>
-		  </li>
-		   <li class="sidebar-header">
-						tools and component
-					</li>
-		      
-			   <li class=""> 
-		  <a class="nav-link text-left"  role="button" >
-       <i class="flaticon-bar-chart-1"></i>  ui element 
-         </a>
-		  </li>
-		  
-		    <li class=""> 
-		  <a class="nav-link text-left"  role="button" >
-       <i class="flaticon-bar-chart-1"></i>  form 
-         </a>
-		  </li>
-		    <li class=""> 
-		  <a class="nav-link text-left"  role="button" >
-       <i class="flaticon-bar-chart-1"></i>  table 
-         </a>
-		  </li>
-		  
-		    <li class="sidebar-header">
-						tools and component
-					</li>
-		     <li class=""> 
-		  <a class="nav-link text-left"  role="button" >
-       <i class="flaticon-bar-chart-1"></i>  chart 
-         </a>
-		  </li>
-		  <li class=""> 
-		  <a class="nav-link text-left"  role="button" >
-       <i class="flaticon-map"></i>   map
-         </a>
-		  </li>
-		  
-		  </ul>
 
-				
-			</div> -->
-	   
 	   
     </nav>
         <!-- /#sidebar-wrapper -->
-
-
-
-
-
-
-
-
 
 
         <!-- Page Content -->
@@ -767,7 +153,7 @@ footer
                 <form class="form-inline mr-auto w-100 navbar-search">
                   <div class="input-group">
                     <input type="text" class="form-control bg-light border-0 small"
-					placeholder="Search for..." >
+				            	placeholder="Search for..." >
                     <div class="input-group-append">
                       <button class="btn btn-primary" type="button">
                         <i class="fas fa-search fa-sm"></i>
@@ -825,35 +211,38 @@ footer
                            
                     </div>
                                               
-			<!-- </div>
-								
-									
-								</div> -->
+		
             </li>
 
           </ul>
 
         </nav>
-        <!-- End of Topbar -->
 
+<span id="sucess-msg"></span>
+        <!-- End of Topbar -->
+<div id="sp_table" style="display: inline;">
         <!-- Begin Page Content -->
-        <div class="container-fluid px-lg-4">
+<div class="container-fluid px-lg-4">
 <div class="row">
 <div class="col-md-12 mt-lg-4 mt-4">
           <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+          <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> 
 			Generate Report</a>
-          </div>
-		  </div>
+          </div> -->
+</div>
 <div class="col-md-12">
        <div class="row">
 									<div class="col-sm-4">
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title mb-4">Sevice Providers</h5>
-												<h1 class="display-5 mt-1 mb-3">2.382</h1>
+												<h1 class="display-5 mt-1 mb-3">
+                        <?php
+                            echo $row_sp;
+                          ?>
+                        </h1>
 												<!-- <div class="mb-1">
 													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
 													<span class="text-muted"></span>
@@ -866,11 +255,12 @@ footer
 										<div class="card">
 											<div class="card-body">
 												<h5 class="card-title mb-4">Customers</h5>
-												<h1 class="display-5 mt-1 mb-3">2.382</h1>
-												<!-- <div class="mb-1">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-													<span class="text-muted">Since last week</span>
-												</div> -->
+												<h1 class="display-5 mt-1 mb-3">
+                          <?php
+                            echo $row;
+                          ?>
+                        </h1>
+												
 											</div>
 										</div>
 										
@@ -888,72 +278,41 @@ footer
 										</div>
 										
 									</div>
-									<!-- <div class="col-sm-3">
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title mb-4">Earnings</h5>
-												<h1 class="display-5 mt-1 mb-3">$21.300</h1>
-												<div class="mb-1">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-													<span class="text-muted">Since last week</span>
-												</div>
-											</div>
-										</div>
-										
-									</div>
-									 -->
 									
-								</div>
-</div>
-
-
-     
-                    <!-- column -->
-                    <div class="col-md-12 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <!-- title -->
-                                <div class="d-md-flex align-items-center">
-                                    <div>
-                                        <h4 class="card-title">Top Booked Category</h4>
-                                        <h5 class="card-subtitle">Overview of Top booked category</h5>
-                                    </div>
-                                    <div class="ml-auto">
-                                        <div class="dl">
-                                            <select class="custom-select">
-                                                <option value="0" selected="">Monthly</option>
-                                                <option value="1">Daily</option>
-                                                <option value="2">Weekly</option>
-                                                <option value="3">Yearly</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- title -->
-                            </div>
                             <div class="table-responsive">
                                 <table class="table v-middle">
                                     <thead>
                                         <tr class="bg-light">
                                             <th class="border-top-0">Service ID</th>
-                                            <th class="border-top-0">Service Category</th>
                                             <th class="border-top-0">Service Provider</th>
+                                            <th class="border-top-0">Service Category</th>
                                             <th class="border-top-0">Lisence Number</th>
                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                    <?php     
+                                      $sp="SELECT * FROM tbl_serviceproviders";
+                                      $sp_query=mysqli_query($con,$sp);
+                                      $r=mysqli_num_rows($sp_query);
+                                      if($r>0)
+                                      {
+                                      while($data=mysqli_fetch_assoc($sp_query))
+                                      {
+                                         $d= $data['sc_id'];
+                                         $sp_name=$data['sp_name'];
+                                         $lno=$data['lisenceno'];
+                                          // $sc_name= $data['sc_name'] ;
+                                      
+                                      
+                                      
+                                      ?> 
+                                      <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <div class="m-r-10"><a class="btn btn-circle btn-info text-white">
                                                     <?php
-                                                        while($data=mysqli_fetch_array($sc_query))
-                                                        {
-                                                            echo $data['sc_id'];
-                                                            $sc_name= $data['sc_name'] ;
-
-                                                        }
+                                                         echo $d;
                                                     
                                                     ?>
                                                     </a>
@@ -962,114 +321,314 @@ footer
                                                     
                                                     <td>  
                                                     <div class="d-flex align-items-center">
-                                                        <h5 class="m-b-0 font-10">
+                                                        
                                                         <?php
-                                                              echo $sc_name;
+                                                              
+                                                                echo $sp_name;
                                                         ?>
-                                                        </h5>
+                                                      
                                                     </div>
                                                 </div>
                                             </td>
 
                                             <td>
                                             <?php
-                                                   while($data_sp=mysqli_fetch_array($sp_query))
-                                                     {
-                                                         echo $data_sp['sp_name'] ;
-                                                         $lisenceno=$data_sp['lisenceno'] ;
-                                                         
-                                                    }
+                                                $sc="SELECT * FROM tbl_services where sc_id=$d";
+                                                $sc_query=mysqli_query($con,$sc);
+                                                while($data=mysqli_fetch_assoc($sc_query))
+                                                {
+                                                    $sc_name= $data['sc_name'];
+                                                    // $sp_name= $data['sp_name'] ;
+                                                
+                                                }
+                                                  echo $sc_name;
+                                                 
                                             ?>
                                             </td>
 
                                             <td>
                                              
                                             <?php
-                           
-                                               echo $lisenceno;
-
+                                               echo $lno;
                                             ?>
                                             </td>
-                                            </tr>
+                                            </tr
+                                        <?php 
+                                       }}
+                                       ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                   
+                    </div> 
 
         </div>
 
         </div>
         <!-- /.container-fluid -->
 
-      </div>
+      
 		<!-- Service providers and emplyee details -->
-
-       
+    </div>	
+  </div>   
+                                     
     <!-- /#wrapper -->
-
-    <!-- Admin Location control -->
-  <div class="" >
-  <div class="container" style="display:none" id="alc">
+   			
+	
+    <!-- Admin District control -->
+ <div id="adminlocation">
+  <div id="new-district" style="display:none;">
+  <div class="container">
+  <!-- <div style="float: left;"> -->
+  <button class="btn btn-primary" data-target="#demo-lg-modalSMSAll" data-toggle="modal" id="add-new-dis">Add New</button>
+  <!-- </div> -->
   <div class="row">
-    <div class="col-12">
-    <button class="btn btn-primary"> Add New</button>
-      <table class="table table-bordered">
+  <div class="col-12">
+      <table class="table table-bordered" id="add-district" style="width: 800px; margin-left :40px;">
         <thead>
           <tr>
-            <th scope="col">slno</th>
-            <th scope="col">City</th>
-            <th scope="col">Location</th>
-            <!-- <th scope="col">Shares</th> -->
+            <th scope="col">District</th>
             <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
+        <?php
+                $sql="SELECT * FROM tbl_district where is_delete=1";
+                $sql_query=mysqli_query($con,$sql);
+                while($data=mysqli_fetch_array($sql_query))
+                {
+                  $dis_id=$data['district_id'];
+              ?>
           <tr>
-            <th scope="row">1</th>
-            <td>Bootstrap 4 CDN and Starter Template</td>
-            <td>Cristina</td>
-            <!-- <td>2.846</td> -->
-            <td>
-              <!-- <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button> -->
-              <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-            </td>
+            <th scope="row">
+             <?php
+               
+               echo $data['district_name'];
+             ?>
+            </th>
+           <!-- <td>2.846</td>
+            <td>2.846</td> -->
+            <td style="border-top:0px;text-align:right;">
+                        <button class="btn btn-sm btn-success btn-inline edit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class="fa fa-pencil"></i></button><a>
+                        <button class="btn btn-sm btn-danger btn-inline del" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
+                        </a></td>
           </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Bootstrap Grid 4 Tutorial and Examples</td>
-            <td>Cristina</td>
-            <!-- <td>3.417</td> -->
-            <td>
-              <!-- <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button> -->
-              <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Bootstrap Flexbox Tutorial and Examples</td>
-            <td>Cristina</td>
-            <!-- <td>1.234</td> -->
-            <td>
-              <!-- <button type="button" class="btn btn-primary"><i class="far fa-eye"></i></button> -->
-              <button type="button" class="btn btn-success"><i class="fas fa-edit"></i></button>
-            <button type="button" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
-            </td>
-          </tr>
+         <?php
+             }
+         ?>
+         
         </tbody>
       </table>
     </div>
   </div>
+  <table class="table table-bordered" id="new-dis" style="display:none;margin-left :250px;">
+            <thead>
+                    <tr>
+                        <th>District</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control" required="" id="dis"></input></td>
+                        <!-- <td><input type="text" class="form-control" required="" id="c2"></input></td> -->
+                        <td style="border-top:0px;">
+                        <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="edit"><i class="fa fa-pencil"></i></button><a>
+                        <button class="btn btn-sm btn-danger del" title="Delete" id="del"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
+                        <button class="btn btn-sm btn-primary" style="padding-top: 3px; padding" id="upload" title="Upload/View data"><i class="fa fa-upload"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                </thead>
+            </table> 
+       </div>
+    </div>
+<br>
+            <!-- Location Management -->
+<div id="new-location" style="display: none;">
+<button class="btn btn-primary" data-target="#demo-lg-modalSMSAll" data-toggle="modal" id="add-new-loc" style="margin-left:30px;">Add New</button>
+  <!-- </div> -->
+  <div class="row">
+  <div class="col-12">
+      <table class="table table-bordered" id="add-location" style="width: 800px; margin-left :40px;">
+        <thead>
+          <tr>
+            <th scope="col">Location</th>
+            <th scope="col">District</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php
+                $sql="SELECT * FROM tbl_location where is_delete=1";
+                $sql_query=mysqli_query($con,$sql);
+                while($data=mysqli_fetch_array($sql_query))
+                {
+                  $dis_id=$data['district_id'];
+                  
+              ?>
+          <tr>
+            <th scope="row">
+             <?php
+               echo $data['location'];
+              
+             ?>
+            </th>
+           <th>
+             <?php
+               $district="SELECT * FROM tbl_district where district_id=$dis_id";
+               $dis_query=mysqli_query($con,$district);
+               while($row=mysqli_fetch_array($dis_query))
+               {
+                 echo $row['district_name'];
+               }  
+             ?>
+           </th>
+            <td style="border-top:0px;text-align:right;">
+               <button class="btn btn-sm btn-success btn-inline" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class="fa fa-pencil"></i></button><a>
+              <button class="btn btn-sm btn-danger btn-inline" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
+               </a>
+              </td>
+          </tr>
+         <?php
+             }
+         ?>
+         
+        </tbody>
+      </table>
+   
+  <!-- add new location  text field-->
+  <table class="table table-bordered" id="new-loc" style="display:none;margin-left :250px;">
+            <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>District</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tbody>
+                    <tr>
+                    <td><input type="text" class="form-control" required="" id="loc-name"></input></td>
+                    <td><div class="dropdown">
+                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="dist" id="dis-name" required="">
+                    <span class="caret-dropdown-menu"></span>
+                    <option value="">-Select District-</option>
+                        <?php
+                                                      
+                            $sql="SELECT * FROM tbl_district WHERE is_delete=1";
+                            $sql_result=mysqli_query($con,$sql);
+                           while($data_dis=mysqli_fetch_array($sql_result))
+                           {
+                               echo "<option value='".$data_dis['district_id']."'>" .$data_dis['district_name'] ."</option>";
+                           }  
+
+                            ?>
+                        </td>
+                      
+                        <td style="border-top:0px;text-align:right">
+                        <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="edit-data"><i class="fa fa-pencil"></i></button><a>
+                        <button class="btn btn-sm btn-danger del" title="Delete" id="del-data"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
+                        <button class="btn btn-sm btn-primary" style="padding-top: 3px; padding" id="upload-data" title="Upload/View data"><i class="fa fa-upload"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                </thead>
+            </table> 
+   </div>
+</div>
 </div>
 
-  </div>
-  
 <!-- #admin location control -->
 
+<!--  admin service category management-->
 
+
+
+<div id="admin_sc_management">
+<div class="container" style="display: none;" id="ascm">
+
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <!-- <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div> -->
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-info add-new"  id="add-new"><i class="fa fa-plus"></i> Add New</button>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered" id="pre-sc">
+                <thead>
+                    <tr>
+                        <!-- <th>slno</th> -->
+                        <th>Service Category</th>
+                        <th>Amount/Month</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                            $services="SELECT * FROM tbl_services WHERE is_delete='1'";
+                            $ser_query=mysqli_query($con,$services);
+                            while($row=mysqli_fetch_array($ser_query))
+                            {?>
+                    <tr>
+                        <!-- <td>John Doe</td> -->
+                        <td>
+                          <?php
+                              echo $row['sc_name'];
+                              $amt=$row['amount'];
+                            
+                          ?>
+                        </td>
+                        <td>
+                          <?php
+                            echo $amt;
+                          ?>
+                        </td>
+                        <td style="border-top:0px;text-align:center;">
+                        <button class="btn btn-sm btn-success btn-inline" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit"><i class="fa fa-pencil"></i></button><a>
+                        <button class="btn btn-sm btn-danger btn-inline" onclick="" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
+                        <!-- <button class="btn btn-sm btn-primary btn-inline" style="padding-top: 3px;" onclick="" title="Upload/View data"><i class="fa fa-upload"></i></button> -->
+                        </a></td>
+                    </tr>
+                    <?php
+                        }
+                    ?>    
+                </tbody>
+            </table>
+           
+        </div>
+   
+    
+
+ <!-- Add new category --> 
+ 
+ <table class="table table-bordered" id="new-sc" style="display : none;margin-left :50px;">
+            <thead>
+                    <tr>
+                        <th>Service Category</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tbody>
+                    <tr>
+                        <td><input type="text" class="form-control" required="" id="c1"></input></td>
+                        <td><input type="text" class="form-control" required="" id="c2"></input></td>
+                        <td style="border-top:0px;text-align:right">
+                        <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="sc1"><i class="fa fa-pencil"></i></button><a>
+                        <button class="btn btn-sm btn-danger del" title="Delete" id="sc2"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
+                        <button class="btn btn-sm btn-primary" style="padding-top: 3px; padding" id="sc3" title="Upload/View data"><i class="fa fa-upload"></i></button>
+                        </a></td>
+                        
+                    </tr>
+                </thead>
+            </table> 
+         
+            </div>  
+      </div>  
+</div>
+
+<!-- Admin sc management -->
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -1078,20 +637,160 @@ footer
   
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     
-  
- <script>
- 
+<script>
+// add edit and delete service category
+$(document).ready(function(){
+  $("#add-new").on('click',function(){
+      $("#new-sc").css("display","inline");
+      $("#sc3").on('click',function(){
+          $("#pre-sc").append("<tr><td>"+$("#c1").val()+"</td><td>"+$("#c2").val()+"</td><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
+          var sc = $("#c1").val();
+          var amt=$("#c2").val();
+          $.ajax({
+                url: "admin_uploaddata.php",
+                method:"POST",
+                data :{ 
+                  service_catagory :sc,
+                  amount:amt},
+                success: function(result){
+                  $('#sucess-msg').text("1 row entered");
+                  $("#c1").val(" ");
+                  $("#c2").val(" ");
+                // $('#error_uname').text(response);
+                }
+                // document.getElementById("c1").reset(); 
+                // document.getElementById("c2").reset(); 
+           });
+          
+        });
+  });
+});
+  // district and location add
+  $(document).ready(function(){
+  $("#add-new-loc").on('click',function(){
+    $("#new-loc").css("display","inline");
+    $("#upload-data").on('click',function(){
+    // $("#add-location").append("<tr><th scope='row'>"+$("#loc-name").val()+"</th><th scope='row' id='dname'>"+$("#dis-name").val()+"</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
+    var loc = $("#loc-name").val();
+    var dis=$("#dis-name").val();
+    $.ajax({
+        url: "admin_uploaddata.php",
+        method:"POST",
+        data :{ 
+        location:loc,
+        district :dis,
+        },
+        success: function(result){
+        $('#add-location').append(result);
+        $("#loc-name").val(" ");
+        $("#loc-name").val(" ");
+        // $('#error_uname').text(response);
+        }
+      });
+  });
+  });
+  $("#add-new-dis").on('click',function(){
+    $("#new-dis").css("display","inline");
+    $("#upload").on('click',function(){
+    // $("#add-district").append("<tr><th scope='row'>"+$("#dis").val()+"</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
+    var district = $("#dis").val();
+          $.ajax({
+                url: "admin_uploaddata.php",
+                method:"POST",
+                data :{ 
+                  district :district},
+                success: function(result){
+                  $("#add-district").append(result);
+                  $("#dis").val(" ");
+                  // $("#c2").reset();
+                }
+              });
+  });
+});
+
+});
+// delete from db 
+
+$(document).on('click','.del',function()
+{
+  //  var dist= $(this).val();
+  //  console.log(dist);
+  $(this).closest("tr").remove();
+  var dist= $('tr').attr('value');
+  $.ajax({
+    url: "admin_uploaddata.php",
+    method:"POST",
+    data :{ 
+    district :dist},
+    success: function(result){
+
+    }
+  });
+});
+// upload table items into database
+
+
+
+
+// $(document).ready(function(){
+// 	// $('[data-toggle="tooltip"]').tooltip();
+// 	// var actions = $("table td:last-child").html();
+// 	// Append table with add row form on add new button click
+//     $("#add-new").click(function(){
+// 		$(this).attr("disabled", "disabled");
+// 		var index = $("table tbody tr:last-child").index();
+//         var row = '<tr>' +
+//             '<td><input type="text" class="form-control" name="name" id="name"></td>' +
+//             '<td><input type="text" class="form-control" name="department" id="department"></td>' +
+//             '<td><input type="text" class="form-control" name="phone" id="phone"></td>' +
+// 			'<td>' + actions + '</td>' +
+//         '</tr>';
+//     	$("table").append(row);		
+// 		$("table tbody tr").eq(index + 1).find(".add, .edit").toggle();
+//         $('[data-toggle="tooltip"]').tooltip();
+//     });
+// 	// Add row on add button click
+// 	$(document).on("click", ".add", function(){
+// 		var empty = false;
+// 		var input = $(this).parents("tr").find('input[type="text"]');
+//         input.each(function(){
+// 			if(!$(this).val()){
+// 				$(this).addClass("error");
+// 				empty = true;
+// 			} else{
+//                 $(this).removeClass("error");
+//             }
+// 		});
+// 		$(this).parents("tr").find(".error").first().focus();
+// 		if(!empty){
+// 			input.each(function(){
+// 				$(this).parent("td").html($(this).val());
+// 			});			
+// 			$(this).parents("tr").find(".add, .edit").toggle();
+// 			$(".add-new").removeAttr("disabled");
+// 		}		
+//     });
+// 	// Edit row on edit button click
+// 	$(document).on("click", ".edit", function(){		
+//         $(this).parents("tr").find("td:not(:last-child)").each(function(){
+// 			$(this).html('<input type="text" class="form-control" value="' + $(this).text() + '">');
+// 		});		
+// 		$(this).parents("tr").find(".add, .edit").toggle();
+// 		$(".add-new").attr("disabled", "disabled");
+//     });
+// 	// Delete row on delete button click
+// 	$(document).on("click", ".delete", function(){
+//         $(this).parents("tr").remove();
+// 		$(".add-new").removeAttr("disabled");
+//     });
+// });
+
+
 $('#bar').click(function(){
 	$(this).toggleClass('open');
-	$('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled' );
+	$('#page-content-wrapper ,#sidebar-wrapper,#adminlocation,#admin_sc_management').toggleClass('toggled');
 
 });
   </script>
-
-   
-   
- 
-  
-  
   </body>
 </html>
