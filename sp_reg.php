@@ -11,6 +11,7 @@ $email=$_POST['email'];
 $uname=$_POST['username'];
 $pass=$_POST['password'];
 $lcno=$_POST['licensceno'];
+$pass=md5($pass);
 $sc=$_POST['sc'];
 
   
@@ -34,14 +35,5 @@ $sc=$_POST['sc'];
 
     $insert_sql="INSERT into tbl_serviceproviders(sp_name,sp_address,sp_phone,sp_email,lisenceno,sc_id,district_id,location_id,login_id,created_on)VALUES('$name','$addr','$phone','$email','$lcno','$sc','$dist',' $city','$login_id','$now')";
     $insert_result=mysqli_query($con,$insert_sql);
-    // $n=mysqli_num_rows($insert_result);
-    
-    // if($n>0)
-    // {
-        header("url=login.php");
-
-
-    // }
-
-
+    header("refresh:2; url=login.php");
 ?>

@@ -32,165 +32,7 @@ $sc_query=mysqli_query($con,$sc);
   
 
 </style>
-<script>
-    
-    //       function myname()
-    //       {
-    //       var n=document.getElementById("txt1");
-    //       var letter=/^[^\s]+( [^\s]+)+$/;
-    //       if(n.value == "")
-    //       {
-    //         document.getElementById("consid").innerHTML = "<span class='error'>Please enter a valid name</span>";
-    //             txt1.focus();
-    //             return false;
-    //      }
-    //     else if(!n.value.match(letter))
-    //       {
-    //         document.getElementById("consid").innerHTML = "<span class='error'>This is not a valid name. Please try again</span>";
-    //             txt1.focus();
-    //             return false;
-    //       }
-    //       else if(n.value.match(letter))
-    //       {
-    //           document.getElementById("consid").innerHTML = "<span class='error'></span>";
-    //           return false;
-    //       }
-    //     }
-    //     function myaddress()
-    //     {
-    //       var n=document.getElementById("txt2");
-    //       var letter=/[A-Za-z]+$/;
-    //       if(n.value == "")
-    //       {
-    //         document.getElementById("consid2").innerHTML = "<span class='error'>Please enter a valid Address</span>";
-    //         textarea1.focus();
-    //             return false;
-    //     }
-    //     else if(!n.value.match(letter))
-    //       {
-    //         document.getElementById("consid2").innerHTML = "<span class='error'>This is not a valid address. Please try again</span>";
-    //         textarea1.focus();
-    //             return false;
-    //       }
-    //       else if(n.value.match(letter))
-    //       {
-    //           document.getElementById("consid2").innerHTML = "<span class='error'></span>";
-    //           return false;
-    //       }
-    //     }
-    //     function myphone()
-    //     {
-    //       var n4=document.getElementById("txt3");
-    //       var p=/^[789]\d{9}$/;
-    //       if(n4.value == "")
-    //       {
-    //         document.getElementById("consid3").innerHTML = "<span class='error'>Please enter a valid Phone number</span>";
-    //         txt3.focus();
-    //             return false;
-    //     }
-    //     if(!n4.value.match(p))
-    //     {
-    //         document.getElementById("consid3").innerHTML= "<span class='error'>This is not a valid Phone number. Please try again</span>";
-    //         txt3.focus();
-    //         return false;
-    //     }
-    //     else if(n4.value.match(p))
-    //         {
-    //           document.getElementById("consid3").innerHTML = "<span class='error'></span>";
-    //               return false;
-    //         }
-    //     }
-    //     function myemail()
-    //     {
-    //       var n=document.getElementById("txt4");
-    //       var e=/\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    //       if(n.value == "")
-    //       {
-    //         document.getElementById("consid4").innerHTML = "<span class='error'>Please enter a valid email Address</span>";
-    //         inputEmail.focus();
-    //             return false;
-    //     }
-    //     else if(!n.value.match(e))
-    //       {
-    //         document.getElementById("consid4").innerHTML = "<span class='error'>This is not a valid email address. Please try again</span>";
-    //         inputEmail.focus();
-    //             return false;
-    //       }
-    //     else if(n.value.match(e))
-    //         {
-    //           document.getElementById("consid4").innerHTML = "<span class='error'></span>";
-    //               return false;
-    //         }
-    //     }
-    //     function myuname()
-    //     {
-    //       var n5=document.getElementById("txt6");
-    //       var u=/[a-zA-Z]+$/;
-    //       if(n5.value == "")
-    //       {
-    //         document.getElementById("consid6").innerHTML = "<span class='error'>Please enter a valid username Address</span>";
-    //         txt6.focus();
-    //             return false;
-    //     }
-    //     if(!n5.value.match(u))
-    //     {
-    //       document.getElementById("consid6").innerHTML = "<span class='error'>This is not a valid Username. Please try again</span>";
-    //           txt6.focus();
-    //           return false;
-    //     }
-    //     else if(n5.value.match(u))
-    //         {
-    //           document.getElementById("consid6").innerHTML = "<span class='error'></span>";
-    //               return false;
-    //         }
-    //     }
-    //     function mypassword()
-    //     {
-    //       var n6=document.getElementById("txt7");
-    //       var ps=/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,}/;
-    //       if(n6.value == "")
-    //       {
-    //         document.getElementById("consid7").innerHTML = "<span class='error'>Please enter a valid password</span>";
-    //         txt7.focus();
-    //             return false;
-    //     }
-    //     if(!n6.value.match(ps))
-    //     {
-    //       document.getElementById("consid7").innerHTML = "<span class='error'>This is not a valid Username. Please try again</span>";
-    //           txt7.focus();
-    //           return false;
-    //     }
-    //     else if(n6.value.match(ps))
-    //         {
-    //           document.getElementById("consid7").innerHTML = "<span class='error'></span>";
-    //               return false;
-    //         }
-    //     }
-    //     function mycpassword()
-    //     {
-    //       var n7=document.getElementById("txt7");
-    //       var n8=document.getElementById("txt8");
-    //       if(n8.value == "")
-    //       {
-    //         document.getElementById("consid8").innerHTML = "<span class='error'>Please enter a valid password</span>";
-    //         txt8.focus();
-    //         return false;
-    //     }
-    //     if(n7.value==n8.value)
-    //     {
 
-    //       document.getElementById("consid8").innerHTML = "<span class='error'></span>";
-    //           return false;
-    //     }
-    //     else {
-    //       document.getElementById("consid8").innerHTML = "<span class='error'> Password Missmatch</span>";
-    //           txt8.focus();
-    //           return false;
-    //     }
-    // }
-  
-
-</script>
 </head>
 <body>
 	<!-- main -->
@@ -203,7 +45,7 @@ $sc_query=mysqli_query($con,$sc);
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="index.html">
+						<li><a href="1home.html">
           <span class="glyphicon glyphicon-home"></span> Home
         </a></li>
             <li><a href="login.php" ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -223,7 +65,7 @@ $sc_query=mysqli_query($con,$sc);
   </header>
   
 
-		<h1 style="margin-top :60px;"> Sign Up</h1>
+		<h1 style="margin-top :60px;">Service Providers Sign Up Here</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form method="POST" name="form" action="sp_reg.php">
@@ -302,7 +144,7 @@ $sc_query=mysqli_query($con,$sc);
 	</div>
   <!-- //main -->
   <script>
-   function getdistrict(val){
+  function getdistrict(val){
           $.ajax({
               url: "state-location.php",
               method: "POST",
@@ -312,7 +154,6 @@ $sc_query=mysqli_query($con,$sc);
               }
     });
 }
-
 
 $('document').ready(function(){
    $('#txt4').keyup(function(){

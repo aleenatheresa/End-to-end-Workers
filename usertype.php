@@ -3,13 +3,19 @@
 session_start();
 $con=mysqli_connect("localhost","root","","projectdb");
 $password=$_POST["pass"];
+$password=md5($password);
 $username=$_POST["name"];
 $sql="select * from tbl_login where uname='$username' and password='$password'";
+echo $sql;
 $result=mysqli_query($con,$sql);
 $n=mysqli_num_rows($result);
-$_SESSION['uname']=$username;
+$rows=mysqli_fetch_array($result);
 
-$log_data="SELECT aproval_status FROM tbl_login where uname='$username'";
+$_SESSION['uname']=$username;
+$_SESSION['role_id']=$rows['role_id'];
+
+$log_data="select aproval_status FROM tbl_login where uname='$username' and password='$password' ";
+echo $log_data;
 $log_query=mysqli_query($con,$log_data);
 while($log=mysqli_fetch_array($log_query))
 {
@@ -19,26 +25,25 @@ if($status==1)
 {
 	if($n > 0)
 {
-	while($a=mysqli_fetch_array($result))
-	{
-		if($a['role_id']=='1')
+	
+		if($rows['role_id']=='1')
 		{
 			header("location:admin_index.php");
 		}
-		elseif($a['role_id']=='2')
+		elseif($rows['role_id']=='2')
 		{
-			header("location:customer_indext.html");
+			header("location:customer_index.php");
 		}
-		elseif($a['role_id']=='3')
+		elseif($rows['role_id']=='3')
 		{
-			header("location:emp_index.html");
+			header("location:#");
 		}
-		elseif($a['role_id']=='4')
+		elseif($rows['role_id']=='4')
 		{
-			header("location:sp_indext.php");
+			header("location:sp_index.php");
 		}
 	
-	}
+	
 }
 }
 

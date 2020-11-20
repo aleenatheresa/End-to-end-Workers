@@ -32,7 +32,7 @@ $sc_query=mysqli_query($con,$sc);
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="index.html">
+						<li><a href="1home.html">
           <span class="glyphicon glyphicon-home"></span> Home
         </a></li>
             <li><a href="login.php" ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -53,7 +53,7 @@ $sc_query=mysqli_query($con,$sc);
 
 
 
-		<h1 style="margin-top :60px;">Sign Up</h1>
+		<h1 style="margin-top :60px;">Employee Sign Up Here</h1>
 		<div class="main-agileinfo">
 			<div class="agileits-top">
 				<form method="POST" name="form" action="emp_reg.php">

@@ -169,7 +169,7 @@ function custuname()
         var u = document.getElementsByName('username')[0];
             if (checkUname(u.value)){
                 document.getElementById("txt6").style.borderColor = "green";
-                // document.getElementById("consid6").innerHTML = "<span class='error'></span>";
+                document.getElementById("consid6").innerHTML = "<span class='error'></span>";
                 } 
             else
                 {

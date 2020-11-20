@@ -5,6 +5,16 @@ if($_SESSION['role_id']!="1"){
 }
 $con=mysqli_connect("localhost","root","","projectdb");
 
+// if(isset($_SESSION['id'])){
+
+//   $id=$_SESSION['id'];
+//   $pic=$_FILES['img']['name'];
+//   $sql="UPDATE `tbl_services` SET  `img`='$pic' where sc_id='$id'";
+//   mysqli_query($con,$sql)or die($sql);
+// }else{
+//
+// }
+
 
 
 //  total num of customers
@@ -29,12 +39,15 @@ $emp_query=mysqli_query($con,$count_emp);
 $row_emp = mysqli_num_rows($emp_query);
 
 // Insert Image
-if(isset($_POST['insert'])){
-  $pic=$_FILES['myImage']['name'];
-  $target_dir = "images/";
-  $target_path=$target_dir.$pic;
-  move_uploaded_file($_FILES['myImage']['tmp_name'],$target_path);
-}
+// if(isset($_POST['insert'])) 
+// {
+//       $file = addslashes(file_get_contents($_FILES["myImage"]["tmp_name"]));  
+//       $query = "INSERT INTO tbl_services(img) VALUES ('$file')";  
+//       if(mysqli_query($con, $query))  
+//       {  
+//            echo '<script>alert("Image Inserted into Database")</script>';  
+//       }  
+// }
 
 ?>
 <!doctype html>
@@ -67,7 +80,21 @@ if(isset($_POST['insert'])){
         <script src='https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.js' type='text/javascript'></script>
         <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
   </head>
-  
+  <!-- <script>
+   $('#img').blur(function(){
+  var thevalue = $(this).val();
+
+ $.ajax({
+    url:'yoururl.php',
+    type: "post",
+    data:{"value":thevalue},
+    dataType:"html",
+    success:function(data){
+        console.log(data);
+    } 
+ });
+});
+  </script> -->
   
   <body>
   
@@ -193,7 +220,6 @@ if(isset($_POST['insert'])){
 								<div class="position-relative">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell align-middle"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
 									<span class="indicator" id="circle"> 
-      
                     <?php
                   if($row_s==0)
                   {
@@ -205,7 +231,6 @@ if(isset($_POST['insert'])){
                   
                  
                   ?>
-                
                 </div>
                 </span>
               </a>
@@ -591,7 +616,7 @@ if(isset($_POST['insert'])){
 
 
 <div id="admin_sc_management">
-<div class="container col-sm-12" style="display: none;" id="ascm">
+<div class="container col-sm-12" style="display: inline;" id="ascm">
 
     <div class="table-responsive">
         <div class="table-wrapper">
@@ -635,7 +660,7 @@ if(isset($_POST['insert'])){
                           ?>
                         </th>
                         <th>
-                          <img src="images/<?php echo $image;?>" width="60px" height="50px"/>
+                          <img src="<?php echo $image;?>" width="50px" height="40px"/>
                           
                         </th>
                         <td style="border-top:0px;text-align:center;">
@@ -669,16 +694,16 @@ if(isset($_POST['insert'])){
                       <form action="#" name="upload" method="post" enctype="multipart/form-data">
                         <td><input type="text" class="form-control" required="" id="c1"></input></td>
                         <td><input type="text" class="form-control" required="" id="c2"></input></td>
-                        <td><input type="file" name="myImage" id="img" accept="image/*" /></td>
+                        <td><input type="file" name="img"  id="img" accept="image" /></td>
                         <td style="border-top:0px;text-align:right">
                         <!-- <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="sc1"><i class="fa fa-pencil"></i></button><a>
                         <button class="btn btn-sm btn-danger" title="Delete" id="sc2"><i class="fa fa-times" aria-hidden="true"></i></button></a><a> -->
-                        <button class="btn btn-sm btn-primary" type="submit" style="padding-top: 3px; padding" id="sc3" name="insert" title="Upload/View data"><i class="fa fa-upload"></i></button>
+                        <button class="btn btn-sm btn-primary" type="submit" style="padding-top: 3px; padding" id="sc3" name="insertq" title="Upload/View data"><i class="fa fa-upload"></i></button>
                         </a></td>
                       </form>  
                     </tr>
                 </thead>
-            </table> 
+            </table>
          
             </div>  
       </div>  
@@ -836,18 +861,13 @@ while($row=mysqli_fetch_array($sc_query))
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-1.11.0.min.js"></script>
-
-    <!-- <script src="js/wow.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    
 <script>
 // add edit and delete service category
 $(document).ready(function(){
@@ -855,30 +875,20 @@ $(document).ready(function(){
   $("#add-new").on('click',function(){
       $("#new-sc").css("display","inline");
       $("#sc3").on('click',function(){
-          // $("#pre-sc").append("<tr><td>"+$("#c1").val()+"</td><td>"+$("#c2").val()+"</td><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
+          $("#pre-sc").append("<tr><td>"+$("#c1").val()+"</td><td>"+$("#c2").val()+"</td><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
           var sc = $("#c1").val();
           var amt=$("#c2").val();
-        
-          var fileInput = document.getElementById('img');   
-          var filename = fileInput.files[0].name;
-
-        // var fd = new FormData(this);
-        // var files = $('#img')[0].files[0];
-        //    fd.append('file',files);
-        //    console.log(fd);
+       
 
           $.ajax({
                 url: "admin_uploaddata.php",
                 method:"POST",
                 data :{ 
-                  
                   service_catagory :sc,
                   amount:amt,
-                  file:filename
-                
+
                   },
                 success: function(result){
-                  // console.log('RESULT : ' + this);
                   $('#pre-sc').append(result);
                   $("#c1").val(" ");
                   $("#c2").val(" ");
@@ -1121,8 +1131,8 @@ $(document).on('click','.sc_reject',function()
   var rej_name= $(this).closest('tr').find('th:nth-child(1)').text();
   var rj_name=rej_name.trim();
   $(this).closest("tr").remove();
-  var login=<?php echo $lid; ?>;
-    console.log(login);
+  var login=<?php echo $_SESSION['lid']; ?>;
+    console.log(rj_name);
   
   $.ajax({
     url: "admin_uploaddata.php",
@@ -1133,6 +1143,8 @@ $(document).on('click','.sc_reject',function()
   },
     success: function(response){
       $('#sucess-msg').text(response);
+      // $("#c1").val(" ");
+      // $("#c2").val(" ");
     }
   });
 

@@ -35,7 +35,7 @@ $email=$_POST['email'];
 $uname=$_POST['username'];
 $pass=$_POST['password'];
 
- 
+$pass=md5($pass);
 
     $sql="select location_id from tbl_location where location_id='$city'";
     $result=mysqli_query($con,$sql);

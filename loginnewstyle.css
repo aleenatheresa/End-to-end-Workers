@@ -1,0 +1,78 @@
+body {
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif !important;
+  background-color: aqua;
+}
+
+.navbar {
+  background-color: #fff;
+  width: 100%;
+  box-shadow: 0 6px 6px -6px #999;
+}
+
+.navbar-brand {
+  color: #317f5f;
+}
+
+.nav-item {
+  color: #000;
+  margin-right: 10px;
+}
+
+.form-control-no-border:focus {
+  border-color: #ccc;
+  outline: 0;
+  box-shadow: none;
+}
+
+.btn-primary {
+  background-color: #317f5f;
+  border-color: #317f5f;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+  font-size: 22px;
+  line-height: normal;
+  border-radius: 8px;
+}
+
+#footer {
+  background-color: #7f8c8d;
+  color: #FFF;
+}
+#footer .logo {
+  margin-top: 20px;
+}
+#footer .social-networks {
+  float: right;
+}
+
+#footer-container {
+  padding: 50px;
+}
+
+#pageContainer {
+  max-width: 600px;
+  background-color: #FFF;
+  padding: 15px 15px 15px 15px;
+  margin-top: 50px;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+#loginbtn {
+  margin-top: 20px;
+}
+
+#login {
+  padding-top: 30px;
+}
+#login .input-group-addon {
+  background-color: #317f5f;
+}
+#login i {
+  color: #FFF;
+}
+#login .input-group {
+  padding-bottom: 50px;
+}
+
+.link {
+  color: #317f5f;
+}

@@ -10,10 +10,8 @@ $city=$_POST['location'];
 $email=$_POST['email'];
 $uname=$_POST['username'];
 $pass=$_POST['password'];
+$pass=md5($pass);
 $sc=$_POST['sc'];
-
-
-  
 
     $sql="select location_id from tbl_location where location_id='$city'";
     $result=mysqli_query($con,$sql);
@@ -37,8 +35,13 @@ $sc=$_POST['sc'];
     {
         $login_id=$status_data['lid'];  
     }
-    $insert_sql="INSERT into tbl_employee(employee_name,employee_address,employee_phone,employee_email,sc_id,location_id,login_id,created_on)VALUES('$name','$addr','$phone','$email','$sc','$loc_id','$login_id','$now')";
+    $sp_name="select sp_id from tbl_serviceproviders where sc_id=$sc";
+    $sp_query=mysqli_query($con,$sp_name);
+    $r=mysqli_fetch_array($sp_query);
+    $id=$r['sp_id'];
+   
+    $insert_sql="INSERT into tbl_employee(employee_name,employee_address,employee_phone,employee_email,sc_id,location_id,login_id,created_on,sp_id) VALUES('$name','$addr','$phone','$email','$sc','$loc_id','$login_id','$now','$id')";
     $insert_result=mysqli_query($con,$insert_sql);
-    header("url=login.php");
+    header("refresh:2; url=login.php");
 
 ?>
