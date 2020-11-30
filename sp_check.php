@@ -22,4 +22,17 @@ if(isset($_POST['username']))
     }
    
 }  
+
+if(isset($_POST['lice']))
+{
+    $li=$_POST['lice'];
+    $li_sql = "SELECT * FROM `tbl_serviceproviders` WHERE `lisenceno`='$li'";
+    $li_results = mysqli_query($con,$li_sql);
+    if(mysqli_num_rows($li_results) > 0) 
+    {
+      echo 'Lisence Number Already Taken';	
+    }
+   
+}  
+
 ?>

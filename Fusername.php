@@ -4,7 +4,7 @@ if (preg_match('/^[a-zA-Z0-9]+$/', $u))
 {
 $con=mysqli_connect("localhost","root","","projectdb");
 if(!empty($_POST["f_u"])) {
-  $query = mysqli_query($con,"SELECT * FROM `tbl_login` WHERE `uname`='" . $_POST["f_u"] . "' AND `aproval_status`=1") or die("Sign in Error");
+  $query = mysqli_query($con,"SELECT * FROM `tbl_login` WHERE BINARY `uname`='" . $_POST["f_u"] . "' AND `aproval_status`=1") or die("Sign in Error");
   mysqli_close($con);
  if(mysqli_num_rows($query)){ 
      ?>

@@ -262,6 +262,11 @@ if(isset($_POST['insert'])){
 
             <!-- Nav Item - User Information -->
             <li>
+              <a  href="#" id="userDropdown" role="button" >
+                <label ><b style="font-famiy: Times New Roman, Times, serif;">Welcome <?php echo $_SESSION['uname']; ?></b></label>
+              </a>                                 
+            </li>
+            <li>
               <a  href="logout.php" id="userDropdown" role="button" >
                 <label ><b style="font-famiy: Times New Roman, Times, serif;">Signout</b></label>
               </a>                                 

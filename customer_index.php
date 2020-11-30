@@ -78,7 +78,7 @@ $row_sp = mysqli_num_rows($countsp_query);
         <li class="sidebar-header">	
                 Pages
 		</li>
-	<li class=""><a class="nav-link text-left active"  href="#profile" onclick="userprofile()"><i class="fa fa-home" aria-hidden="true"></i>Home
+	<li class=""><a class="nav-link text-left active"  href="#book" onclick="home()"><i class="fa fa-home" aria-hidden="true"></i>Home
  
          </a>
           </li>
@@ -182,17 +182,7 @@ $row_sp = mysqli_num_rows($countsp_query);
           
 
             <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><label ><b style="font-famiy: Times New Roman, Times, serif;"><?php echo $_SESSION['uname']?></b></label></span> </a>                                 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="#">Update</a>
-                        <a class="dropdown-item" href="logout.php">Logout</a>
-                           
-                    </div>
-                                              
-		
-            </li>
+            
             <li class="nav-item dropdown">
 							<a class="nav-icon dropdown" href="" id="alertsDropdown" data-toggle="dropdown" aria-expanded="false">
 								<div class="position-relative">
@@ -227,14 +217,19 @@ $row_sp = mysqli_num_rows($countsp_query);
 								<div class="dropdown-menu-footer">
 									<a href="#" class="text-muted">Show all notifications</a>
 								</div>
-							</div>
-								
-							
-							
-								
-				
+							</div>				
 						</li>
-            
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><label ><b style="font-famiy: Times New Roman, Times, serif;"><?php echo $_SESSION['uname']?></b></label></span> </a>                                 
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Update</a>
+                        <a class="dropdown-item" href="logout.php">Logout</a>
+                           
+                    </div>
+                                              
+		
+            </li> 
 
           </ul>
 
@@ -242,101 +237,38 @@ $row_sp = mysqli_num_rows($countsp_query);
 
 <span id="sucess-msg" style="background-color:red;text-align:center;"></span>
         <!-- End of Topbar -->
-<!-- <div id="sp_table" style="display: inline;"> -->
-        <!-- Begin Page Content -->
-<!-- <div class="container-fluid px-lg-4">
-<div class="row">
-<div class="col-md-12 mt-lg-4 mt-4"> -->
-          <!-- Page Heading -->
-          <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> 
-			Generate Report</a>
-          </div> -->
+
 </div>
-<!-- <div class="col-md-12">
-       <div class="row">
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body" style="background-color : #edad0c;">
-												<h5 class="card-title mb-4">Sevice Providers</h5>
-												<h1 class="display-5 mt-1 mb-3">
-                        <?php
-                            echo $row_sp;
-                          ?>
-                        </h1>
-												
-											</div>
-										</div>
-										
-									</div>
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body" style="background-color : #a14935;">
-												<h5 class="card-title mb-4">Customers</h5>
-												<h1 class="display-5 mt-1 mb-3">
-                          <?php
-                            echo $row;
-                          ?>
-                        </h1>
-												
-											</div>
-										</div>
-										
-									</div>
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body" style="background-color : #ed4c0c;">
-												<h5 class="card-title mb-4">Employess</h5>
-												<h1 class="display-5 mt-1 mb-3">2.382</h1>
-												
-											</div>
-										</div>
-										
-									</div>
-									
-                <div class="panel">
-                <div class="table-bordered table-responsive text-center">
 
-                <table class="table table-bordered" style="border: 1px solid #ddd !important;">
-                  <thead>
-                    <?php
-                    $sp="SELECT * from tbl_serviceproviders where ";
-                    $countsp_query=mysqli_query($con,$count_sp);
-                    $row_sp = mysqli_num_rows($countsp_query);
-                    ?>
-                    <tr> 
-                      <th>Services Available</th>
-                      <th>Service Provider</th>
-                    <tr>
-                  </thead>
-                  <tbody> 
-                  <tr>
-                    <td></td>
-                  </tr>
-                  </tbody>
-                </table>
-
-                </div>
-            </div>
-          </div>
-         </div>
-      </div> 
-    </div>
-  </div>
-    
-</div>	
-</div>    -->
                                      
     <!-- /#wrapper -->
-   			<!-- Service Category -->
-  <div class="card" style="width: 18rem;">
-  <img src="9.jpg" class="card-img-top" alt="9.jpg">
+         <!-- Service Category -->
+         
+      <div class="container" id="book" style="background-color:grey;text-align:center;font-size:35px;">
+       <div class="container-fluid" style="color:white;background-color:black">
+             BOOK NOW
+        </div>
+         <div class="row">
+         <?php
+          $services="SELECT * FROM tbl_services WHERE is_delete='1'";
+          $ser_query=mysqli_query($con,$services);
+          while($row=mysqli_fetch_array($ser_query))
+          {
+            $image=$row['img'];
+            $scname=$row['sc_name'];
+         ?>
+         <div class="column" style="margin-left:10px;margin-top:15px">
+  <div class="card" style="width: 18rem; display:block;">
+  <img src="images/<?php echo $image;?>" class="card-img-top" alt="9.jpg" width="80px" height="200px">
   <div class="card-body">
-    <!-- <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-    <a href="#" class="btn btn-link">Plumbing</a>
+    <a href="#" class="btn btn-link" onclick=bksc()><?php echo $scname; ?></a>
   </div>
+</div>
+          </div>
+<?php
+          }
+?>
+</div>
 </div>
 <!-- Service category -->
     <!-- customer Profile -->
@@ -446,7 +378,7 @@ $row_sp = mysqli_num_rows($countsp_query);
 </div>
 </div>
 <div id="booking" style="display:none;">
-  <table class="table table-bordered col-sm-8">
+  <table class="table table-bordered col-sm-8" style="margin-left:40px;">
     <thead>
     <tr>
     <th>Booked On</th>
@@ -529,6 +461,11 @@ $(document).ready(function(){
         });
   });
 });
+
+function bksc()
+{
+
+}
 
 $('#bar').click(function(){
 	$(this).toggleClass('open');

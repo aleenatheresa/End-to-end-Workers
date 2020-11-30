@@ -83,11 +83,11 @@
             <input class="form-control"  name="fusername" id="fusername" type="text" placeholder="Username" required>
             <span id="msg"></span>
             <br>
-                <input class="form-control" type="text" name="fphno" disabled id="fphno" placeholder="Mobile Number" required >
+                <input class="form-control" type="text" name="fphno" onblur="valFhstlMob()" onkeypress="return /[0-9]/i.test(event.key)" disabled id="fphno" placeholder="Mobile Number" required >
             <br>
-                <input class="form-control" type="password" name="npass" id="npass"  disabled placeholder="New Password" required>
+                <input class="form-control" type="password" name="npass" onblur="valFPasswod()" id="npass"  disabled placeholder="New Password" required>
             <br>
-                <input class="form-control" type="password" name="ncpass" id="ncpass"  disabled placeholder="Confirm New Password" required>
+                <input class="form-control" type="password" name="ncpass" onblur="valCFPasswod()" id="ncpass"  disabled placeholder="Confirm New Password" required>
             <br>
       </div>
       <!-- Modal footer -->
@@ -123,6 +123,52 @@
         }
   });
 });
+
+function checkPhone(number){
+    return (/^(6|7|8|9)[0-9]{9}$/.test(number));
+}
+function checkPassword(text){
+    return (/^.{6,}$/.test(text));
+}
+//forgot password
+function valFPasswod()
+    {
+        var mu = document.getElementsByName('npass')[0];
+            if (checkPassword(mu.value)){
+                document.getElementById("npass").style.borderColor = "green";
+            } 
+            else
+                {
+                document.getElementById("npass").style.borderColor = "red"; 
+            }
+    }   
+    
+function valCFPasswod()
+    {
+        var mc = document.getElementsByName('ncpass')[0];
+        var mu = document.getElementsByName('npass')[0];
+            if ((checkPassword(mc.value))&&(mc.value == mu.value)&&(mc.value!= null)){
+                document.getElementById("ncpass").style.borderColor = "green";
+                document.getElementById("fbutton").disabled = false;
+            } 
+            else 
+                {
+                document.getElementById("ncpass").style.borderColor = "red"; 
+            }
+    }  
+
+function valFhstlMob()
+    {
+        var hm = document.getElementsByName('fphno')[0];
+            if (checkPhone(hm.value)){
+                document.getElementById("fphno").style.borderColor = "green";
+            } 
+            else
+                {
+                document.getElementById("fphno").style.borderColor = "red"; 
+            }
+    }     
+
 </script>
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/js/bootstrap.min.js'></script>

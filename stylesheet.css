@@ -729,6 +729,7 @@
                                   text-transform: uppercase;
                                   color: #2E1C05;
                                   transition: all 0.2s ease-out;
+                                  font-family: "Open Sans", Helvetica, sans-serif;
                                 }
                                 
                                 .navbar-brand {
@@ -959,4 +960,95 @@
                                 {
                                   padding :22px 2px 2px;
                                 }
-                      
+                         html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, dl, dt, dd, ol, nav ul, nav li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+h1 {
+    font-size: 3em;
+    text-align: center;
+    color: #fff;
+    font-weight: 80;
+    text-transform: capitalize;
+    letter-spacing: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 40px;
+  }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul {
+  list-style: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 10px;
+
+}
+
+/*-- start editing from here --*/
+a {
+  text-decoration: none;
+}
+.error{
+  color:black;
+  font-size: 12px;
+  font-weight: 600;
+}
+.dropdown
+{
+  position: relative;
+  display: block;
+  color: #4ABCBC ;
+  margin-bottom: 7px;
+  cursor: pointer;
+  padding: 10px 15px 10px 12px;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid rgba(255, 255, 255, 0.37);
+  width:100%;
+  border-radius:15px 16px;
+}
+select
+{
+  width: 89.5%;
+  font-size: 0.9em;
+  font-weight: 100;
+    /* width: 90%; */
+    display: block;
+    border: none;
+    border-radius: 15px;
+    margin-bottom: 7px;
+    cursor: pointer;
+    padding: 10px 15px 10px 12px;
+    border: solid 2px rgba(74, 233, 220, 0.884);
+    -webkit-transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+    transition: all 0.3s cubic-bezier(0.64, 0.09, 0.08, 1);
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 96%, #fff 4%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 96%, #fff 4%);
+    background-position: -800px 0;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-bottom: 20px;
+    color: white; 
+    /* option {
+      color: black; 
+    } */
+    
+}

@@ -27,12 +27,32 @@ $sc_query=mysqli_query($con,$sc);
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="stylesheet.css" type="text/css" media="all" />
 <script src="js/validate.js"></script>
-<link rel="stylesheet"   href="stylesheet.css"/>
 <style>
   
 
 </style>
+<script>
+    
+function check() {
+      var licensce = document.getElementById('txt9').value;
+            if (!licensce) return;
+            console.log("WORKING user TILL HERE");
+            var ajax = new XMLHttpRequest();
+            ajax.onreadystatechange = function(){
+              if (this.readyState == 4 && this.status == 200 ){
+                console.log(this.response); //helps SEE WHATS GOING ON in the php file;
+                if(this.response=='TRUE'){
+                    document.getElementById('error_li').innerHTML="licensce no taken";
+                    document.getElementById('txt9').value="";
+                    document.forms["form"]["licensceno"].focus();
+                }
+              }
+            }
+            ajax.open("GET", "check.php?licensce="+licensce, true);
+            ajax.send();
 
+}
+</script>
 </head>
 <body>
 	<!-- main -->
@@ -51,7 +71,7 @@ $sc_query=mysqli_query($con,$sc);
             <li><a href="login.php" ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <li>
             <div class="dropdown" id="drp" >
-            <a href="#" class="dropbtn"><span class="glyphicon glyphicon-triangle-bottom"></span> Service Category</a>
+            <a href="#" class="dropbtn"><span class="glyphicon glyphicon-triangle-bottom"></span>Select Category</a>
             <i class="fa fa-caret-down"></i>
             <div class="dropdown-content">
               <a href="emp_registration.php">Employee</a>
@@ -123,7 +143,7 @@ $sc_query=mysqli_query($con,$sc);
                         
                         </select>
                     </div>
-                    <input class="text" type="text" name="licensceno" id="txt9" placeholder="Licenseno" required="" oninput="mylicense()"><span id = "consid9"></span>
+                    <input class="text" type="text" name="licensceno" id="txt9" placeholder="Licenseno" required="" onblur="check()" oninput="mylicense()"><span id = "consid9"></span><span id="error_li"></span>
                     <input class="text" type="text" name="username" placeholder="Username" id="txt6" required="" oninput="custuname()"><span id = "consid6"></span><span id="error_uname"></span>
                     <input class="text" type="password" name="password" placeholder="Password" required="" id="txt7" oninput="pass()"><span id = "consid7"></span>
 					<input class="text w3lpass" type="password" name="password" placeholder="Confirm Password" id="txt8" required="" oninput="mycpassword()"><span id = "consid8"></span>
@@ -144,6 +164,7 @@ $sc_query=mysqli_query($con,$sc);
 	</div>
   <!-- //main -->
   <script>
+  
   function getdistrict(val){
           $.ajax({
               url: "state-location.php",
@@ -156,6 +177,7 @@ $sc_query=mysqli_query($con,$sc);
 }
 
 $('document').ready(function(){
+  //  email check
    $('#txt4').keyup(function(){
       var email= $('#txt4').val();
       // alert(email);
@@ -179,22 +201,24 @@ $('document').ready(function(){
   // username check
 
 
-   $('#txt6').keyup(function(){
+  $('#txt6').keyup(function(){
       var username= $('#txt6').val();
       $.ajax({
-        url: "sp_check.php",
+        url: "cust_reg.php",
         method: "POST",
         data : {
   
           username: username
         },
         success: function(response){
-          // $('#txt6').css("borderColor","red");
           $('#error_uname').text(response);
         }
       });
 
    });
+
+
+   
 
   });
 
