@@ -95,7 +95,7 @@ function check() {
                     <input class="text email" type="email" name="email" id="txt4" placeholder="Email" required="" oninput="custEmail()"><span id = "consid4"></span><span id="error_email"></span>
 
                     <div class="dropdown">
-                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="dist" required="">
+                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" onChange="getdistrict(this.value);" name="dist" required="">
                       <span class="caret-dropdown-menu"></span>
                         <option>--District--</option>
                         <?php
@@ -112,7 +112,7 @@ function check() {
                     </div>
                   
                     <div class="dropdown">
-                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="location" required="">
+                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="location" id="location" required="">
                       <span class="caret-dropdown-menu"></span>
                         <option>--City--</option>
                         <?php
@@ -164,7 +164,6 @@ function check() {
 	</div>
   <!-- //main -->
   <script>
-  
   function getdistrict(val){
           $.ajax({
               url: "state-location.php",

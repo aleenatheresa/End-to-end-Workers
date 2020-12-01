@@ -77,7 +77,7 @@ $result_loc=mysqli_query($con,$loc);
                     <input class="text" type="text" name="phone" id="txt3" placeholder="Phone" required="" oninput="custPhone()"><span id = "consid3"></span>
                    
                     <div class="dropdown">
-                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="dist" required="">
+                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" onChange="getdistrict(this.value);" name="dist" required="">
                       <span class="caret-dropdown-menu"></span>
                         <option>--District--</option>
                         <?php
@@ -92,7 +92,7 @@ $result_loc=mysqli_query($con,$loc);
                     </div>
                   
                     <div class="dropdown">
-                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="location" required="">
+                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="location" id="location" required="">
                       <span class="caret-dropdown-menu"></span>
                         <option>--City--</option>
                         <?php
@@ -120,7 +120,7 @@ $result_loc=mysqli_query($con,$loc);
 					</div>
 					<input type="submit" value="SIGNUP" name="submit">
 				</form>
-				<p>Have an Account? <a href="#"> Login Now!</a></p>
+				<p>Have an Account? <a href="login.php"> Login Now!</a></p>
 			</div>
 		</div>
 		
@@ -128,6 +128,16 @@ $result_loc=mysqli_query($con,$loc);
 	</div>
   <!-- //main -->
   <script>
+function getdistrict(val){
+          $.ajax({
+              url: "state-location.php",
+              method: "POST",
+              data: 'dist_id='+val,
+              success: function(result){
+                  $('#location').html(result);
+              }
+    });
+}
 
   $('document').ready(function(){
    $('#txt4').keyup(function(){

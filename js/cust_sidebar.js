@@ -15,17 +15,11 @@ function cust_book()
     document.getElementById("book").style.display = "none";
 
 }
-function reserve()
-{
-    document.getElementById("profile").style.display = "none";
-    document.getElementById("booking").style.display = "none";
-    document.getElementById("reserve").style.display = "inline";
-    document.getElementById("book").style.display = "none";
-}
+
 function home()
 {
     document.getElementById("profile").style.display = "none";
     document.getElementById("booking").style.display = "none";
     document.getElementById("reserve").style.display = "none";
-    document.getElementById("book").style.display = "inline";
+    document.getElementById("book").style.display = "block";
 }
