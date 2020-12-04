@@ -53,6 +53,13 @@ $row_sp = mysqli_num_rows($countsp_query);
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+        <!-- Modal class -->
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"> -->
+
+        <!-- jQuery and JS bundle w/ Popper.js -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</head>
   </head>
   <style>
   fieldset {
@@ -256,10 +263,11 @@ $row_sp = mysqli_num_rows($countsp_query);
             $scname=$row['sc_name'];
          ?>
          <div class="column" style="margin-left:10px;margin-top:15px">
-  <div class="card" style="width: 18rem; display:block;">
-  <img src="images/<?php echo $image;?>" class="card-img-top" alt="9.jpg" width="80px" height="200px">
+  <div class="card" style="width: 15rem; display:block;">
+  <img src="images/<?php echo $image;?>" class="card-img-top" alt="9.jpg" width="60px" height="180px">
   <div class="card-body">
-    <a href="#" class="btn btn-link" onclick=bksc()><?php echo $scname; ?></a>
+    <!-- <a href="#exampleModal" class="btn btn-link"></a> -->
+    <button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#myModal"><?php echo $scname;?></button>
   </div>
 </div>
           </div>
@@ -268,6 +276,32 @@ $row_sp = mysqli_num_rows($countsp_query);
 ?>
 </div>
 </div>
+
+<!-- modal class for confirm booking -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Confirm Booking</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+        <form action="confirm.php" method="POST">
+      <!-- Modal body -->
+      <div class="modal-body">
+            <p>Book now?</p>
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <input type="submit" value="Book" id="fbutton" class="btn btn-primary" />
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- ends modal class -->
 <!-- Service category -->
     <!-- customer Profile -->
 <div id="profile" style="display:none">
