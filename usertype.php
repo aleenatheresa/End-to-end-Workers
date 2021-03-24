@@ -40,7 +40,7 @@ if($status==1)
 		}
 		elseif($rows['role_id']=='4')
 		{
-			header("location:sp_index.php");
+			header("location:servicepro/index4.php");
 		}
 	
 	

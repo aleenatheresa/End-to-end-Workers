@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2020 at 10:52 AM
+-- Generation Time: Jan 04, 2021 at 01:30 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.1.32
 
@@ -190,15 +190,15 @@ CREATE TABLE `tbl_login` (
 INSERT INTO `tbl_login` (`lid`, `uname`, `password`, `role_id`, `aproval_status`, `is_delete`) VALUES
 (1, 'admin', '0e7517141fb53f21ee439b355b5a1d0a', 1, b'1', b'1'),
 (2, 'Aleena', '95b5d776ebb1ca4e073ca1778cdcda88', 3, b'0', b'1'),
-(3, 'Sanju', 'b5dfda0b18d06f1b6ad26cddd0e475e4', 4, b'0', b'1'),
+(3, 'Sanju', 'b5dfda0b18d06f1b6ad26cddd0e475e4', 4, b'1', b'1'),
 (4, 'Greeshma', ' 07a2f1b5a8325cbbe04a484daef615f9', 3, b'0', b'1'),
 (5, 'anu', 'e2495e86108fb44afc12c05cd94ec491', 2, b'1', b'1'),
 (6, 'Anjana', 'c8e680704ed6be3d0f05027ead694859', 3, b'0', b'1'),
-(7, 'calm', '6e8e9f6b6a6f711f5149c9f9e1e41302', 4, b'0', b'1'),
+(7, 'calm', '6e8e9f6b6a6f711f5149c9f9e1e41302', 4, b'1', b'1'),
 (8, 'Ansy', '5a57cbc8e96e1f99f2c0b926f74dabf3', 3, b'0', b'1'),
 (9, 'Ansu', '97a907ebc543793f16d18a50b7094ec3', 3, b'0', b'1'),
 (10, 'Anjali', '5d50f0d55c24fe8687df7747e10f7c70', 3, b'0', b'1'),
-(11, 'Maanas', '24cfd9a1f1f1eab457f4fcfc56877e32', 4, b'0', b'1'),
+(11, 'Maanas', '24cfd9a1f1f1eab457f4fcfc56877e32', 4, b'1', b'0'),
 (12, 'Amalu', '68d5c9d92055e51f4259e9e8b9efc5f0', 4, b'0', b'0'),
 (13, 'Manu', '1a715d422dbc1e399c325e68d667e37a', 4, b'1', b'1');
 
@@ -251,7 +251,7 @@ INSERT INTO `tbl_serviceproviders` (`sp_id`, `sp_name`, `sp_address`, `sp_phone`
 (1, 'Sanju a', 'zchZCHJ', '2147483647', 'sanju@gmail.com', 'ktr56', 1, 2, 2, 3, '2020-11-16 09:41:40'),
 (2, 'Cali m', 'zchZCHJ', '2147483647', 'george@gmail.com', 'LK234', 1, 3, 3, 7, '2020-11-16 10:14:02'),
 (3, 'Maanas Murali', 'Vadasseril', '7592953795', 'manas@gmail.com', 'KL234', 1, 2, 2, 11, '2020-11-18 07:11:36'),
-(4, 'Amalu G', 'Vadasseril', '9400804990', 'amalu@gmail.com', 'LK345', 2, 2, 3, 12, '2020-11-18 08:32:21'),
+(4, 'Amalu', 'Vadasseril', '9400804990', 'amalu@gmail.com', 'LK345', 2, 2, 3, 12, '2020-11-18 08:32:21'),
 (5, 'Manu Sankar', 'Vadasseril', '9400804990', 'manu@gmail.com', 'LK56', 2, 1, 2, 13, '2020-11-18 16:54:30');
 
 -- --------------------------------------------------------

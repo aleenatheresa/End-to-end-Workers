@@ -1,6 +1,25 @@
 <?php
+session_start();
+if($_SESSION['role_id']!="4"){
+  header('location:login.php');
+}
+$con=mysqli_connect("localhost","root","","projectdb");
 
+// Total NUmber of Employee
+$v="select * from tbl_employee";
+$v_query=mysqli_query($con,$v);
+$row_sp = mysqli_num_rows($v_query);
 
+// Details of Service Provider
+$user=$_SESSION['uname'];
+$login_details="select lid from tbl_login where uname='$user'";
+$log_query=mysqli_query($con,$login_details);
+$log=mysqli_fetch_array($log_query);
+$logid=$log['lid'];
+$spdetail="select * from tbl_serviceproviders where login_id=$logid";
+$sp_query=mysqli_query($con,$spdetail);
+$sp=mysqli_fetch_array($sp_query);
+$val=$sp['sp_email'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,10 +52,15 @@
     <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
+    <link href="css/font-face.css" rel="stylesheet" media="all">
+    <link href="css/theme.css" rel="stylesheet" media="all">
+    <link href="servicepro" rel="stylesheet" media="all">
+    
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
     <script src="js/spsidebar.js"></script>
+    <link rel="stylesheet" href="">
 
 </head>
 
@@ -50,43 +74,22 @@
                        <h1>End To End Workers</h1>
                     </div>
                     <div class="header__tool">
-                        <div class="header-button-item has-noti js-item-menu" style="padding-right:80px;">
-                            <i class="zmdi zmdi-notifications"></i>
-                            <div class="notifi-dropdown js-dropdown">
-                                <div class="notifi__title">
-                                    <p>You have 3 Notifications</p>
-                                </div>
-                                <div class="notifi__item">
-                                    <div class="bg-c1 img-cir img-40">
-                                        <i class="zmdi zmdi-email-open"></i>
-                                    </div>
-                                    <div class="content">
-                                        <p>You got a email notification</p>
-                                        <span class="date">April 12, 2018 06:50</span>
-                                    </div>
-                               </div>
-                                
-            
-                                <div class="notifi__footer">
-                                    <a href="#">All notifications</a>
-                                </div>
-                            </div>
-                        </div>
+                        
                         
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                
                                 <div class="content">
-                                    <a class="js-acc-btn" href="#">jhjhj</a>
+                                    <a class="js-acc-btn" href="#">Welcome <?php echo $_SESSION['uname'];  ?></a>
                                 </div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
                                        
                                         <div class="content">
                                             <h5 class="name">
-                                                <a href="#">john doe</a>
+                                                <a href="#"><?php echo $_SESSION['uname'];  ?></a>
                                             </h5>
-                                            <span class="email">johndoe@example.com</span>
+                                            <span class="email"><?php echo $val;?></span>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__body">
@@ -139,7 +142,7 @@
                         <div class="welcome2-inner m-t-60">
                             <div class="welcome2-greeting">
                                 <h1 class="title-6">Hi
-                                    <span>John</span>, Welcome back</h1>
+                                    <span>ghdgfh</span>, Welcome back</h1>
                                
                             </div>
                             <form class="form-header form-header2" action="" method="post">
@@ -224,7 +227,7 @@
                                             </ul>
                                         </li>
                                          <li>
-                                            <a href="#tsk" target="self">
+                                            <a href="task.php">
                                                 <i class="	fas fa-file" aria-hidden="true"></i>Task
                                             </a>
                                          </li>

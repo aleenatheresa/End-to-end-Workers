@@ -25,7 +25,7 @@ if (mysqli_num_rows($sc_check_query) > 0)
         $sql="INSERT INTO tbl_services(sc_name,is_delete,amount,img)values('$s',1,$amount,'$img')";
         $sql_query=mysqli_query($con,$sql);
    
-        echo "<tr><th>".$service."</th><th>".$amount."</th><th></th><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success sc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
+        echo "<tr><th>".$service."</th><th>".$amount."</th><th></th><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success sc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
         
     }
 }
@@ -53,7 +53,7 @@ if(isset($_POST['location']))
     {
     $loc="INSERT INTO tbl_location(location,is_delete,district_id)values('$location',1,$district)";
     $loc_query=mysqli_query($con,$loc);
-    echo "<tr><th scope='row'>".$location."</th><th scope='row'>".$dis."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success loc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger loc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
+    echo "<tr><th scope='row'>".$location."</th><th scope='row'>".$dis."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success loc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger loc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
     // echo "$dis";
     }
 }
@@ -73,7 +73,7 @@ if(isset($_POST['dis']))
     {
     $dis="INSERT INTO tbl_district(district_name,is_delete)values('$district',1)";
     $dis_query=mysqli_query($con,$dis);
-    echo "<tr><th scope='row'>".$district."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
+    echo "<tr><th scope='row'>".$district."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
     }
 }
 //  delete a district
@@ -129,7 +129,7 @@ if(isset($_POST['dist_edit']))
     {
     $edit="UPDATE `tbl_district` SET `district_name`= '$dist_edit' where `district_id`=$d_id AND `is_delete`=1";
     $edit_query=mysqli_query($con,$edit);
-    echo "<tr><th scope='row'>".$dist_edit."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
+    echo "<tr><th scope='row'>".$dist_edit."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
     // echo $dis;
     }
     
@@ -146,13 +146,13 @@ if(isset($_POST['loc_edit']))
     while($row=mysqli_fetch_array($dis1_query))
     {
         $dist1=$row['district_name'];
-        $id_dis=$row['district_id'];
+        // $id_dis=$row['district_id'];
     }
     $lo="select * from tbl_location where location='$locat' and is_delete=1";
     $lo_query=mysqli_query($con,$lo);
     $r=mysqli_fetch_array($lo_query);
     $l_id=$r['location_id'];
-    $check_loca="Select * from tbl_location where location='$location_new'";
+    $check_loca="Select * from tbl_location where location='$location_new' and district_id=$new_dis";
     $loca_query=mysqli_query($con,$check_loca);
     if(mysqli_num_rows($loca_query)>0)
     {
@@ -160,10 +160,11 @@ if(isset($_POST['loc_edit']))
     }
     else
     {
-    $edit_loc="UPDATE `tbl_location` SET `location`= '$location_new',district_id=$id_dis where `location_id`=$l_id AND `is_delete`=1";
+    $edit_loc="UPDATE `tbl_location` SET `location`= '$location_new',district_id=$new_dis where `location_id`=$l_id AND `is_delete`=1";
     $edit_loc_query=mysqli_query($con,$edit_loc);
-    echo "<tr><th scope='row'>".$location_new."</th><th scope='row'>".$new_dis."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success loc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger loc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
+    echo "<tr><th scope='row'>".$location_new."</th><th scope='row'>".$dist1."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success loc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger loc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
     // echo $dis;
+    
     }
 
 
@@ -188,7 +189,7 @@ if(isset($_POST['ser']))
             // $s=ltrim($service);
             $new_serv="update tbl_services set sc_name='$new_sc',amount='$new_amt' where sc_id=$sc_id";
             $newsc_query=mysqli_query($con,$new_serv);
-            echo "<tr><th>".$new_sc."</th><th>".$new_amt."</th><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success sc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger sc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
+            echo "<tr><th>".$new_sc."</th><th>".$new_amt."</th><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success sc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger sc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
             
         }
 }

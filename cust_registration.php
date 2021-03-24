@@ -9,11 +9,6 @@ $sql_result=mysqli_query($con,$sql);
 
 $loc="SELECT * FROM tbl_location WHERE is_delete=1";
 $result_loc=mysqli_query($con,$loc);
-// if(!mysqli_select_db($con,"projectdb"))
-// {
-//     echo "db not selected";
-// }
-
 
 ?>
 
