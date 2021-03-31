@@ -1,9 +1,10 @@
 <?php
+$con=mysqli_connect("localhost","root","","projectdb");
 session_start();
 if($_SESSION['role_id']!="4"){
   header('location:login.php');
 }
-$con=mysqli_connect("localhost","root","","projectdb");
+
 
 // Total NUmber of Employee
 $v="select * from tbl_employee";
@@ -20,6 +21,7 @@ $spdetail="select * from tbl_serviceproviders where login_id=$logid";
 $sp_query=mysqli_query($con,$spdetail);
 $sp=mysqli_fetch_array($sp_query);
 $val=$sp['sp_email'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +82,7 @@ $val=$sp['sp_email'];
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                
                                 <div class="content">
-                                    <a class="js-acc-btn" href="#">Welcome <?php echo $_SESSION['uname'];  ?></a>
+                                    <a class="js-acc-btn" href="#">Welcome <?php                 ?></a>
                                 </div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
@@ -315,8 +317,8 @@ $val=$sp['sp_email'];
                                                         </label>
                                                     </td>
                                                     <td>name</td>
-                                                    <td>role</td>
-                                                    <td>type</td>
+                                                    <td>Specification</td>
+                                                    <td>Location</td>
                                                     <td></td>
                                                 </tr>
                                             </thead>
@@ -338,108 +340,6 @@ $val=$sp['sp_email'];
                                                     </td>
                                                     <td>
                                                         <span class="role admin">admin</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option selected="selected">Full Control</option>
-                                                                <option value="">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox" checked="checked">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role user">user</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option value="">Full Control</option>
-                                                                <option value="" selected="selected">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role user">user</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option value="">Full Control</option>
-                                                                <option value="" selected="selected">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role member">member</span>
                                                     </td>
                                                     <td>
                                                         <div class="rs-select2--trans rs-select2--sm">

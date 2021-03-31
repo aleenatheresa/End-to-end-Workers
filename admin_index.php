@@ -55,8 +55,9 @@ if(isset($_POST['insert'])){
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="admin_stylesheet.css">
+        <link href="css/theme.css" rel="stylesheet" media="all">
         <script src="js/sidebarfun.js"></script>
-
+        <script src="js/demo.js"></script>
         <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans"> -->
         <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -67,7 +68,7 @@ if(isset($_POST['insert'])){
         <!-- <script src='https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.js' type='text/javascript'></script> -->
         <!-- <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script> -->
   </head>
-  <!-- <style>
+  <style>
      #sucess-msg
     {
       margin-left: 50%;
@@ -76,8 +77,23 @@ if(isset($_POST['insert'])){
       width : 100%;
 
     }
+    
+.card .card-title {
+    position: relative;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+
+.card .card-subtitle {
+    font-weight: 300;
+    margin-bottom: 10px;
+    color: #a1aab2;
+	  margin-top: -0.375rem;
+}
+
   </style>
-    -->
+   
   <body>
 
 
@@ -97,25 +113,25 @@ if(isset($_POST['insert'])){
                 Pages
 		      </li>
 
-	        <li class=""><a class="nav-link text-left active"  href="#sp_table" onclick="adminhome()">Home
+	        <li class=""><a class="nav-link text-left active" href="#sp_table" onclick="adminhome()" id="home">Home
             <i class="flaticon-bar-chart-1"></i>
               </a>
           </li>
-          <li class="has-sub">
+      <li class="has-sub">
 		    <a class="nav-link collapsed text-left active" id="dropdown-toggle" href="#collapseExample2" role="button" data-toggle="collapse">
-        <i class="flaticon-user"></i>  Admin Location Control
+          Admin Location Control
          </a>
 
-        <div class="collapse menu mega-dropdown" id="collapseExample2">
+      <div class="collapse menu mega-dropdown" id="collapseExample2">
 
-        <div class="dropmenu" aria-labelledby="navbarDropdown">
+      <div class="dropmenu" aria-labelledby="navbarDropdown">
 		    <div class="container-fluid ">
 							<div class="row">
 								<div class="col-lg-12 px-2">
 									<div class="submenu-box">
 										<ul class="list-unstyled m-0" id="dropdown-menu">
-											<li><a href="#new-district" onclick="admindist()">Add District</a></li>
-											<li><a href="#new-location" onclick="adminloc()">Add Location</a></li>
+											<li><a href="#new-district" onclick="admindist()" id="district">Add District</a></li>
+											<li><a href="#new-location" onclick="adminloc()" id="location">Add Location</a></li>
 										</ul>
 									</div>
 								</div>
@@ -125,12 +141,32 @@ if(isset($_POST['insert'])){
 		     </div>
 		  </div>
 		  </li>
-          <li class="">
-            <a class="nav-link text-left active" href="#ascm" onclick="adminscmanagment()"> Category Management </a>
-            </li>
+      <li class="has-sub"> 
+		  <a class="nav-link collapsed text-left active" href="#collapseExample" role="button" data-toggle="collapse" >
+        <i class="flaticon-user"></i>   Service
+         </a>
+		  <div class="collapse menu mega-dropdown" id="collapseExample">
+        <div class="dropmenu" aria-labelledby="navbarDropdown">
+		<div class="container-fluid ">
+							<div class="row">
+								<div class="col-lg-12 px-2">
+									<div class="submenu-box"> 
+										<ul class="list-unstyled m-0">
+											<li><a href="#service_cate" onclick="service_cat()" id="sc">Service Category</a></li>
+											<li><a href="#services" onclick="serve()" id="serv">Services</a></li> 
+										</ul>
+									</div>
+								</div>
+								
+							</div>
+						</div>
+		     </div>
+		  </div>
+		  </li>
+         
 
           <li class="">
-            <a class="nav-link text-left active" href="#servicepro" onclick="serviceprovider()"> Service Provider</a>
+            <a class="nav-link text-left active" href="#servicepro" onclick="serviceprovider()" id="spdata"> Service Provider</a>
             </li>
 
             <li class="">
@@ -138,7 +174,7 @@ if(isset($_POST['insert'])){
                 </li>
                 <li class="">
             <a class="nav-link text-left active"  role="button"
-            aria-haspopup="true" aria-expanded="false" href="#customer" onclick="cust()">  Customers  </a>
+            aria-haspopup="true" aria-expanded="false" href="#customer" onclick="cust()">  Customers </a>
             </li>
 
 
@@ -165,7 +201,7 @@ if(isset($_POST['insert'])){
 
 
           <!-- Topbar Search -->
-          <!-- <form class="d-none d-sm-inline-block form-inline navbar-search">
+          <form class="d-none d-sm-inline-block form-inline navbar-search">
             <div class="input-group">
               <input type="text" class="form-control bg-light " placeholder="Search for..." aria-label="Search">
               <div class="input-group-append">
@@ -174,7 +210,7 @@ if(isset($_POST['insert'])){
                 </button>
               </div>
             </div>
-          </form> -->
+          </form>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -292,7 +328,7 @@ if(isset($_POST['insert'])){
 			Generate Report</a>
           </div> -->
     </div>
-    <span id="sucess-msg"></span>
+    <div class="notify"><span id="notifyType" class=""></span></div>
   <div class="col-md-12">
        <div class="row">
 									<div class="col-sm-4">
@@ -333,248 +369,402 @@ if(isset($_POST['insert'])){
 										</div>
 
 									</div>
+                  
 						  </div>
 
         </div>
 
         </div>
+        <div class="col-md-12 mt-4">
+                        <div class="card" id="servicepro" style="display:inline">
+                            <div class="card-body">
+                                <!-- title -->
+                                <!-- <div class="d-md-flex align-items-center">
+                                    <div>
+                                        <h4 class="card-title">Top booked services based on location</h4>
+                                        <h5 class="card-subtitle">Research part</h5>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="dl">
+                                            <select class="custom-select">
+                                                <option value="0" selected="">Monthly</option>
+                                                <option value="1">Daily</option>
+                                                <option value="2">Weekly</option>
+                                                <option value="3">Yearly</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <!-- title -->
+                                <h3 style="font-family: Times New Roman, Times, serif;">Service Providers Request</h3>
+                            </div>
+                            
+                            <!-- Service provider data -->
+                            <div class="table-responsive" >
+                            
+                                <table class="table v-middle">
+                                    <thead>
+                                        <tr class="bg-light">
+                                            <th class="border-top-0">Name</th>
+                                            <th class="border-top-0">License</th>
+                                            <th class="border-top-0">Service Category</th>
+                                            <!-- <th class="border-top-0">Service</th> -->
+                                            <th class="border-top-0">District</th>
+                                            <th class="border-top-0">Location</th>
+                                            <th class="border-top-0">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                      if($row_s>0)
+                                      {
+
+                                        $count_s="SELECT lid from tbl_login where role_id=4 and aproval_status=0 and is_delete=1";
+                                        $counts_query=mysqli_query($con,$count_s);
+                                        $row_s = mysqli_num_rows($counts_query);
+                                        while($data=mysqli_fetch_array($counts_query))
+                                    {
+
+                                        $lid=$data['lid'];
+                                        $_SESSION['lid']=$lid;
+                                        $sp_name="select * from tbl_serviceproviders where login_id=$lid";
+                                        $serv_query=mysqli_query($con,$sp_name);
+                                        while($dta=mysqli_fetch_array($serv_query))
+                                        {
+                                        $sp_names=$dta['sp_name'];
+                                        $lno=$dta['lisenceno'];
+                                        $d=$dta['sc_id'];
+                                        $dis=$dta['district_id'];
+                                        $loc=$dta['location_id'];
+                                      }
+                                    ?>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16"><?php echo $sp_names; ?></h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>  
+                                              <div class="d-flex align-items-center">
+                                                    <div class="">
+                                                        <label class="m-b-0 font-16"><?php echo $lno; ?></label>
+                                                    </div>
+                                                </div>
+                                              </td>
+                                            <td>
+                                            <div class="d-flex align-items-center">
+                                                    <div class="">
+                                                        <label class="m-b-0 font-16"> <?php
+                                            $sc="SELECT * FROM tbl_service_category where sc_id=$d";
+                                              $sc_query=mysqli_query($con,$sc);
+                                              $data=mysqli_fetch_array($sc_query);
+                                              $sc_name= $data['sc_name'];
+                                              echo $sc_name;
+                                            ?> </label>
+                                                    </div>
+                                                </div>
+                                             </td>
+                                            <td>
+                                            <div class="d-flex align-items-center">
+                                                    <div class="">
+                                                        <label class="m-b-0 font-16"> <?php
+                                                            $district="select * from tbl_district where district_id=$loc";
+                                                            $dis_query=mysqli_query($con,$district);
+                                                            $district_name=mysqli_fetch_array($dis_query);
+                                                            echo $district_name['district_name'];
+                                                            ?>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                             
+                                            </td>
+                                            <td>
+                                            <div class="d-flex align-items-center">
+                                                    <div class="">
+                                                        <label class="m-b-0 font-16">
+                                                        <?php
+                                                          $location="select * from tbl_location where location_id=$loc";
+                                                          $loc_query=mysqli_query($con,$location);
+                                                          $location_name=mysqli_fetch_array($loc_query);
+                                                          echo $location_name['location'];
+                                                        ?>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                           
+                                            </td>
+                                            <td>
+                                            <div class="d-flex align-items-center">
+                                                    <div class="">
+                                                        <label class="m-b-0 font-16">
+                                                        <h5 class="m-b-0"><button class="btn btn-sm btn-success btn-inline sc_approve" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Approve">Approve</button><a>
+                                                        <button class="btn btn-sm btn-danger btn-inline sc_reject" onclick=""  title="Delete">Reject</button></a><a>
+                                                        </h5>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                  }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Service provider data -->
+                        </div>
+                    </div>
         <!-- /.container-fluid -->
 
 
-		<!-- Service providers and emplyee details -->
+		<!-- Service providers and employee details -->
     </div>
   </div>
 
     <!-- /#wrapper -->
 
 
-    <!-- Admin District control -->
-    <span id="error-msg"></span>
+ <!-- Admin District control -->
+    <!-- <span id="error-msg"></span> -->
+
+  
  <div id="adminlocation">
-  <div id="new-district" style="display:none;">
-  <div class="container">
- 
-  <button class="btn btn-primary" data-target="#demo-lg-modalSMSAll" data-toggle="modal" id="add-new-dis">Add New</button>
+    <div id="new-district" style="display:none;">
+      <div class="container">
+        <button class="btn btn-primary" data-target="#demo-lg-modalSMSAll" data-toggle="modal" id="add-new-dis">Add New</button>
 
-  <div class="row">
-  <div class="col-12">
-      <table class="table table-bordered" id="add-district" style="width: 800px; margin-left :40px;">
-        <thead>
-          <tr>
-            <th scope="col">District</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        <?php
-                $sql="SELECT * FROM tbl_district where is_delete=1";
-                $sql_query=mysqli_query($con,$sql);
-                while($data=mysqli_fetch_array($sql_query))
-                {
-                  $dis_id=$data['district_id'];
-              ?>
-          <tr>
-            <th scope="row">
-             <?php
-
-               echo $data['district_name'];
-             ?>
-            </th>
-            <td style="border-top:0px;text-align:right;">
-                     <button class="btn btn-sm btn-success btn-inline edit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
-                        <button class="btn btn-sm btn-danger btn-inline del" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button>
-                       </td>
-          </tr>
-         <?php
-             }
-         ?>
-
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <table class="table table-bordered" id="new-dis" style="display:none;margin-left :250px;">
-            <thead>
-                    <tr>
-                        <th>District</th>
-                        <th>Actions</th>
-                    </tr>
-                    <tbody>
-                    <tr>
-                        <td><input type="text" class="form-control" required="" id="dis"></input></td>
-                        <!-- <td><input type="text" class="form-control" required="" id="c2"></input></td> -->
-                        <td style="border-top:0px;">
-                        <!-- <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="edit"><i class='fas fa-edit'></i></button><a>
-                        <button class="btn btn-sm btn-danger del" title="Delete" id="del"><i class="fa fa-times" aria-hidden="true"></i></button></a><a> -->
-                        <button class="btn btn-sm btn-primary" style="padding-top: 3px; padding" id="upload" title="Upload/View data"><i class="fa fa-upload"></i></button>
-                        </a></td>
-
-                    </tr>
+          <div class="row">
+            <div class="col-12">
+              <table class="table table-bordered" id="add-district" style="width: 800px; margin-left :40px;">
+                <thead>
+                  <tr>
+                    <th scope="col">District</th>
+                    <th scope="col">Actions</th>
+                  </tr>
                 </thead>
+                <tbody>
+                <?php
+                        $sql="SELECT * FROM tbl_district where is_delete=1";
+                        $sql_query=mysqli_query($con,$sql);
+                        while($data=mysqli_fetch_array($sql_query))
+                        {
+                          $dis_id=$data['district_id'];
+                      ?>
+                  <tr>
+                    <th scope="row">
+                    <?php
+
+                      echo $data['district_name'];
+                    ?>
+                    </th>
+                    <td style="border-top:0px;text-align:right;">
+                            <button class="btn btn-sm btn-success btn-inline edit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
+                                <button class="btn btn-sm btn-danger btn-inline del" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button>
+                              </td>
+                  </tr>
+                <?php
+                    }
+                ?>
+
+                </tbody>
+              </table>
+            </div>
+        </div>
+            <table class="table" id="new-dis" style="display:none;margin-left :250px;">
+                    <thead>
+                            <tr>
+                                <th>District</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tbody>
+                            <tr>
+                                <td><input type="text" class="form-control" required="" id="dis"></input></td>
+                                <!-- <td><input type="text" class="form-control" required="" id="c2"></input></td> -->
+                                <td style="border-top:0px;">
+                                <!-- <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="edit"><i class='fas fa-edit'></i></button><a>
+                                <button class="btn btn-sm btn-danger del" title="Delete" id="del"><i class="fa fa-times" aria-hidden="true"></i></button></a><a> -->
+                                <button class="btn btn-sm btn-primary" style="padding-top: 3px; padding" id="upload" title="Upload/View data"><i class="fa fa-upload"></i></button>
+                                </a></td>
+
+                            </tr>
+                        </thead>
             </table>
        </div>
     </div>
+  </div>               
 <br>
             <!-- Location Management -->
-<div id="new-location" style="display: none;">
-<button class="btn btn-primary" data-target="#demo-lg-modalSMSAll" data-toggle="modal" id="add-new-loc" style="margin-left:30px;">Add New</button>
+      <div id="new-location" style="display: none;">
+       
+            <div class="row m-t-30">
+                            <div class="col-md-12">
+                               <button class="btn btn-primary" data-target="#demo-lg-modalSMSAll" data-toggle="modal" id="add-new-loc" style="margin-left:30px;">Add New</button>
+                                <!-- DATA TABLE-->
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3" id="add-location">
+                                        <thead>
+                                            <tr>
+                                                <th>Location</th>
+                                                <th>District</th>
+                                                <th>Action</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                            $sql="SELECT * FROM tbl_location where is_delete=1";
+                                            $sql_query=mysqli_query($con,$sql);
+                                            while($data=mysqli_fetch_array($sql_query))
+                                            {
+                                              $dis_id=$data['district_id'];
+
+                                          ?>
+                                            <tr>
+                                                <td> <?php echo $data['location']; ?></td>
+                                                <td> <?php
+                                                  $district="SELECT * FROM tbl_district where district_id=$dis_id and is_delete=1";
+                                                  $dis_query=mysqli_query($con,$district);
+                                                  while($row=mysqli_fetch_array($dis_query))
+                                                  {
+                                                    echo $row['district_name'];
+                                                  }
+                                                ?></td>
+                                                <td>
+                                                <button class="btn btn-sm btn-success btn-inline loc_edit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
+                                                <button class="btn btn-sm btn-danger btn-inline loc_del" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
+                                                </a>
+                                                </td>
+                                                
+                                            </tr>
+                                            <?php
+                                                }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE-->
+                            </div>
+                        </div>
+                                                  
+
+ 
   <!-- </div> -->
-  <div class="row">
-  <div class="col-12">
-      <table class="table table-bordered" id="add-location" style="width: 800px; margin-left :40px;">
-        <thead>
-          <tr>
-            <th scope="col">Location</th>
-            <th scope="col">District</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-        <?php
-                $sql="SELECT * FROM tbl_location where is_delete=1";
-                $sql_query=mysqli_query($con,$sql);
-                while($data=mysqli_fetch_array($sql_query))
-                {
-                  $dis_id=$data['district_id'];
-
-              ?>
-          <tr>
-            <th scope="row">
-             <?php
-               echo $data['location'];
-
-             ?>
-            </th>
-           <th>
-             <?php
-               $district="SELECT * FROM tbl_district where district_id=$dis_id and is_delete=1";
-               $dis_query=mysqli_query($con,$district);
-               while($row=mysqli_fetch_array($dis_query))
-               {
-                 echo $row['district_name'];
-               }
-             ?>
-           </th>
-            <td style="border-top:0px;text-align:right;">
-              <button class="btn btn-sm btn-success btn-inline loc_edit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
-              <button class="btn btn-sm btn-danger btn-inline loc_del" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
-               </a>
-              </td>
-          </tr>
-         <?php
-             }
-         ?>
-
-        </tbody>
-      </table>
+ 
+         
 
   <!-- add new location  text field-->
-  <table class="table table-bordered" id="new-loc" style="display:none;margin-left :250px;">
-            <thead>
-                    <tr>
-                        <th>Location</th>
-                        <th>District</th>
-                        <th>Actions</th>
-                    </tr>
-                    <tbody>
-                    <tr>
-                    <th><input type="text" class="form-control" required="" id="loc-name"></input></th>
-                    <th><div class="dropdown">
-                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="dist" id="dis-name" required="">
-                    <span class="caret-dropdown-menu"></span>
-                    <option value="">-Select District-</option>
-                        <?php
+             <table class="table" id="new-loc" style="display:none;margin-left :250px;">
+                          <thead>
+                                  <tr>
+                                      <th>Location</th>
+                                      <th>District</th>
+                                      <th>Actions</th>
+                                  </tr>
+                                  <tbody>
+                                  <tr>
+                                  <th><input type="text" class="form-control" required="" id="loc-name"></input></th>
+                                  <th><div class="dropdown">
+                                  <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="dist" id="dis-name" required="">
+                                  <span class="caret-dropdown-menu"></span>
+                                  <option value="">-Select District-</option>
+                                      <?php
 
-                            $sql="SELECT * FROM tbl_district WHERE is_delete=1";
-                            $sql_result=mysqli_query($con,$sql);
-                           while($data_dis=mysqli_fetch_array($sql_result))
-                           {
-                               echo "<option value='".$data_dis['district_id']."'>" .$data_dis['district_name'] ."</option>";
-                           }
+                                          $sql="SELECT * FROM tbl_district WHERE is_delete=1";
+                                          $sql_result=mysqli_query($con,$sql);
+                                        while($data_dis=mysqli_fetch_array($sql_result))
+                                        {
+                                            echo "<option value='".$data_dis['district_id']."'>" .$data_dis['district_name'] ."</option>";
+                                        }
 
-                            ?>
-                        </th>
+                                          ?>
+                                      </th>
 
-                        <td style="border-top:0px;text-align:right">
-                        <!-- <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="edit-data"><i class='fas fa-edit'></i></button><a>
-                        <button class="btn btn-sm btn-danger loc_del" title="Delete" id="del-data"><i class="fa fa-times" aria-hidden="true"></i></button></a><a> -->
-                        <button class="btn btn-sm btn-primary" style="padding-top: 3px; padding" id="upload-data" title="Upload/View data"><i class="fa fa-upload"></i></button>
-                        </a></td>
+                                      <td style="border-top:0px;text-align:right">
+                                      <!-- <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="edit-data"><i class='fas fa-edit'></i></button><a>
+                                      <button class="btn btn-sm btn-danger loc_del" title="Delete" id="del-data"><i class="fa fa-times" aria-hidden="true"></i></button></a><a> -->
+                                      <button class="btn btn-sm btn-primary" style="padding-top: 3px; padding" id="upload-data" title="Upload/View data"><i class="fa fa-upload"></i></button>
+                                      </a></td>
 
-                    </tr>
-                </thead>
+                                  </tr>
+                              </thead>
             </table>
-   </div>
-</div>
-</div>
-
+      </div>
+    <!-- </div>
+  </div>
+</div> -->
 <!-- #admin location control -->
 
 <!--  admin service category management-->
-  <div id="admin_sc_management">
-  <div class="container col-sm-12" style="display: none;" id="ascm">
+ 
+    <div id="service_cate" style="display:none;">
+      <div class="container col-sm-12" >
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <!-- <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div> -->
+                        <div>
+                            <button type="button" class="btn btn-info add-new"  id="add-new"><i class="fa fa-plus"></i> Add New</button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered" id="pre-sc">
+                    <thead>
+                        <tr>
+                            <!-- <th>slno</th> -->
+                            <th>Service Category</th> 
+                            <th>Amount/Day</th>
+                            <th>Image</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                                $services="SELECT * FROM tbl_service_category WHERE is_delete='1'";
+                                $ser_query=mysqli_query($con,$services);
+                                while($row=mysqli_fetch_array($ser_query))
+                                {?>
+                        <tr>
+                            <!-- <td>John Doe</td> -->
+                            <th>
+                              <?php
+                                  echo $row['sc_name'];
+                                  $amt=$row['amount'];
+                                  $image=$row['img'];
 
-      <div class="table-responsive">
-          <div class="table-wrapper">
-              <div class="table-title">
-                  <div class="row">
-                      <!-- <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div> -->
-                      <div>
-                          <button type="button" class="btn btn-info add-new"  id="add-new"><i class="fa fa-plus"></i> Add New</button>
-                      </div>
-                  </div>
+                              ?>
+                            </th>
+                            <th>
+                              <?php
+                                echo $amt;
+                              ?>
+                            </th>
+                            <th>
+                              <img src="images/<?php echo $image;?>" width="60px" height="50px"/>
+
+                            </th>
+                            <td style="border-top:0px;text-align:center;">
+                            <button class="btn btn-sm btn-success btn-inline sc_edit" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
+                            <button class="btn btn-sm btn-danger btn-inline sc_del" onclick=""  title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
+                            <!-- <button class="btn btn-sm btn-primary btn-inline" style="padding-top: 3px;" onclick="" title="Upload/View data"><i class="fa fa-upload"></i></button> -->
+                            </a></td>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
               </div>
-              <table class="table table-bordered" id="pre-sc">
-                  <thead>
-                      <tr>
-                          <!-- <th>slno</th> -->
-                          <th>Service Category</th>
-                          <th>Amount/Day</th>
-                          <th>Image</th>
-                          <th>Actions</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                              $services="SELECT * FROM tbl_services WHERE is_delete='1'";
-                              $ser_query=mysqli_query($con,$services);
-                              while($row=mysqli_fetch_array($ser_query))
-                              {?>
-                      <tr>
-                          <!-- <td>John Doe</td> -->
-                          <th>
-                            <?php
-                                echo $row['sc_name'];
-                                $amt=$row['amount'];
-                                $image=$row['img'];
+        </div>   
+      </div> 
+    </div>
+       <!-- Add new category -->
 
-                            ?>
-                          </th>
-                          <th>
-                            <?php
-                              echo $amt;
-                            ?>
-                          </th>
-                          <th>
-                            <img src="images/<?php echo $image;?>" width="60px" height="50px"/>
-
-                          </th>
-                          <td style="border-top:0px;text-align:center;">
-                          <button class="btn btn-sm btn-success btn-inline sc_edit" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
-                          <button class="btn btn-sm btn-danger btn-inline sc_del" onclick=""  title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
-                          <!-- <button class="btn btn-sm btn-primary btn-inline" style="padding-top: 3px;" onclick="" title="Upload/View data"><i class="fa fa-upload"></i></button> -->
-                          </a></td>
-                      </tr>
-                      <?php
-                          }
-                      ?>
-                  </tbody>
-              </table>
-
-          </div>
-<!-- Add new category -->
-
-  <table class="table table-bordered" id="new-sc" style="display : none;margin-left :50px;">
+   <table class="table" id="new-sc" style="display : none;margin-left :50px;">
               <thead>
                       <tr>
                           <th>Service Category</th>
@@ -598,71 +788,43 @@ if(isset($_POST['insert'])){
                   </thead>
               </table>
 
-              </div>
-        </div>
-  </div>
-
+    <!-- services inside each service category -->
+       <div id="services" style="display:none;">
+             <div class="row m-t-30">
+                            <div class="col-md-12">
+                              <div>
+                                <button type="button" class="btn btn-info add-new"  id=""><i class="fa fa-plus"></i> Add New</button>
+                              </div>
+                                <!-- DATA TABLE-->
+                                <div class="table-responsive m-b-40">
+                                    <table class="table table-borderless table-data3">
+                                        <thead>
+                                            <tr>
+                                                <th>date</th>
+                                                <th>type</th>
+                                                <th>description</th>
+                                                <th>status</th>
+                                                <th>price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>2018-09-29 05:57</td>
+                                                <td>Mobile</td>
+                                                <td>iPhone X 64Gb Grey</td>
+                                                <td class="process">Processed</td>
+                                                <td>$999.00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- END DATA TABLE-->
+                            </div>
+                      </div>
+                </div>
 <!-- Admin sc management -->
 
-<!-- SP Details -->
 
-  <div id="servicepro" style="display:inline">
-  <table class="table table-bordered">
-  <thead>
-    <tr>
-    <th>Name</th>
-    <th>Service Category</th>
-    <th>Lisence Number</th>
-    <th>Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <?php
-    if($row_s>0)
-    {
-
-      $count_s="SELECT lid from tbl_login where role_id=4 and aproval_status=0 and is_delete=1";
-      $counts_query=mysqli_query($con,$count_s);
-      $row_s = mysqli_num_rows($counts_query);
-      while($data=mysqli_fetch_array($counts_query))
-  {
-
-      $lid=$data['lid'];
-      $_SESSION['lid']=$lid;
-      $sp_name="select * from tbl_serviceproviders where login_id=$lid";
-      $serv_query=mysqli_query($con,$sp_name);
-      while($dta=mysqli_fetch_array($serv_query))
-      {
-      $sp_names=$dta['sp_name'];
-      $lno=$dta['lisenceno'];
-      $d=$dta['sc_id'];
-    }
-  ?>
-  <tr>
-  <th><?php echo $sp_names; ?></th>
-  <th><?php
-            $sc="SELECT * FROM tbl_services where sc_id=$d";
-              $sc_query=mysqli_query($con,$sc);
-              $data=mysqli_fetch_array($sc_query);
-              $sc_name= $data['sc_name'];
-              echo $sc_name;
-
-
-            ?> </th>
-  <th><?php echo $lno; ?></th>
-  <td>
-    <button class="btn btn-sm btn-success btn-inline sc_approve" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Approve">Approve</button><a>
-    <button class="btn btn-sm btn-danger btn-inline sc_reject" onclick=""  title="Delete">Reject</button></a><a>
-  </td>
-  </tr>
-  <?php
-    }
-  }
-  ?>
-  </tbody>
-  </table>
-  </div>
-<!-- SP details -->
 
 
 <!-- Employee Details -->
@@ -722,12 +884,13 @@ if(isset($_POST['insert'])){
 <!-- Employee Details -->
 
 <!-- customer Details -->
-    <div id="customer" style="display:none;">
+  <div id="customer" style="display:none;">
+    <h2 style="font-family: Times New Roman, Times, serif;">Booking Details</h2>
       <table class="table table-bordered">
       <thead>
       <tr>
       <th>Customer Name</th>
-      <th>Booking ID</th>
+      <th>Service</th>
       <th>Booking Date</th>
       
       </tr>
@@ -741,14 +904,19 @@ if(isset($_POST['insert'])){
           $custm_id=$c['customer_id'];
           $bk=$c['booking_id'];
           $bk_date=$c['booked_on'];
+          $ser_cat=$c['service_id'];
           $cus_id="select * from tbl_customer where customer_id=$custm_id";
           $cus_query=mysqli_query($con,$cus_id);
           $cu=mysqli_fetch_array($cus_query);
           $cu_name=$cu['customer_name'];
+          $service="select * from tbl_services where service_id=$ser_cat";
+          $ser_query=mysqli_query($con,$service);
+          $service_category=mysqli_fetch_array($ser_query);
+          $service_name=$service_category['service_name'];
         ?>
       <tr>
       <th><?php echo $cu_name; ?></th>
-      <th><?php echo $bk; ?></th>
+      <th><?php echo $service_name; ?></th>
       <th><?php echo $bk_date; ?></th>
       </tr>
       <?php
@@ -762,11 +930,6 @@ if(isset($_POST['insert'])){
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery-1.11.0.min.js"></script>
-
-    <!-- <script src="js/wow.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -803,7 +966,7 @@ $(document).ready(function(){
 
                   },
                 success: function(result){
-                  // console.log('RESULT : ' + this);
+                  console.log('RESULT : ' + this);
                   $('#pre-sc').append(result);
                   $("#c1").val(" ");
                   $("#c2").val(" ");
@@ -820,7 +983,7 @@ $(document).ready(function(){
   $("#add-new-loc").on('click',function(){
     $("#new-loc").css("display","inline");
     $("#upload-data").on('click',function(){
-    $("#add-location").append("<tr><th scope='row'>"+$("#loc-name").val()+"</th><th scope='row' id='dname'>"+$("#dis-name").val()+"</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
+    $("#add-location").append("<tr><td scope='row'>"+$("#loc-name").val()+"</td><td scope='row' id='dname'>"+$("#dis-name").val()+"</td><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
     var loc = $("#loc-name").val();
     var dis=$("#dis-name").val();
     $.ajax({
@@ -850,8 +1013,16 @@ $(document).ready(function(){
                 data :{
                   dis :district},
                 success: function(result){
-                  $("#add-district").append(result);
-                  $("#dis").val(" ");
+                  if(result==1)
+                  {
+                      alert("District already exist");
+                  }
+                  else
+                  {
+                    $("#add-district").append(result)
+                    $("#dis").val(" ");
+                  }
+                 
                   // $("#c2").reset();
                 }
               });
@@ -875,7 +1046,7 @@ $(document).on('click','.del',function()
     data :{
     diste :diste},
     success: function(result){
-      $("#add-district").append(result);
+      // $("#add-district").append(result);
                   // $("#dis").val(" ");
     }
   });
@@ -936,7 +1107,7 @@ $(document).on('click','.loc_del',function()
 $(document).on('click','.loc_edit',function()
 {
   $("#new-loc").css("display","inline");
-  var loc= $(this).closest('tr').find('th:nth-child(1)').text();
+  var loc= $(this).closest('tr').find('td:ntd-child(1)').text();
   var loca=loc.trim();
   $("#loc-name").val(loca);
   $(this).closest("tr").remove();
@@ -963,7 +1134,7 @@ $(document).on('click','.loc_edit',function()
 // delete sc
 $(document).on('click','.sc_del',function()
 {
-  var sc= $(this).closest('tr').find('th:nth-child(1)').text();
+  var sc= $(this).closest('tr').find('td:ntd-child(1)').text();
   var ser_cat=sc.trimStart();
   $(this).closest("tr").remove();
 
@@ -1064,8 +1235,39 @@ $(document).on('click','.sc_reject',function()
 
 $('#bar').click(function(){
 	$(this).toggleClass('open');
-  $('#page-content-wrapper ,#sidebar-wrapper,#adminlocation,#admin_sc_management,#servicepro').toggleClass('toggled');
+  $('#page-content-wrapper ,#sidebar-wrapper,#adminlocation,#admin_sc_management,#service_management,#servicepro',).toggleClass('toggled');
 
+  $('#district').click(function()
+{
+  $('#new-district').show();
+  $('#new-location,#service_cate,#services,#servicepro').hide();
+
+})
+$('#location').click(function()
+{
+  $('#new-location').show();
+  $('#new-district,#service_cate,#services,#servicepro').hide();
+})
+$('#sc').click(function()
+{
+  $('#service_cate').show();
+  $('#new-location,#new-district,#services,#servicepro').hide();
+})
+$('#serv').click(function()
+{
+  $('#services').show();
+  $('#new-location,#service_cate,#new-district,#servicepro').hide();
+})
+$('home').click(function()
+{
+  $('#servicepro').show();
+  $('#new-location,#service_cate,#new-district,#services').hide();
+})
+$('#spdata').click(function()
+{
+  $('#servicepro').show();
+  $('#new-location,#service_cate,#new-district,#services').hide();
+})
 });
 
 

@@ -1,10 +1,29 @@
 <?php
-session_start();
-// if($_SESSION['role_id']!="4"){
-//   header('location:login.php');
-// }
+
 $con=mysqli_connect("localhost","root","","projectdb");
 
+session_start();
+if($_SESSION['role_id']!="4"){
+  header('location:login.php');
+}
+
+
+// Total NUmber of Employee
+$v="select * from tbl_employee";
+$v_query=mysqli_query($con,$v);
+$row_sp = mysqli_num_rows($v_query);
+
+// Details of Service Provider
+$user=$_SESSION['uname'];
+$login_details="select lid from tbl_login where uname='$user'";
+$log_query=mysqli_query($con,$login_details);
+$log=mysqli_fetch_array($log_query);
+$logid=$log['lid'];
+$spdetail="select * from tbl_serviceproviders where login_id=$logid";
+$sp_query=mysqli_query($con,$spdetail);
+$sp=mysqli_fetch_array($sp_query);
+$val=$sp['sp_email'];
+$sc=$sp['sc_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,7 +58,7 @@ $con=mysqli_connect("localhost","root","","projectdb");
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
     <link href="css/font-face.css" rel="stylesheet" media="all">
     <link href="css/theme.css" rel="stylesheet" media="all">
-    
+    <link href="servicepro" rel="stylesheet" media="all">
     
 
     <!-- Main CSS-->
@@ -59,43 +78,22 @@ $con=mysqli_connect("localhost","root","","projectdb");
                        <h1>End To End Workers</h1>
                     </div>
                     <div class="header__tool">
-                        <!-- <div class="header-button-item has-noti js-item-menu" style="padding-right:50px;">
-                            <i class="zmdi zmdi-notifications"></i>
-                            <div class="notifi-dropdown js-dropdown">
-                                <div class="notifi__title">
-                                    <p>You have 3 Notifications</p>
-                                </div>
-                                <div class="notifi__item">
-                                    <div class="bg-c1 img-cir img-40">
-                                        <i class="zmdi zmdi-email-open"></i>
-                                    </div>
-                                    <div class="content">
-                                        <p>You got a email notification</p>
-                                        <span class="date">April 12, 2018 06:50</span>
-                                    </div>
-                               </div>
-                                
-            
-                                <div class="notifi__footer">
-                                    <a href="#">All notifications</a>
-                                </div>
-                            </div>
-                        </div> -->
+                        
                         
                         <div class="account-wrap">
                             <div class="account-item account-item--style2 clearfix js-item-menu">
                                
                                 <div class="content">
-                                    <a class="js-acc-btn" href="#">jhjhj</a>
+                                    <a class="js-acc-btn" href="#">Welcome <?php                 ?></a>
                                 </div>
                                 <div class="account-dropdown js-dropdown">
                                     <div class="info clearfix">
                                        
                                         <div class="content">
                                             <h5 class="name">
-                                                <a href="#">john doe</a>
+                                                <a href="#"><?php echo $_SESSION['uname'];  ?></a>
                                             </h5>
-                                            <span class="email">johndoe@example.com</span>
+                                            <span class="email"><?php echo $val;?></span>
                                         </div>
                                     </div>
                                     <div class="account-dropdown__body">
@@ -148,7 +146,7 @@ $con=mysqli_connect("localhost","root","","projectdb");
                         <div class="welcome2-inner m-t-60">
                             <div class="welcome2-greeting">
                                 <h1 class="title-6">Hi
-                                    <span>John</span>, Welcome back</h1>
+                                    <span><?php echo $_SESSION['uname'];  ?></span>, Welcome back</h1>
                                
                             </div>
                             <form class="form-header form-header2" action="" method="post">
@@ -169,7 +167,7 @@ $con=mysqli_connect("localhost","root","","projectdb");
             <section class="alert-wrap p-t-70 p-b-70">
                 <div class="container">
                     <!-- ALERT-->
-                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:inline">
+                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none">
                         <i class="zmdi zmdi-check-circle"></i>
                         <span class="content">You successfully read this important alert message.</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -210,7 +208,7 @@ $con=mysqli_connect("localhost","root","","projectdb");
                                             </a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                                 <li>
-                                                    <a href="cust_bookdetails.php">Booking Details</a>
+                                                    <a href="#">Booking Details</a>
                                                 </li>
                                                
                                               
@@ -225,10 +223,10 @@ $con=mysqli_connect("localhost","root","","projectdb");
                                             </a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                                 <li>
-                                                    <a href="empdata.php">Employee Details</a>
+                                                    <a href="button.html">Employess Available</a>
                                                 </li>
                                                 <li>
-                                                    <a href="empavailable.php">Employee Available</a>
+                                                    <a href="badge.html">Employess Charge</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -289,187 +287,89 @@ $con=mysqli_connect("localhost","root","","projectdb");
                                     </div>
                                 </div>
                                 <!-- Employee Notification -->
-                                <!-- <div class="user-data m-b-30">
+                                <div class="user-data m-b-30">
                                     <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-account-calendar"></i>user data</h3>
+                                        <i class="zmdi zmdi-account-calendar"></i>Booking Request</h3>
                                     <div class="filters m-b-45">
-                                        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                                            <select class="js-select2" name="property">
-                                                <option selected="selected">All Properties</option>
-                                                <option value="">Products</option>
-                                                <option value="">Services</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                        <div class="rs-select2--dark rs-select2--sm rs-select2--border">
-                                            <select class="js-select2 au-select-dark" name="time">
-                                                <option selected="selected">All Time</option>
-                                                <option value="">By Month</option>
-                                                <option value="">By Day</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
+                                       
                                     </div>
                                     <div class="table-responsive table-data">
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
+                                                    
                                                     </td>
                                                     <td>name</td>
-                                                    <td>role</td>
-                                                    <td>type</td>
-                                                    <td></td>
+                                                    <td>Specification</td>
+                                                    <td>Location</td>
+                                                    <td>Action</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                                                $bkname="select * from tbl_booking where sc_id=$sc";
+                                                                $bkquery=mysqli_query($con,$bkname);
+                                                                while($bkdata=mysqli_fetch_array($bkquery))
+                                                                {
+                                                                    $ser_cat=$bkdata['sc_id'];
+                                                                    $custid=$bkdata['customer_id'];
+                                                                    $cust="select * from tbl_customer where customer_id=$custid";
+                                                                    $custquery=mysqli_query($con,$cust);
+                                                                    $custn=mysqli_fetch_array($custquery);
+                                                                    
+
+                                                              ?>
                                                 <tr>
                                                     <td>
-                                                        <label class="au-checkbox">
+                                                        <!-- <label class="au-checkbox">
                                                             <input type="checkbox">
                                                             <span class="au-checkmark"></span>
-                                                        </label>
+                                                        </label> -->
                                                     </td>
                                                     <td>
                                                         <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
+                                                            <h6>
+                                                            <span><?php echo $custn['customer_name']; ?></span>
+                                                            </h6>
                                                             <span>
-                                                                <a href="#">johndoe@gmail.com</a>
+                                                                <a href="#"><?php echo $custn['customer_email'];  ?></a>
                                                             </span>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <span class="role admin">admin</span>
+                                                        <span><?php 
+                                                            $ser="select * from tbl_services where sc_id=$ser_cat";
+                                                            $serquery=mysqli_query($con,$ser);
+                                                            $serdata=mysqli_fetch_array($serquery);
+                                                            echo $serdata['sc_name'];
+                                                        ?></span>
                                                     </td>
                                                     <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option selected="selected">Full Control</option>
-                                                                <option value="">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
+                                                        <span><?php  
+                                                            $loc=$custn['location_id'];
+                                                            $locname="select * from tbl_location where location_id=$loc";
+                                                            $locquery=mysqli_query($con,$locname);
+                                                            $locdta=mysqli_fetch_array($locquery);
+                                                            echo $locdta['location'];
+                                                        ?></span>
                                                     </td>
                                                     <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
+                                                    <button type="button" class="btn btn-danger">Assign Staff</button>
                                                     </td>
+                                                   
                                                 </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox" checked="checked">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role user">user</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option value="">Full Control</option>
-                                                                <option value="" selected="selected">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role user">user</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option value="">Full Control</option>
-                                                                <option value="" selected="selected">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
-                                                            <span>
-                                                                <a href="#">johndoe@gmail.com</a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="role member">member</span>
-                                                    </td>
-                                                    <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option selected="selected">Full Control</option>
-                                                                <option value="">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
+                                                <?php
+                                            }
+                                                               
+                                            ?>
                                             </tbody>
                                         </table>
                                     </div>
                                     <div class="user-data__footer">
                                         <button class="au-btn au-btn-load">load more</button>
                                     </div>
-                                </div> -->
+                                </div>
                                 <!-- End Employee Notification -->
                                 <div class="row">
                                     <div class="col-md-12">
@@ -478,30 +378,21 @@ $con=mysqli_connect("localhost","root","","projectdb");
                                             <table class="table table-borderless table-data3">
                                                 <thead>
                                                     <tr>
-                                                        <th>Date</th>
+                                                        <th>date</th>
                                                         <th>Employee</th>
-                                                        <th>Location</th>
-                                                        
+                                                        <th>Description</th>
+                                                       
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <td>
-                                                            <?php
+                                                        <td>2018-09-29 05:57</td>
+                                                        <td>Mobile</td>
                                                         
-                                                            ?>
-                                                        </td>
-                                                        <td>
-                                                            <?php
-
-                                                            ?>
-                                                        </td>                                                        
-                                                        <td class="process">
-                                                            <?php
-
-                                                            ?>
-                                                        </td>                                                        
-                                                    </tr>                                                   
+                                                        <td class="process">Processed</td>
+                                                        
+                                                    </tr>
+                                                   
                                                 </tbody>
                                             </table>
                                         </div>
