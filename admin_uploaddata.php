@@ -7,12 +7,9 @@ session_start();
 $con=mysqli_connect("localhost","root","","projectdb");
 if(isset($_POST['service_catagory']))
 {
-
 $service=$_POST['service_catagory'];
 $amount=$_POST['amount'];
 $img=$_POST['file'];
-
-
 $check_sc="select * from tbl_service_category where sc_name='$service'";
 $sc_check_query=mysqli_query($con,$check_sc)or die("$check_sc");
 if (mysqli_num_rows($sc_check_query) > 0) 
@@ -36,14 +33,7 @@ if(isset($_POST['location']))
 {
     $location=$_POST['location'];
     $district=$_POST['district'];
-    $dist="SELECT * FROM tbl_district where district_id=$district and is_delete=1";
-    $dis_query=mysqli_query($con,$dist);
-    while($row=mysqli_fetch_array($dis_query))
-    {
-        $dis=$row['district_name'];
-        $id=$row['district_id'];
-    }
-    $check_loc="select * from tbl_location where location='$location' and district_id='$id'";
+    $check_loc="select * from tbl_location where location='$location' and district_id='$district' and is_delete=1";
     $check_query=mysqli_query($con,$check_loc);
     if (mysqli_num_rows($check_query) > 0) 
     {
@@ -98,14 +88,18 @@ if(isset($_POST['diste']))
 if(isset($_POST['loce']))
 {
     $loc=$_POST['loce'];
-    $del_loc="update tbl_location set is_delete=0 where location ='$loc'";
+    $loc_id="select * from tbl_location where location='$loc'";
+    $loc_query=mysqli_query($con,$loc_id);
+    $loc_data=mysqli_fetch_array($loc_query);
+    $id_location=$loc_data['location_id'];
+    $del_loc="update tbl_location set is_delete=0 where location_id ='$id_location'";
     $del_query=mysqli_query($con,$del_loc);
     echo " ";
 }
 if(isset($_POST['ser_cat']))
 {
     $ser=$_POST['ser_cat'];
-    $del_sc="update tbl_services set is_delete=0 where sc_name ='$ser'";
+    $del_sc="update tbl_service_category set is_delete=0 where sc_name ='$ser'";
     $sc_query=mysqli_query($con,$del_sc);
     echo " ";
 
@@ -174,24 +168,25 @@ if(isset($_POST['ser']))
    $new_sc= $_POST['ser'];
    $new_amt=$_POST['new_amt'];
    $old_sc=$_POST['old_sc'];
+   $imgage_new=$_POST['image'];
    $pre_sc="select * from tbl_service_category where sc_name='$old_sc' and is_delete=1";
    $pre_query=mysqli_query($con,$pre_sc);
    $r=mysqli_fetch_array($pre_query);
    $sc_id=$r['sc_id'];
-   $check_service="select * from tbl_service_category where sc_name='$new_sc'";
-    $service_check_query=mysqli_query($con,$check_service);
-    if (mysqli_num_rows($service_check_query) > 0) 
-        {
-        echo "Service Already Exist";	
-        }
-        else
-        {
+//    $check_service="select * from tbl_service_category where sc_name='$new_sc'";
+//     $service_check_query=mysqli_query($con,$check_service);
+//     if (mysqli_num_rows($service_check_query) > 0) 
+//         {
+//         echo "Service Already Exist";	
+//         }
+//         else
+//         {
             // $s=ltrim($service);
-            $new_serv="update tbl_service_category set sc_name='$new_sc',amount='$new_amt' where sc_id=$sc_id";
+            $new_serv="update tbl_service_category set sc_name='$new_sc',amount='$new_amt',img='$imgage_new' where sc_id=$sc_id";
             $newsc_query=mysqli_query($con,$new_serv);
             echo "<tr><th>".$new_sc."</th><th>".$new_amt."</th><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success sc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger sc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
             
-        }
+        // }
 }
 
 // Aprove service Providers
@@ -214,4 +209,29 @@ if(isset($_POST['reject']))
     $rej_query=mysqli_query($con,"update tbl_login set is_delete=0 where role_id=4 and lid=$log");
     echo "Delete one person";
     
+}
+
+// Service Management
+
+// add services
+if(isset($_POST['service_id']))
+{
+    $sid=$_POST['service_id'];
+    $sname=$_POST['service_name'];
+    $samt=$_POST['service_amt'];
+    $scat=$_POST['service_catogery'];
+    $simg=$_POST['service_image'];
+    // $scat=""
+    $ser="select * from tbl_services where sc_id=$sid and is_delete=1";
+    $serv_query=mysqli_connect($con,$ser);
+    if(mysqli_num_rows($serv_query)>0)
+    {
+        echo "already exist";
+    }
+    else
+    {
+        $addser="INSERT INTO `tbl_services`(`service_name`, `service_amt`,`service_img`, `sc_id`, `is_delete`) VALUES ('$sname','$samt','$simg','$sid',1)";
+        $addser_query=mysqli_query($con,$addser);
+        echo "inserted";
+    }
 }
