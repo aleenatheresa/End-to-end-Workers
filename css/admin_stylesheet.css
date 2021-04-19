@@ -794,12 +794,10 @@ color: #a1aab2;
 {
     width: 100%;
 }
-#add-service
+#add-service table
 {
-    margin-left: 50px;
+    margin-left: 20px;
 }
-
-
 @media all and (max-width:500px)
 {
     #services table,button

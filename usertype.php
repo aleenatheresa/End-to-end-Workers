@@ -36,7 +36,7 @@ if($status==1)
 		}
 		elseif($rows['role_id']=='3')
 		{
-			header("location:#");
+			header("location:empindex.php");
 		}
 		elseif($rows['role_id']=='4')
 		{

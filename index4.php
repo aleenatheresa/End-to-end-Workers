@@ -24,6 +24,7 @@ $sp_query=mysqli_query($con,$spdetail);
 $sp=mysqli_fetch_array($sp_query);
 $val=$sp['sp_email'];
 $sc=$sp['sc_id'];
+$_SESSION['sc']=$sc;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -167,7 +168,7 @@ $sc=$sp['sc_id'];
             <section class="alert-wrap p-t-70 p-b-70">
                 <div class="container">
                     <!-- ALERT-->
-                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none">
+                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:inline" id="msg">
                         <i class="zmdi zmdi-check-circle"></i>
                         <span class="content">You successfully read this important alert message.</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -188,13 +189,13 @@ $sc=$sp['sc_id'];
                                 <nav class="navbar-sidebar2 navbar-sidebar3">
                                     <ul class="list-unstyled navbar__list">
                                       <h4>Dashboard</h4>
-                                        <li>
-                                            <a href="inbox.html">
+                                        <!-- <li>
+                                            <a href="#">
                                                 <i class="fas fa-chart-bar"></i>Inbox</a>
                                             <span class="inbox-num"><?php
                                             
                                             ?></span>
-                                        </li>
+                                        </li> -->
                                         <!-- <li>
                                             <a href="#">
                                                 <i class="fas fa-shopping-basket"></i>Employess</a>
@@ -230,11 +231,6 @@ $sc=$sp['sc_id'];
                                                 </li>
                                             </ul>
                                         </li>
-                                         <li>
-                                            <a href="task.php">
-                                                <i class="	fas fa-file" aria-hidden="true"></i>Task
-                                            </a>
-                                         </li>
                                     </ul>
                                 </nav>
                             </aside>
@@ -243,56 +239,10 @@ $sc=$sp['sc_id'];
                         <div class="col-xl-9">
                             <!-- PAGE CONTENT-->
                             <div class="page-content">
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <!-- RECENT REPORT-->
-                                        <div class="recent-report3 m-b-40">
-                                            <div class="title-wrap">
-                                                <h3 class="title-3">recent reports</h3>
-                                                <div class="chart-info-wrap">
-                                                    <div class="chart-note">
-                                                        <span class="dot dot--blue"></span>
-                                                        <span>Blue</span>
-                                                    </div>
-                                                    <div class="chart-note mr-0">
-                                                        <span class="dot dot--green"></span>
-                                                        <span>green</span>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                         
-                                            <div class="chart-wrap">
-                                                <canvas id="recent-rep3-chart"></canvas>
-                                            </div>
-                                        </div>
-                                        <!-- END RECENT REPORT-->
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <!-- CHART PERCENT-->
-                                        <div class="chart-percent-3 m-b-40">
-                                            <h3 class="title-3 m-b-25">chart by %</h3>
-                                            <div class="chart-note m-b-5">
-                                                <span class="dot dot--blue"></span>
-                                                <span>products</span>
-                                            </div>
-                                            <div class="chart-note">
-                                                <span class="dot dot--red"></span>
-                                                <span>services</span>
-                                            </div>
-                                            <div class="chart-wrap m-t-60">
-                                                <canvas id="percent-chart2"></canvas>
-                                            </div>
-                                        </div>
-                                        <!-- END CHART PERCENT-->
-                                    </div>
-                                </div>
                                 <!-- Employee Notification -->
                                 <div class="user-data m-b-30">
                                     <h3 class="title-3 m-b-30">
                                         <i class="zmdi zmdi-account-calendar"></i>Booking Request</h3>
-                                    <div class="filters m-b-45">
-                                       
-                                    </div>
                                     <div class="table-responsive table-data">
                                         <table class="table">
                                             <thead>
@@ -302,23 +252,23 @@ $sc=$sp['sc_id'];
                                                     </td>
                                                     <td>name</td>
                                                     <td>Specification</td>
+                                                    <td>District</td>
                                                     <td>Location</td>
                                                     <td>Action</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                             <?php 
-                                                                $bkname="select * from tbl_booking where sc_id=$sc";
+                                                                $bkname="select * from tbl_booking where sc_id='$sc' and employee_id=0 and status=0";
                                                                 $bkquery=mysqli_query($con,$bkname);
                                                                 while($bkdata=mysqli_fetch_array($bkquery))
                                                                 {
                                                                     $ser_cat=$bkdata['sc_id'];
+                                                                    $service=$bkdata['service_id'];
                                                                     $custid=$bkdata['customer_id'];
                                                                     $cust="select * from tbl_customer where customer_id=$custid";
                                                                     $custquery=mysqli_query($con,$cust);
                                                                     $custn=mysqli_fetch_array($custquery);
-                                                                    
-
                                                               ?>
                                                 <tr>
                                                     <td>
@@ -339,12 +289,18 @@ $sc=$sp['sc_id'];
                                                     </td>
                                                     <td>
                                                         <span><?php 
-                                                            $ser="select * from tbl_services where sc_id=$ser_cat";
+                                                            $ser="select * from tbl_services where service_id=$service";
                                                             $serquery=mysqli_query($con,$ser);
                                                             $serdata=mysqli_fetch_array($serquery);
-                                                            echo $serdata['sc_name'];
+                                                            echo $serdata['service_name'];
                                                         ?></span>
                                                     </td>
+                                                    <td><?php $dis= $custn['location_id'];
+                                                                $dis_sql="select * from tbl_district where district_id=$dis";
+                                                                $dis_query=mysqli_query($con,$dis_sql);
+                                                                $dis_data=mysqli_fetch_array($dis_query);
+                                                                echo $dis_data['district_name'];
+                                                    ?></td>
                                                     <td>
                                                         <span><?php  
                                                             $loc=$custn['location_id'];
@@ -355,7 +311,7 @@ $sc=$sp['sc_id'];
                                                         ?></span>
                                                     </td>
                                                     <td>
-                                                    <button type="button" class="btn btn-danger">Assign Staff</button>
+                                                    <button type="button" class="btn btn-danger assign" id="assign">Assign Staff</button>
                                                     </td>
                                                    
                                                 </tr>
@@ -367,39 +323,22 @@ $sc=$sp['sc_id'];
                                         </table>
                                     </div>
                                     <div class="user-data__footer">
-                                        <button class="au-btn au-btn-load">load more</button>
+                                        <button class="au-btn au-btn-load"></button>
                                     </div>
                                 </div>
                                 <!-- End Employee Notification -->
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12" id="stafftable-body" style="display:none;">
                                         <!-- DATA TABLE-->
-                                        <div class="table-responsive m-b-40">
-                                            <table class="table table-borderless table-data3">
-                                                <thead>
-                                                    <tr>
-                                                        <th>date</th>
-                                                        <th>Employee</th>
-                                                        <th>Description</th>
-                                                       
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Mobile</td>
-                                                        
-                                                        <td class="process">Processed</td>
-                                                        
-                                                    </tr>
-                                                   
-                                                </tbody>
-                                            </table>
+                                        <div class="table-responsive m-b-40" id="stafftable">
+
                                         </div>
                                         <!-- END DATA TABLE-->
                                     </div>
                                 </div>
-                                <div class="row" style="text-align: center;display:none;" id="tsk">
+
+                        
+                                <!-- <div class="row" style="text-align: center;display:none;" id="tsk">
                                     <div class="col-lg-6">
                                         <div class="au-card au-card--no-shadow au-card--no-pad m-b-40 au-card--border">
                                             <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');">
@@ -458,7 +397,7 @@ $sc=$sp['sc_id'];
                                         </div>
                                     </div>
                                    
-                                </div>
+                                </div> -->
                                <?php
                                 include("footer.php");
                                ?>
@@ -496,6 +435,49 @@ $sc=$sp['sc_id'];
 
     <!-- Main JS-->
     <script src="js/main.js"></script>
+
+    <script>
+        $(document).on('click','.assign',function()
+        {
+            var ser=$(this).closest('tr').find('td:eq(2)').text();
+            var serv=ser.trim();
+            var district=$(this).closest('tr').find('td:eq(3)').text();
+            var dist=district.trim();
+            var location=$(this).closest('tr').find('td:eq(4)').text();
+            var loca=location.trim();
+            $.ajax({
+                url: "assignstaff.php",
+                method:"POST",
+                data :{
+                ser_name :serv,
+                dis : dist,
+                loc : loca
+                },
+                success: function(result){
+                    console.log(result);
+                    $('#stafftable').html(result);
+                    $("#stafftable-body").css("display", "inline");
+                    $('.staff').on('click',function()
+                    {
+                        var data=$(this).val();
+                        $(this).closest("tr").remove();
+                        console.log(data);
+                        $.ajax({
+                          url: "assignstaff.php",
+                          method:"POST",
+                          data :{
+                          dat :data
+                        },
+                          success: function(result){
+                            $("#msg").css("display","inline");
+                            $("#msg").delay(1000).fadeOut();
+                          }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 

@@ -29,7 +29,7 @@ $emp_query=mysqli_query($con,$count_emp);
 $row_emp = mysqli_num_rows($emp_query);
 
 // Insert Image
-if(isset($_POST['insert'])){
+if(isset($_POST['insertimg'])){
   $pic=$_FILES['myImage']['name'];
   $target_dir = "images/";
   $target_path=$target_dir.$pic;
@@ -76,10 +76,6 @@ if(isset($_POST['insert_serv'])){
         <!-- <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script> -->
   </head>
   <style>
-#add-service table
-{
-    margin-left: 20px;
-}
 
   </style>
    
@@ -155,7 +151,7 @@ if(isset($_POST['insert_serv'])){
          
 
           <li class="">
-            <a class="nav-link text-left active" href="#servicepro" onclick="serviceprovider()" id="spdata"> Service Provider</a>
+            <a class="nav-link text-left active" href="#serviceprovider" onclick="serviceprovider()" id="spdata"> Service Provider</a>
             </li>
 
             <li class="">
@@ -192,9 +188,9 @@ if(isset($_POST['insert_serv'])){
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light " placeholder="Search for..." aria-label="Search">
+              <input type="text" class="form-control bg-light " placeholder="Search for..." aria-label="Search" id="searchbar">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button class="btn btn-primary" type="button" id="search_submit">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -309,14 +305,7 @@ if(isset($_POST['insert_serv'])){
 <h4 style="margin:30px;color:grey;">Dashboard</h4>
   <div class="container-fluid px-lg-4">
   <div class="row">
-  <div class="col-md-12 mt-lg-4 mt-4">
-          <!-- Page Heading -->
-          <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>
-			Generate Report</a>
-          </div> -->
-    </div>
+  
     <div class="notify"><span id="notifyType" class=""></span></div>
   <div class="col-md-12">
        <div class="row">
@@ -391,7 +380,7 @@ if(isset($_POST['insert_serv'])){
                             <!-- Service provider data -->
                             <div id="Service_pro">
                               <div class="table-responsive">
-                                  <table class="table v middle">
+                                  <table class="table v middle" id="tbl_home">
                                       <thead>
                                           <tr class="bg-light">
                                               <th class="border-top-0">Name</th>
@@ -705,6 +694,9 @@ if(isset($_POST['insert_serv'])){
                         <div>
                             <button type="button" class="btn btn-info add-new"  id="add-new"><i class="fa fa-plus"></i> Add New</button>
                         </div>
+                        <div>
+                            <button type="button" class="btn btn-info add-new"  id="deleted-sc"><i class=""></i> Deleted Services</button>
+                        </div>
                     </div>
                 </div>
                 <table class="table table-bordered" id="pre-sc">
@@ -712,7 +704,7 @@ if(isset($_POST['insert_serv'])){
                         <tr>
                             <!-- <th>slno</th> -->
                             <th>Service Category</th> 
-                            <th>Amount/Day</th>
+                            <th>Amount/Month</th>
                             <th>Image</th>
                             <th>Actions</th>
                         </tr>
@@ -739,8 +731,7 @@ if(isset($_POST['insert_serv'])){
                               ?>
                             </th>
                             <th>
-                              <img src="images/<?php echo $image;?>" width="60px" height="50px"/>
-
+                              <img src="images/<?php echo $image; ?>" width="60px" height="50px"/>
                             </th>
                             <td style="border-top:0px;text-align:center;">
                             <button class="btn btn-sm btn-success btn-inline sc_edit" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
@@ -754,6 +745,50 @@ if(isset($_POST['insert_serv'])){
               </div>
         </div>   
       </div> 
+      <div id="delsc" style="display:none">
+        <div class="row m-t-30">
+        <div class="col-md-8" style="margin-left: auto;margin-right: auto;">
+            <!-- DATA TABLE-->
+              <div class="table-responsive m-b-40">
+                <table class="table table-borderless table-data3">
+                  <thead>
+                    <tr>
+                      <th>Service Category</th>
+                      <th>Amount/Month</th>
+                      <th>Image</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php
+                                $services="SELECT * FROM tbl_service_category WHERE is_delete='0'";
+                                $ser_query=mysqli_query($con,$services);
+                                while($row=mysqli_fetch_array($ser_query))
+                                {?>
+                        <tr>
+                            <!-- <td>John Doe</td> -->
+                            <td>
+                              <?php
+                                  echo $row['sc_name'];
+                                  $amt=$row['amount'];
+                                  $ima=$row['img'];
+
+                              ?>
+                            </td>
+                   
+                      <td><?php echo $amt; ?></td> 
+                      <td><img src="images/<?php echo $ima; ?>" width="60px" height="50px"/></td> 
+                      <td><button class="btn btn-sm btn-success btn-inline sc-restore" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit">Restore</button><a></td>                     
+                      </tr>
+                      <?php
+                                }?>
+                  </tbody>
+                </table>
+              </div>
+              <!-- END DATA TABLE-->
+            </div>
+          </div>
+      </div>
     </div>
        <!-- Add new category -->
 <div id="new-sc" style="display : none;margin-left :50px;">
@@ -774,7 +809,7 @@ if(isset($_POST['insert_serv'])){
                           <td style="border-top:0px;text-align:right">
                           <!-- <button class="btn btn-sm btn-success" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" id="sc1"><i class='fas fa-edit'></i></button><a>
                           <button class="btn btn-sm btn-danger" title="Delete" id="sc2"><i class="fa fa-times" aria-hidden="true"></i></button></a><a> -->
-                          <button class="btn btn-sm btn-primary" type="submit" style="padding-top: 3px; padding" id="sc3" name="insert" title="Upload/View data"><i class="fa fa-upload"></i></button>
+                          <button class="btn btn-sm btn-primary" type="submit" style="padding-top: 3px; padding" id="sc3" name="insertimg" title="Upload/View data"><i class="fa fa-upload"></i></button>
                           </a></td>
                         </form>
                       </tr>
@@ -782,74 +817,74 @@ if(isset($_POST['insert_serv'])){
               </table>
       </div>
     <!-- services inside each service category -->
-       <div id="services" style="display:inline;">
-             <div class="row m-t-40">
-                          <div class="col-md-12">
-                              <div>
-                                <button type="button" class="btn btn-info add-new"  id="new-service"><i class="fa fa-plus"></i> Add New</button>
-                              </div>
-                                <!-- DATA TABLE-->
-                               
-                                    <table class="table table-data3">
-                                        <thead>
-                                            <tr>
-                                                <th>Service Category</th>
-                                                <th>Service</th>
-                                                <th>Image</th>
-                                                <th>Rate</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php
-                                        $services="SELECT * FROM tbl_service_category WHERE is_delete='1'";
-                                        $ser_query=mysqli_query($con,$services);
-                                        while($row=mysqli_fetch_array($ser_query))
-                                    {
-                                        ?>
-                                            <tr>
-                                                <th><?php
-                                                echo $row['sc_name'];
-                                                $rid=$row['sc_id'];
-                                                ?>
-                                                </th>
-                                                <?php
-                                                    $ser="SELECT * from tbl_services where sc_id=$rid";
-                                                    $service_query=mysqli_query($con,$ser);
-                                                    while($ser_data=mysqli_fetch_array($service_query))
-                                                    {
-                                                      $serimg=$ser_data['service_img'];
-                                                      $seramt=$ser_data['service_amt'];
-                                                      ?>
+              <div id="services" style="display:none;">
+                    <div class="row m-t-40">
+                                  <div class="col-md-12">
+                                      <div>
+                                        <button type="button" class="btn btn-info add-new"  id="new-service"><i class="fa fa-plus"></i> Add New</button>
+                                      </div>
+                                        <!-- DATA TABLE-->
+                                      
+                                            <table class="table table-data3">
+                                                <thead>
                                                     <tr>
-                                                      <td colspan="1"></td>
-                                                        <td>
-                                                        <?php echo $ser_data['service_name']; 
+                                                        <th>Service Category</th>
+                                                        <th>Service</th>
+                                                        <th>Image</th>
+                                                        <th>Rate</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                $services="SELECT * FROM tbl_service_category WHERE is_delete='1'";
+                                                $ser_query=mysqli_query($con,$services);
+                                                while($row=mysqli_fetch_array($ser_query))
+                                            {
+                                                ?>
+                                                    <tr>
+                                                        <th><?php
+                                                        echo $row['sc_name'];
+                                                        $rid=$row['sc_id'];
+                                                        ?>
+                                                        </th>
+                                                        <?php
+                                                            $ser="SELECT * from tbl_services where sc_id=$rid";
+                                                            $service_query=mysqli_query($con,$ser);
+                                                            while($ser_data=mysqli_fetch_array($service_query))
+                                                            {
+                                                              $serimg=$ser_data['service_img'];
+                                                              $seramt=$ser_data['service_amt'];
+                                                              ?>
+                                                            <tr>
+                                                              <td colspan="1"></td>
+                                                                <td>
+                                                                <?php echo $ser_data['service_name']; 
+                                                              ?>
+                                                              </td>
+                                                        <td><img src="images/icon/<?php echo $serimg;?>" width="60px" height="50px"/></td>
+                                                        <td class="process"><?php echo $seramt;?></td>
+                                                        <td style="border-top:0px;text-align:right;">
+                                                          <button class="btn btn-sm btn-success btn-inline sedit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
+                                                          <button class="btn btn-sm btn-danger btn-inline sdel" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                        </td>
+                                                      <?php
+                                                        }
                                                       ?>
-                                                      </td>
-                                                <td><img src="images/icon/<?php echo $serimg;?>" width="60px" height="50px"/></td>
-                                                <td class="process"><?php echo $seramt;?></td>
-                                                <td style="border-top:0px;text-align:right;">
-                                                  <button class="btn btn-sm btn-success btn-inline edit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
-                                                  <button class="btn btn-sm btn-danger btn-inline del" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button>
-                                                </td>
-                                               <?php
-                                                }
-                                              ?>
-                                              </tr>
-                                            <?php  
-                                            } 
-                                            ?>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                
-                                <!-- END DATA TABLE-->
-                            </div>
-              </div>
-         </div>
+                                                      </tr>
+                                                    <?php  
+                                                    } 
+                                                    ?>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        
+                                        <!-- END DATA TABLE-->
+                                    </div>
+                      </div>
+                </div>
 
-                <div id="add-service" style="display:none;">
+                <div id="add-service" style="display:none;padding-left:8px;padding: right 8px;">
                     <div col="row-md-12">
                         <table class="table table-responsive">
                             <thead>
@@ -891,8 +926,83 @@ if(isset($_POST['insert_serv'])){
                 </div>
 <!-- Admin sc management -->
 
+<!-- Service Provider Details -->
+<div class="col-md-12 mt-lg-4 mt-4">
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800"></h1>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>
+			        Generate Report</a>
+          </div>
+    </div>
+        <div id="serviceprovider" style="display:none;padding-left:10px;padding-right:8px">
+          <div class="row m-t-30">
+            <div class="col-md-12">
+                <!-- DATA TABLE-->
+                  <div class="table-responsive m-b-40">
+                    <table class="table table-borderless table-data3">
+                      <thead>
+                        <tr>
+                          <th data-colname="name" data-order="desc">Service Provider</th>
+                          <th data-colname="phone" data-order="desc">Phone</th>
+                          <th data-colname="email" data-order="desc">Email</th>
+                          <th data-colname="address" data-order="desc">Address</th>
+                          <th data-colname="district" data-order="desc">District</th>
+                          <th data-colname="location" data-order="desc">Location</th>
+                          <th data-colname="licence" data-order="desc">lisenceno</th>
+                          <th data-colname="sc" data-order="desc">Service category</th>
+                          <!-- <th>Action</th> -->
+                        </tr>
+                      </thead>
+                      <tbody id="myTable">
+                        <?php 
+                        $spsql="select * from tbl_login where role_id=4 and is_delete=1 and aproval_status=1";
+                        $activesp=mysqli_query($con,$spsql);
+                        while($spdata=mysqli_fetch_array( $activesp))
+                        {
+                          $activelogin=$spdata['lid'];
+                          $sp="select * from tbl_serviceproviders where login_id= $activelogin";
+                          $ser_pro_query=mysqli_query($con,$sp);
+                          $spid=mysqli_fetch_array($ser_pro_query);
+                          
+                        ?>
+                        <tr>
+                          <td><?php echo $spid['sp_name']; ?></td>
+                          <td><?php echo $spid['sp_phone']; ?></td> 
+                          <td><?php echo $spid['sp_email']; ?></td> 
+                          <td><?php echo $spid['sp_address']; ?></td>   
+                          <td><?php $disid=$spid['district_id']; 
+                                    $sqldisname="select * from tbl_district where district_id=$disid";
+                                    $disnamequery=mysqli_query($con,$sqldisname);
+                                    $disdata=mysqli_fetch_array($disnamequery);
+                                    echo $disdata['district_name'];?></td>  
+                          <td><?php $loc_id=$spid['location_id'];  
+                                    $sql_location="select * from tbl_location where location_id=$loc_id";
+                                    $sql_loc_query=mysqli_query($con,$sql_location);
+                                    $loc_name=mysqli_fetch_array($sql_loc_query);
+                                    echo $loc_name['location'];?></td> 
+                          <td><?php echo $spid['lisenceno']; ?></td> 
+                          <td><?php $serv_cat= $spid['sc_id'];
+                                    $sql_ser_cat="select * from tbl_service_category where sc_id=$serv_cat";
+                                    $ser_cat_query=mysqli_query($con,$sql_ser_cat);
+                                    $ser_name=mysqli_fetch_array($ser_cat_query);
+                                    echo $ser_name['sc_name']; ?></td>  
+                          <!-- <td>
+                            <button class="btn btn-sm btn-danger btn-inline sp_dismiss" title="Dismiss">Dismiss</button>
+                          </td>                  -->
+                          </tr>
+                          <?php    
+                        }
+                        ?>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- END DATA TABLE-->
+                </div>
+              </div>
+        </div>
 
-
+<!-- End Service Provider Details -->
 
 <!-- Employee Details -->
   <div id="emp" style="display:none;">
@@ -921,19 +1031,19 @@ if(isset($_POST['insert_serv'])){
   <th><?php
   $service_providers="select * from tbl_serviceproviders where sc_id=$sc";
   $sp_query=mysqli_query($con,$service_providers);
-  while($row=mysqli_fetch_array($sp_query))
-  {
+  $row=mysqli_fetch_array($sp_query);
+  
     echo $row['sp_name'];
-  }
+  
   ?></th>
   <th>
   <?php
   $sc="select * from tbl_services where sc_id=$sc";
   $sc_query=mysqli_query($con,$sc);
-  while($row=mysqli_fetch_array($sc_query))
-  {
-    echo $row['sc_name'];
-  }
+  $row=mysqli_fetch_array($sc_query);
+  
+    echo $row['service_name'];
+  
   ?>
   </th>
   <td>
@@ -1004,18 +1114,55 @@ if(isset($_POST['insert_serv'])){
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script>
-// add edit and delete service category
-$(document).ready(function(){
+// var myTableArray = [];
 
+// $("table#tbl_home tr").each(function() {
+//     var arrayOfThisRow = [];
+//     var tableData = $(this).find('td');
+//     if (tableData.length > 0) {
+//         tableData.each(function() { arrayOfThisRow.push($(this).text()); });
+//         myTableArray.push(arrayOfThisRow);
+//     }
+// });
+
+$(document).on('keyup','#searchbar', function() {
+    var value = $(this).val();
+    
+    $("#tbl_home").find("tr").each(function(index) {
+        if (index != 0) {
+
+            $row = $(this);
+            var id = $row.find('td:eq(2)').text();
+            
+            if (id.indexOf(value) != 0) {
+              $row.hide();
+            }
+            else {
+              $row.show();
+            }
+        }
+    });
+});
+
+// console.log(myTableArray);
+// $(document).on('click','#search_submit',function()
+// {
+//  var s=$('#search').val();
+//   $('#servicepro').css("display","inline");
+  
+// });
+// add edit and delete service category
+
+$(document).ready(function(){
   $("#add-new").on('click',function(){
       $("#new-sc").css("display","inline");
       $("#sc3").on('click',function(){
           // $("#pre-sc").append("<tr><td>"+$("#c1").val()+"</td><td>"+$("#c2").val()+"</td><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
           var sc = $("#c1").val();
           var amt=$("#c2").val();
-          var fileInput = document.getElementById('img');
-          var filename = fileInput.files[0].name;
-
+          // var filename= $('#img').text($this.get(0).files.item(0).name);
+          var filename = document.getElementById('img').files[0].name; 
+          // var filename = fileInput.files[0].name;
         // var fd = new FormData(this);
         // var files = $('#img')[0].files[0];
         //    fd.append('file',files);
@@ -1025,25 +1172,48 @@ $(document).ready(function(){
                 url: "admin_uploaddata.php",
                 method:"POST",
                 data :{
-
                   service_catagory :sc,
                   amount:amt,
                   file:filename
-
                   },
                 success: function(result){
-                  console.log('RESULT : ' + this);
                   $('#pre-sc').append(result);
                   $("#c1").val(" ");
                   $("#c2").val(" ");
-
                 }
-
+                // timeout: 5000 
            });
         });
 
   });
+
+  // restore deleted sc
+  $("#deleted-sc").on('click',function(){
+    $('#delsc').css('display','inline');
+    $('.sc-restore').on('click',function(){
+      var restore= $(this).closest('tr').find('td:eq(0)').text();
+      var resetamt=$(this).closest('tr').find('td:eq(1)').text();
+      
+      $(this).closest("tr").remove();
+      var res=restore.trim();
+      console.log(resetamt);
+      $.ajax({
+        url: "admin_uploaddata.php",
+        method:"POST",
+        data :{
+          restor :res,
+          resetamount:resetamt,
+        },
+        success: function(result){
+          $("#pre-sc").append(result);    
+          }
+      });
+    });
+  });
+  // end deleted sc
 });
+
+
   // district and location add
   $(document).ready(function(){
   $("#add-new-loc").on('click',function(){
@@ -1113,7 +1283,7 @@ $(document).on('click','.del',function()
     diste :diste},
     success: function(result){
       // $("#add-district").append(result);
-                  // $("#dis").val(" ");
+                  $("#dis").val(" ");
     }
   });
 
@@ -1199,7 +1369,7 @@ $(document).on('click','.loc_edit',function()
 // delete sc
 $(document).on('click','.sc_del',function()
 {
-  var sc= $(this).closest('tr').find('td:ntd-child(1)').text();
+  var sc= $(this).closest('tr').find('th:nth-child(1)').text();
   var ser_cat=sc.trimStart();
   $(this).closest("tr").remove();
   console.log(ser_cat);
@@ -1221,7 +1391,7 @@ $(document).on('click','.sc_del',function()
 $(document).on('click','.sc_edit',function()
 {
   $("#new-sc").css("display","inline");
-  var ser_cat= $(this).closest('tr').find('td:ntd-child(1)').text();
+  var ser_cat= $(this).closest('tr').find('th:nth-child(1)').text();
   var sc=ser_cat.trim();
   // $("#c1").val(sc);
   $(this).closest("tr").remove();
@@ -1260,7 +1430,7 @@ $(document).on('click','#new-service',function()
     var ser_id=$("#service_id").val();
     var service_img = document.getElementById('sc-img');
     var sc_filename = service_img.files[0].name;
-    console.log(ser_amt);
+    
     $.ajax({
       url: "admin_uploaddata.php",
       method:"POST",
@@ -1273,13 +1443,22 @@ $(document).on('click','#new-service',function()
     },
     success: function(result){
       $('#add-service').append(result);
-    
       // $("#c1").val(" ");
       // $("#c2").val(" ");
     }
     });
   });
 });
+
+// Edit Service
+// $document.on('click','.sedit',function(){
+//   $('#add-service').css("display","inline");
+ 
+// });
+
+// end of edit service
+
+
 // Approve service Providers
 
 $(document).on('click','.sc_approve',function()
@@ -1307,6 +1486,47 @@ $(document).on('click','.sc_approve',function()
 
 });
 
+// Dismiss active sp
+    // $(document).on('click','.sp_dismiss',function()
+    // {
+    //   var dismiss_sp= $(this).closest('tr').find('td:eq(2)').text();
+    //   $(this).closest("tr").remove();
+    //   console.log(dismiss_sp);
+
+    //   $.ajax({
+    //     url: "admin_uploaddata.php",
+    //     method:"POST",
+    //     data :{
+    //       dis:dismiss_sp
+    //     },
+    //     success:function(result)
+    //     {
+
+    //     }
+    //   });
+    // });
+
+// End dismiss active sp
+
+// Search for
+
+// $(document).on('click','#search_submit',function()
+// {
+//   var s=$('#search').val();
+//   console.log(s);
+//   $.ajax({
+//     url: "admin_uploaddata.php",
+//     method:"POST",
+//     data :{
+//     search :s
+//   },
+//     success: function(result){
+     
+//     }
+//   });
+
+// });
+// end search for
 // reject sp sc_reject
 
 $(document).on('click','.sc_reject',function()
@@ -1337,40 +1557,44 @@ $('#bar').click(function(){
 	$(this).toggleClass('open');
   $('#page-content-wrapper ,#sidebar-wrapper,#adminlocation,#admin_sc_management,#service_management,#servicepro',).toggleClass('toggled');
 
+
   $('#district').click(function()
 {
   $('#new-district').show();
-  $('#new-location,#service_cate,#services,#servicepro').css('display','none');
+  $('#new-location,#service_cate,#services,#servicepro','#serviceprovider').css('display','none');
 
-})
+});
 $('#location').click(function()
 {
   $('#new-location').show();
-  $('#new-district,#service_cate,#services,#servicepro,').css('display','none');
-})
+  $('#new-district,#service_cate,#services,#servicepro','#serviceprovider').hide();
+});
 $('#sc').click(function()
 {
   $('#service_cate').show();
-  $('#new-location,#new-district,#services,#servicepro').css('display','none');
-})
+  $('#new-location,#new-district,#services,#servicepro','#serviceprovider').hide();
+});
 $('#serv').click(function()
 {
   $('#services').show();
-  $('#new-location,#service_cate,#new-district,#servicepro').css('display','none');
-})
+  $('#new-location,#service_cate,#new-district,#servicepro','#serviceprovider').hide();
+});
 $('home').click(function()
 {
   $('#servicepro').show();
-  $('#new-location,#service_cate,#new-district,#services').hide();
-})
+  $('#new-location,#service_cate,#new-district,#services','#serviceprovider').hide();
+});
 $('#spdata').click(function()
 {
-  $('#servicepro').show();
+  $('#serviceprovider').show();
   $('#new-location,#service_cate,#new-district,#services').hide();
-})
 });
 
+});
 
   </script>
+  <?php
+    mysqli_close($con);
+  ?>
   </body>
 </html>

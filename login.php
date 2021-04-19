@@ -1,3 +1,7 @@
+<?php
+session_start();
+$_SESSION['msg']="";
+?>
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -57,7 +61,7 @@
               <input type="submit" id="login-button" value="Sign In" class="btn btn-primary" />
                 <br>
                 <br>
-                <a href="#" data-toggle="modal" data-target="#exampleModal">Forgot password ?</a>
+                <a href="forgotemail.php" >Forgot password ?</a>
             </div>
           </div>
         </div>

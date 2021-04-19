@@ -411,11 +411,21 @@
     input[type="text"], input[type="email"], input[type="password"] {
       width: 93%;
     }
+    .overlay
+    {
+      padding-left: auto;
+      padding-right: auto;
+    }
   }
   
   @media(max-width:800px) {
     h1 {
       font-size: 2.2em;
+    }
+    .overlay
+    {
+      padding-left: auto;
+      padding-right: auto;
     }
   }
   
@@ -423,11 +433,22 @@
     .main-agileinfo {
       width: 62%;
     }
+    .overlay
+    {
+      padding-left: auto;
+      padding-right: auto;
+    }
   }
+
   
   @media(max-width:667px) {
     .main-agileinfo {
       width: 67%;
+    }
+    .overlay
+    {
+      padding-left: auto;
+      padding-right: auto;
     }
   }
   
@@ -453,6 +474,11 @@
   @media(max-width:568px) {
     .main-agileinfo {
       width: 75%;
+    }
+    .overlay ul
+    {
+      padding-left: auto;
+      padding-right: auto;
     }
   
     .colorlibcopy-agile p {

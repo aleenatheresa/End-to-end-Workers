@@ -5,26 +5,35 @@ session_start();
 // die();
 
 $con=mysqli_connect("localhost","root","","projectdb");
+
 if(isset($_POST['service_catagory']))
 {
 $service=$_POST['service_catagory'];
 $amount=$_POST['amount'];
 $img=$_POST['file'];
-$check_sc="select * from tbl_service_category where sc_name='$service'";
-$sc_check_query=mysqli_query($con,$check_sc)or die("$check_sc");
+$check_sc="select * from tbl_service_category where sc_name='$service' and img='$img'";
+$sc_check_query=mysqli_query($con,$check_sc) or die("$check_sc");
 if (mysqli_num_rows($sc_check_query) > 0) 
     {
-      echo "Service Already Exist";	
+        echo '<script>alert("Already exist")</script>';  
     }
-    else
+else
     {
         $s=ltrim($service);
-        $sql="INSERT INTO tbl_service_category(sc_name,is_delete,amount,img)values('$s',1,$amount,'$img')";
+        $sql="INSERT INTO tbl_service_category(sc_name,is_delete,amount,img)values('$service',1,'$amount','$img')";
         $sql_query=mysqli_query($con,$sql);
-   
         echo "<tr><th>".$service."</th><th>".$amount."</th><th></th><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success sc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
         
     }
+}
+
+// restore
+if(isset($_POST['restor']))
+{
+    $restorsc=$_POST['restor'];
+    $restoreamt=$_POST['resetamount'];
+    $ressc="UPDATE `tbl_service_category` set `is_delete`=1 WHERE sc_name='$restorsc' and amount='$restoreamt'";
+    $updatesc=mysqli_query($con,$ressc);
 }
 
 // location enter
@@ -163,6 +172,9 @@ if(isset($_POST['loc_edit']))
 
 
 }
+
+// Edit SC
+
 if(isset($_POST['ser']))
 {
    $new_sc= $_POST['ser'];
@@ -235,3 +247,27 @@ if(isset($_POST['service_id']))
         echo "inserted";
     }
 }
+
+// Dismiss current Service providers
+// if(isset($_POST['dis']))
+// {
+//     $sp_mail=$_POST['dis'];
+//     $sql_sp_name="select * from tbl_serviceproviders where sp_email='$sp_mail'";
+//     $sp_name_query=mysqli_query($con,$sql_sp_name);
+//     $sp_lid=mysqli_fetch_array($sp_name_query);
+//     $dis_sp_lid=$sp_lid['login_id'];
+//     $sql_update_stts="update tbl_login set aproval_status=0 where lid=$dis_sp_lid";
+//     $update_stts_query=mysqli_query($con,$sql_update_stts);
+//     echo "table updated";
+// }
+// end
+
+// Search for
+// if(isset($_POST['search']))
+// {
+//     $search_data=$_POST['search'];
+//     $sql_search="select * from tbl_service_category where sc_name='$search_data'";
+//     $search_query=mysqli_query($con,$sql_search);
+
+// }
+// End search for

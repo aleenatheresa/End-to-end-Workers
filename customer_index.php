@@ -44,7 +44,12 @@ if(isset($_POST['confirmbooking']))
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="js/custsidebar.js"></script>
-    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+
       <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
@@ -57,22 +62,19 @@ if(isset($_POST['confirmbooking']))
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" type="text/css" href="cust_index.css">
         
-
+        <link href="css/cust_index.css" rel="stylesheet" media="all">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
        
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+        <script src = "https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <!-- Modal class -->
        
   </head> 
   
-        
-          
-
-        
-</head>
+ 
 
   <style>
   fieldset {
@@ -118,7 +120,7 @@ function checkDate()
     //document.getElementById("cbk").disabled = true;
     var today=new Date();
   }
-  else if(new Date(date).getTime()<=ToDate.getTime())
+  else if(new Date(date).getDate() <= ToDate.getDate()) 
   {
     document.getElementById("datepicker").style.borderColor="red";
     c[0]=0;
@@ -205,9 +207,8 @@ function button()
                                 </ul>
                               </div>
                             </div>
-
                           </div>
-                  </div>
+                    </div>
                 </div>
               </div>
           </li>
@@ -254,9 +255,9 @@ function button()
 
               <!-- Sidebar Toggle (Topbar) -->
                 <div type="button"  id="bar" class="nav-icon1 hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                      <span></span>
                   <span></span>
-              <span></span>
-            <span></span>
+                <span></span>
                 </div>
 
 
@@ -345,8 +346,6 @@ function button()
                             <a class="dropdown-item" href="logout.php">Logout</a>
 
                         </div>
-
-
                 </li>
 
               </ul>
@@ -355,9 +354,9 @@ function button()
 
     
             <!-- End of Topbar -->
-    </div>
-</div>
-
+        </div>
+      </div>
+    
 <!-- Sucess Message -->
 <br><br>
 <div class="alert alert-success" id="msg" style="display:none;">
@@ -368,36 +367,54 @@ function button()
         <!-- /#wrapper -->
             <!-- Service Category -->
 
-    <div class="container" id="book" style="text-align:center;display:block">
-          <h1>Book Now</h1>
-            <div class="row">
-            <?php
-              $services="SELECT * FROM tbl_service_category WHERE is_delete='1'";
-              $ser_query=mysqli_query($con,$services);
-              while($row=mysqli_fetch_array($ser_query))
-              {
-                $image=$row['img'];
-                $scname=$row['sc_name'];
-                $scrate=$row['amount'];
-                $scid=$row['sc_id'];
-                $_SESSION['id']=$scid;
-                $ser_cat= $_SESSION['id']; 
-            ?>
-            <div class="column" style="margin-left:10px;margin-top:15px">
-              <div class="card" style="width: 15rem; display:block;">
-                  <img src="images/<?php echo $image;?>" class="card-img-top" alt="9.jpg" width="60px" height="180px">
-                  <div class="card-body">
-                    <!-- <a href="#exampleModal" class="btn btn-link"></a> -->
-                  <button type="button" class="btn btn-link btn-lg bkcat" data-toggle="modal" data-target="#myModal" id="<?php echo $scid; ?>"
-                   value="<?php echo $scid?>"><?php echo $scname;?><br>Service Rate:<?php echo $scrate; ?>
-                </button>
+    <div class="container" id="maindiv">
+        <div id="book" style="text-align:center;display:block">
+                <div class="row">
+                          
+                          <?php
+                            $noarray=array();
+                            $services="SELECT * FROM tbl_service_category WHERE is_delete='1'";
+                            $ser_query=mysqli_query($con,$services);
+                            $num=mysqli_num_rows($ser_query);
+                            // $sizeofnoarray=$num;
+                            while($row=mysqli_fetch_array($ser_query))
+                            {
+                              
+                              $image=$row['img'];
+                              $scname=$row['sc_name'];
+                              $scrate=$row['amount'];
+                              $scid=$row['sc_id'];
+                              $_SESSION['id']=$scid;
+                              $ser_cat= $_SESSION['id'];
+                              // $noarray[$row['sc_id']]++; 
+                              for($i=0;$i<$num;$i++)
+                              {
+                                $noarray[$i]=$row['sc_id'];
+                              }
+                          ?>
+                          
+                          <div class="column" style="margin-left:10px;margin-top:15px">
+                            <div class="card" style="width: 15rem; display:block;">
+                                <img src="images/<?php echo $image;?>" class="card-img-top" alt="9.jpg" width="60px" height="180px">
+                                <div class="card-body">
+                                <form action="" method="POST">
+                                  <!-- <a href="#exampleModal" class="btn btn-link"></a> -->
+                                  <button type="button" class="test btn btn-link btn-lg" name="ser" id="<?php echo $scid?>" value="<?php echo $scid; ?>"><?php echo $scname;?>
+                                  </button>
+                                  </form>
+                                </div>
+                            </div>
+                            </div>
+                            <?php
+                                    }
+                          ?>
                   </div>
               </div>
+              <div id="services_under_sc" style="display:none">
+                <div class="row" id="services_under_sc_body">
+                 
+                </div>
               </div>
-    <?php
-              }
-    ?>
-    </div>
     </div>
 
     <!-- modal class for confirm booking -->
@@ -413,11 +430,11 @@ function button()
             </button>
           </div>
           <div class="modal-body" style="height: 200px;">
-          <label>Date</label>  <br>
-          <input type="date" class="asd" id="datepicker" min="2021-01-01"  onblur="checkDate();">
-            <br><br>
-            <label>Time</label> <br>
-            <input type="time" class="asd" id="timepicker" onblur="checkTime();"  required>
+            <label>Date</label>  <br>
+            <input type="date" class="asd" id="datepicker" min="2021-01-01"  onblur="checkDate();">
+              <br><br>
+              <label>Time</label> <br>
+              <input type="time" class="asd" id="timepicker" onblur="checkTime();"  required>
     
           </div>
           <div class="modal-footer">
@@ -593,7 +610,6 @@ function button()
         <th>Action</th>
         </tr>
         </thead>
-        
         <tbody>
               <?php
                 $bkdate="select * from tbl_booking where customer_id=$cust_id and status=1";
@@ -715,15 +731,58 @@ function button()
   </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    
 
 <script>
 
+
 $(document).ready(function(){
-      $("#proedit").on('click',function(){
+    $('.test').click(function(){
+    // var id = $(this).attr("id");
+    var id = $(this).val();
+    console.log(id);
+    $.ajax({  
+                url:"services.php",  
+                method:"post",  
+                data:{id:id},  
+                success:function(data){ 
+                     $('#services_under_sc_body').html(data);  
+                     $("#services_under_sc").css("display", "inline");
+                     $('.bkser').click(function()
+                     {
+                        var sc=$(this).val();
+                        
+                        $('#cbk').on('click',function(){
+                        var datee=$("#datepicker").val();
+                        var timee=$("#timepicker").val();
+                        
+                        $.ajax({
+                          url: "edit_customer.php",
+                          method:"POST",
+                          data :{
+                          dat :datee,
+                          tim:timee,
+                          service_id : sc,
+                          category_id:id
+                        },
+                          success: function(result){
+                            console.log(result);
+                            $("#msg").css("display","inline");
+                            $("#msg").delay(1000).fadeOut();
+                            
+                          }
+                          });
+                        });
+                        
+                     });
+                    //  $("#maindiv").css("display", "none");    
+                   
+                }  
+           });  
+ });
+
+
+$("#proedit").on('click',function(){
           // $("#pre-sc").append("<tr><td>"+$("#c1").val()+"</td><td>"+$("#c2").val()+"</td><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
           var name = $("#name").val();
           var addr=$("#addr").val();
@@ -745,67 +804,93 @@ $(document).ready(function(){
                   $("#profile").replaceWith(result);
 
                 }
-
            });
-
         });
-      
+
 // Booking
 
-    $(".bkcat").on('click',function()
-    {
-    var dat=$(this).val();
-    $('#cbk').on('click',function(){
-      var datee=$("#datepicker").val();
-      var timee=$("#timepicker").val();
-      console.log(dat);
-      $.ajax({
-        url: "edit_customer.php",
-        method:"POST",
-        data :{
-        dat :datee,
-        tim:timee,
-        sc : dat
-      },
-        success: function(result){
-          console.log(result);
-          $("#msg").css("display","inline");
-          $("#msg").delay(1000).fadeOut();
-          
-        }
-    });
-    });
-    });
-        
-     
-// complte button function
+// $(document).on('click','"#ser_cat"',function()
+//     {
+//       var dat=$(this).val();
+//       // $("#book").css('display','none');
+//       $('#services_under_sc').css('display','block');
+//       $.ajax({
+//         url: "customer_index.php",
+//         method:"POST",
+//         data :{
+//         data :dat,
+//        },
+//        success:function(result)
+//        {
 
-$(".cmplt").on('click',function()
-  {
-  var bookid=$(this).val();
-  console.log(bookid);
-          $.ajax({
-                url: "edit_customer.php",
-                method:"POST",
-                data :{
-                comp : bookid
-              },
-                success: function(result){
-                  console.log(result);
-                  $("#msg").css("display","inline");
-                  $("#msg").delay(1000).fadeOut();
-                  
-                }
-            });
+//        }
+//       });
+//     });
+      
+//  $(document).on('click','.bkcat',function()
+      //             {
+      //               var sc_val=$(this).val();
+      //               console.log(sc_val);
+      //               $('#services_under_sc').css('display','block');
+      //               // $.ajax({
+      //               //   method:"POST",
+      //               //   data :{
+      //               //   data :sc_val,
+      //               // },
+      //               // success:function(result)
+      //               // {
+
+      //               // }
+      //              });
+      
+    //   $(document).on('click','#cbk',function(){
+    //     var datee=$("#datepicker").val();
+    //     var timee=$("#timepicker").val();
+    //     console.log(sc);
+    //     $.ajax({
+    //       url: "edit_customer.php",
+    //       method:"POST",
+    //       data :{
+    //       dat :datee,
+    //       tim:timee,
+    //       // sc : dat
+    //     },
+    //       success: function(result){
+    //         console.log(result);
+    //         $("#msg").css("display","inline");
+    //         $("#msg").delay(1000).fadeOut();
+            
+    //       }
+    // });
+    // });
+  // })
+
+    $(".cmplt").on('click',function()
+    {
+    var bookid=$(this).val();
+    console.log(bookid);
+            $.ajax({
+                  url: "edit_customer.php",
+                  method:"POST",
+                  data :{
+                  comp : bookid
+                },
+                  success: function(result){
+                    console.log(result);
+                    $("#msg").css("display","inline");
+                    $("#msg").delay(1000).fadeOut();
+                    
+                  }
+              });
         
-        }); 
+      }); 
       // End Complete work button function
 
-
-      // Cancel booking
-      $(".cancel").on('click',function()
+// Cancel booking
+$(".cancel").on('click',function()
       {
         var bkid_cancel=$(this).val();
+        $(this).closest("tr").remove();
         console.log(bkid_cancel);
           $.ajax({
                 url: "edit_customer.php",
@@ -824,8 +909,6 @@ $(".cmplt").on('click',function()
       });
 
       // End Cancel booking
-});
-
 // End booking
 // Date picker for employee booking
 // $(function(){
@@ -838,6 +921,9 @@ $(".cmplt").on('click',function()
 $('#bar').click(function(){
 	$(this).toggleClass('open');
 	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
+});
+
+
 
 });
   </script>

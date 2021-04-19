@@ -2,8 +2,9 @@
 session_start();
 $con=mysqli_connect("localhost","root","","projectdb");
 
-$sc="SELECT * FROM tbl_services Where iS_delete=1";
+$sc="SELECT * FROM tbl_service_category Where is_delete=1";
 $sc_query=mysqli_query($con,$sc);
+
 
 ?>
 <html lang="en">
@@ -92,24 +93,26 @@ $sc_query=mysqli_query($con,$sc);
                           //      echo "<option value='".$data_loc['location_id']."'>" .$data_loc['location'] ."</option>";
                           //  }  
                                  -->
-
-                            
-                        
                         </select>
                     </div>
+
                     <div class="dropdown">
-                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="sc" required="">
+                    <select class="btn dropdown-toggle caret-dropdown-menu" onChange="getsc(this.value);" type="button" data-toggle="dropdown" name="sc" required="">
                       <span class="caret-dropdown-menu"></span>
                         <option>--Service category--</option>
                         <?php
-                           
                            while($data_sc=mysqli_fetch_array($sc_query))
                            {
                                echo "<option value='".$data_sc['sc_id']."'>" .$data_sc['sc_name'] ."</option>";
                            }  
-                                
-
                             ?>
+                        
+                        </select>
+                    </div>
+                    <div class="dropdown">
+                    <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="service" id="service" required="">
+                      <span class="caret-dropdown-menu"></span>
+                        <option>--Services--</option>
                         
                         </select>
                     </div>
@@ -145,28 +148,37 @@ function getdistrict(val){
               success: function(result){
                   $('#location').html(result);
               }
+              
     });
 }
 
+function getsc(val){
+  $.ajax({
+              url: "state-location.php",
+              method: "POST",
+              data: 'sc_id='+val,
+              success: function(result){
+                  $('#service').html(result);
+              }
+    });
+}
 
 $('document').ready(function(){
    $('#txt4').keyup(function(){
       var email= $('#txt4').val();
       // alert(email);
-      $.ajax({
-        url: "emp_check.php",
-        method: "POST",
-        data : {
-          email: email
-        },
-        success: function(response){
-            // $('#txt4').css("borderColor","red");
-            $('#error_email').text(response);
-            
-        }
-      });
-
-   });
+        $.ajax({
+          url: "emp_check.php",
+          method: "POST",
+          data : {
+            email: email
+          },
+          success: function(response){
+              // $('#txt4').css("borderColor","red");
+              $('#error_email').text(response);  
+          }
+        });
+     });
   // username check
    $('#txt6').keyup(function(){
       var username= $('#txt6').val();
