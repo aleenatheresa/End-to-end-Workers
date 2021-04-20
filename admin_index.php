@@ -73,7 +73,7 @@ if(isset($_POST['insert_serv'])){
         <!-- <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script> -->
         <!-- <script src="https://code.jquery.com/jquery-2.1.4.js"></script> -->
         <!-- <script src='https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.js' type='text/javascript'></script> -->
-        <!-- <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script> -->
+        <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
   </head>
   <style>
 
@@ -384,7 +384,7 @@ if(isset($_POST['insert_serv'])){
                                       <thead>
                                           <tr class="bg-light">
                                               <th class="border-top-0">Name</th>
-                                              <th class="border-top-0">License</th>
+                                              <th class="border-top-0">Licence</th>
                                               <th class="border-top-0">Category</th>
                                               <th class="border-top-0">District</th>
                                               <th class="border-top-0">Location</th>
@@ -493,6 +493,12 @@ if(isset($_POST['insert_serv'])){
                                   </table>
                               </div>
                             <!-- Service provider data -->
+                        </div>
+
+                        <div id="searchresult" style="display:none">
+                        <div id="result-body">
+
+                        </div>
                         </div>
                     </div>
         <!-- /.container-fluid -->
@@ -927,7 +933,9 @@ if(isset($_POST['insert_serv'])){
 <!-- Admin sc management -->
 
 <!-- Service Provider Details -->
-<div class="col-md-12 mt-lg-4 mt-4">
+
+        <div id="serviceprovider" style="display:none;padding-left:10px;padding-right:8px">
+        <div class="col-md-12 mt-lg-4 mt-4" >
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800"></h1>
@@ -935,7 +943,6 @@ if(isset($_POST['insert_serv'])){
 			        Generate Report</a>
           </div>
     </div>
-        <div id="serviceprovider" style="display:none;padding-left:10px;padding-right:8px">
           <div class="row m-t-30">
             <div class="col-md-12">
                 <!-- DATA TABLE-->
@@ -1124,34 +1131,54 @@ if(isset($_POST['insert_serv'])){
 //         myTableArray.push(arrayOfThisRow);
 //     }
 // });
+$(document).ready(function(){
 
-$(document).on('keyup','#searchbar', function() {
-    var value = $(this).val();
-    
-    $("#tbl_home").find("tr").each(function(index) {
-        if (index != 0) {
+    $('#searchbar').keyup(function() {
+        var value = $(this).val();
+        console.log(value);
+        if(value!= '')
+        {
+          $.ajax({
+                    url: "searchfetch.php",
+                    method:"POST",
+                    data :{
+                      val : value
+                      },
+                    success: function(data){
+                      console.log(data);
+                      $('#result-body').html(data);  
+                      $("#searchresult").css("display", "inline");
+                      $('#Service_pro').css("display","none");
+                      $('.sc_approve').on('click',function()
+                      { 
+                        var apr=$(this).closest('tr').find('th:nth-child(1)').text();
+                        var sc_nam=apr.trim();
+                        var log='<?php echo $lid; ?>';
+                        $(this).closest("tr").remove();
+                        $.ajax({
+                        url: "admin_uploaddata.php",
+                        method:"POST",
+                        data :{
+                        ser_name :sc_nam,
+                        login :log,
+                      },
+                        success: function(response){
+                          $('#sucess-msg').text(response);
+                        }
+                      }); 
 
-            $row = $(this);
-            var id = $row.find('td:eq(2)').text();
-            
-            if (id.indexOf(value) != 0) {
-              $row.hide();
-            }
-            else {
-              $row.show();
-            }
+                      });
+                      
+                    }
+                });
         }
+        else
+        {
+          $('#searchresult').html('');
+        }
+        
     });
 });
-
-// console.log(myTableArray);
-// $(document).on('click','#search_submit',function()
-// {
-//  var s=$('#search').val();
-//   $('#servicepro').css("display","inline");
-  
-// });
-// add edit and delete service category
 
 $(document).ready(function(){
   $("#add-new").on('click',function(){
@@ -1508,25 +1535,7 @@ $(document).on('click','.sc_approve',function()
 
 // End dismiss active sp
 
-// Search for
 
-// $(document).on('click','#search_submit',function()
-// {
-//   var s=$('#search').val();
-//   console.log(s);
-//   $.ajax({
-//     url: "admin_uploaddata.php",
-//     method:"POST",
-//     data :{
-//     search :s
-//   },
-//     success: function(result){
-     
-//     }
-//   });
-
-// });
-// end search for
 // reject sp sc_reject
 
 $(document).on('click','.sc_reject',function()
