@@ -88,11 +88,11 @@ $sc_id=$emp_details['sc_id'];
                             </a>
                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                 <li>
-                                    <a href="table.html">
+                                    <a href="#notif">
                                         <i class="fas fa-table"></i>Assigned Duty</a>
                                 </li>
                                 <li>
-                                    <a href="form.html">
+                                    <a href="#workdone">
                                         <i class="far fa-check-square"></i>Work Done</a>
                                 </li>
                             </ul>
@@ -127,11 +127,12 @@ $sc_id=$emp_details['sc_id'];
                                         </form>
                                     </div>
                                 </div>
-                                <div class="header-button-item has-noti js-item-menu">
+                               
+                                <!-- <div class="header-button-item has-noti js-item-menu">
                                     <i class="zmdi zmdi-notifications"></i>
                                     <div class="notifi-dropdown js-dropdown">
                                         <div class="notifi__title">
-                                            <p>You have 3 Notifications</p>
+                                            <p>You have  Notifications</p>
                                         </div>
                                         <div class="notifi__item">
                                             <div class="bg-c1 img-cir img-40">
@@ -164,7 +165,7 @@ $sc_id=$emp_details['sc_id'];
                                             <a href="#">All notifications</a>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="header-button-item mr-0 js-sidebar-btn">
                                     <i class="zmdi zmdi-menu"></i>
                                 </div>
@@ -179,7 +180,7 @@ $sc_id=$emp_details['sc_id'];
                                                 <i class="zmdi zmdi-settings"></i>Setting</a>
                                         </div>
                                     </div>
-                                    <div class="account-dropdown__body">
+                                    <!-- <div class="account-dropdown__body">
                                         <div class="account-dropdown__item">
                                             <a href="#">
                                                 <i class="zmdi zmdi-globe"></i>Language</a>
@@ -196,7 +197,7 @@ $sc_id=$emp_details['sc_id'];
                                             <a href="#">
                                                 <i class="zmdi zmdi-notifications"></i>Notifications</a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -288,7 +289,7 @@ $sc_id=$emp_details['sc_id'];
                     <div class=col-xl-12>
                         <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none" id="msg">
                             <i class="zmdi zmdi-check-circle"></i>
-                            <span class="content">You successfully read this important alert message.</span>
+                            <span class="content">You successfully completed action.</span>
                             <button class="close" type="button" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">
                                     <i class="zmdi zmdi-close-circle"></i>
@@ -331,7 +332,7 @@ $sc_id=$emp_details['sc_id'];
                                                     {
                                                         $date=$bk_data['booked_on'];
                                                         $tim=$bk_data['time'];
-                                                        $time=date("g:i a", strtotime("13:30"));
+                                                        $time=date("g:i a", strtotime($tim));
                                                         $cust_id=$bk_data['customer_id'];
                                                         $sql_cust="select * from tbl_customer where customer_id=$cust_id";
                                                         $cust_query=mysqli_query($con,$sql_cust);
@@ -368,10 +369,59 @@ $sc_id=$emp_details['sc_id'];
                                 </div>
                                 <!-- END USER DATA-->
                             </div>
-                            <div class="col-xl-6">
-                                <!-- MAP DATA-->
-                               
-                                <!-- END MAP DATA-->
+                            <div class="col-xl-12">
+                                <!-- Work Done-->
+                               <div id="workdone">
+                               <div class="row m-t-30">
+                                   <!-- <h4 class="py-3">Completed Work Details</h4> -->
+                            <div class="col-md-12">
+                                <!-- DATA TABLE-->
+                                <div class="table-responsive m-b-40">
+                                    <!-- <table class="table table-borderless table-data3">
+                                        <thead>
+                                            <tr>
+                                                <th>Customer</th>
+                                                <th>Specification</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                                $sql_cmplt="select * from tbl_booking where employee_id=$emp_id and servicecompleted=1";
+                                                $cmplt=mysqli_query($con,$sql_cmplt);
+                                                if(mysqli_num_rows($cmplt)>0)
+                                                {
+                                                    while($r=mysqli_fetch_array($cmplt))
+                                                    {
+                                                        $donedate=$r['booked_on'];
+                                                        $serv_id=$r['service_id'];
+                                                        $customer_id=$r['customer_id'];
+                                                        $cust_que=mysqli_query($con,"select * from tbl_customer where customer_id=$customer_id");
+                                                        $cus=mysqli_fetch_array($cust_que);
+                                                        $cmplttime=$r['time'];
+                                                        $ctime=date("g:i a", strtotime($cmplttime));
+                                                        $ser=mysqli_query($con,"select * from tbl_services where service_id=$serv_id");
+                                                        $serv=mysqli_fetch_array($ser)
+                                                ?>
+                                            <tr>
+                                                <td class="process"></td>
+                                                <td><?php echo $donedate; ?></td>
+                                                <td><?php echo $serv['service_name']; ?></td>
+                                                <td><?php echo $ctime; ?></td>  
+                                            </tr>
+                                            <?php }} 
+                                            else{?>
+                                            <tr><td colspan="4" style="text-align:center">No completed work</td></tr>
+                                            <?php } ?>
+                                        </tbody>
+                                    </table> -->
+                                </div>
+                                <!-- END DATA TABLE-->
+                            </div>
+                        </div>
+                               </div>
+                                <!-- END Work Done-->
                             </div>
                         </div>
                     </div>

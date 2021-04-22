@@ -28,13 +28,13 @@ $count_emp="SELECT * FROM tbl_employee";
 $emp_query=mysqli_query($con,$count_emp);
 $row_emp = mysqli_num_rows($emp_query);
 
-// Insert Image
+// Insert Image and update
 if(isset($_POST['insertimg'])){
   $pic=$_FILES['myImage']['name'];
   $target_dir = "images/";
   $target_path=$target_dir.$pic;
   move_uploaded_file($_FILES['myImage']['tmp_name'],$target_path);
-  
+
 }
 // service image
 if(isset($_POST['insert_serv'])){
@@ -65,20 +65,17 @@ if(isset($_POST['insert_serv'])){
         <link href="css/theme.css" rel="stylesheet" media="all">
         <script src="js/sidebarfun.js"></script>
         <script src="js/demo.js"></script>
-        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans"> -->
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+      
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <!-- <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script> -->
-        <!-- <script src="https://code.jquery.com/jquery-2.1.4.js"></script> -->
-        <!-- <script src='https://cdn.jsdelivr.net/jquery.cloudinary/1.0.18/jquery.cloudinary.js' type='text/javascript'></script> -->
+        
         <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
   </head>
   <style>
 
   </style>
-   
+
   <body>
 
 
@@ -126,7 +123,7 @@ if(isset($_POST['insert_serv'])){
 		     </div>
 		  </div>
 		  </li>
-      <li class="has-sub"> 
+      <li class="has-sub">
 		  <a class="nav-link collapsed text-left active" href="#collapseExample" role="button" data-toggle="collapse" >
         <i class="flaticon-user"></i>   Service
          </a>
@@ -135,20 +132,20 @@ if(isset($_POST['insert_serv'])){
 		<div class="container-fluid ">
 							<div class="row">
 								<div class="col-lg-12 px-2">
-									<div class="submenu-box"> 
+									<div class="submenu-box">
 										<ul class="list-unstyled m-0">
-											<li><a href="#service_cate" onclick="service_cat()" id="sc">Service Category</a></li>
-											<li><a href="#services" onclick="serve()" id="serv">Services</a></li> 
+											<li><a href="#service_cate" id="sc">Service Category</a></li>
+											<li><a href="#services" id="serv" value="serv">Services</a></li>
 										</ul>
 									</div>
 								</div>
-								
+
 							</div>
 						</div>
 		     </div>
 		  </div>
 		  </li>
-         
+
 
           <li class="">
             <a class="nav-link text-left active" href="#serviceprovider" onclick="serviceprovider()" id="spdata"> Service Provider</a>
@@ -168,7 +165,7 @@ if(isset($_POST['insert_serv'])){
 
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+    <div id="page-content-wrapper">
 
 
 			<div id="content">
@@ -226,12 +223,9 @@ if(isset($_POST['insert_serv'])){
 								<div class="position-relative">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell align-middle"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
 									<span class="indicator" >
-
                     <?php
-
                     echo $row_s;
                   ?>
-
                 </span>
                 </div>
               </a>
@@ -239,7 +233,6 @@ if(isset($_POST['insert_serv'])){
               <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right py-0" aria-labelledby="alertsDropdown">
 								<div class="dropdown-menu-header">
                   <?php echo $row_s;
-
                   ?> new notifications
 								</div>
 								<div class="list-group">
@@ -248,8 +241,6 @@ if(isset($_POST['insert_serv'])){
 
 											<div class="col-12">
                         <div class="text-dark"><table><?php
-
-
                         while($d=mysqli_fetch_array($counts_query))
                         {
 
@@ -264,8 +255,8 @@ if(isset($_POST['insert_serv'])){
                           echo $n." sends you an aproval Request<br>";
                           ?></tr>
                         <?php
-                      }
-                      ?>
+                       }
+                       ?>
 
                          </table></div>
 												<!-- <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
@@ -302,57 +293,54 @@ if(isset($_POST['insert_serv'])){
 
         <!-- End of Topbar -->
 <div id="sp_table" style="display:inline ;">
-<h4 style="margin:30px;color:grey;">Dashboard</h4>
-  <div class="container-fluid px-lg-4">
-  <div class="row">
-  
-    <div class="notify"><span id="notifyType" class=""></span></div>
-  <div class="col-md-12">
-       <div class="row">
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title mb-4">Sevice Providers</h5>
-												<h1 class="display-5 mt-1 mb-3">
-                        <?php
-                            echo $row_sp;
-                          ?>
-                        </h1>
+  <h4 style="margin:30px;color:grey;">Dashboard</h4>
+    <div class="container-fluid px-lg-4">
+      <div class="row">
 
-											</div>
-										</div>
-
-									</div>
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title mb-4">Customers</h5>
-												<h1 class="display-5 mt-1 mb-3">
+      <div class="notify"><span id="notifyType" class=""></span></div>
+        <div class="col-md-12">
+          <div class="row">
+                    <div class="col-sm-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title mb-4">Sevice Providers</h5>
+                          <h1 class="display-5 mt-1 mb-3">
                           <?php
-                            echo $row;
-                          ?>
-                        </h1>
+                              echo $row_sp;
+                            ?>
+                          </h1>
 
-											</div>
-										</div>
+                        </div>
+                      </div>
 
-									</div>
-									<div class="col-sm-4">
-										<div class="card">
-											<div class="card-body">
-												<h5 class="card-title mb-4">Employes</h5>
-												<h1 class="display-5 mt-1 mb-3"><?php echo $row_emp;?></h1>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title mb-4">Customers</h5>
+                          <h1 class="display-5 mt-1 mb-3">
+                            <?php
+                              echo $row;
+                            ?>
+                          </h1>
 
-											</div>
-										</div>
+                        </div>
+                      </div>
 
-									</div>
-                  
-						  </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="card-title mb-4">Employes</h5>
+                          <h1 class="display-5 mt-1 mb-3"><?php echo $row_emp;?></h1>
 
-        </div>
+                        </div>
+                      </div>
 
-        </div>
+                    </div>
+                </div>
+          </div>
+      </div>
         <div class="col-md-12 mt-4">
                         <div class="card" id="servicepro" style="display:inline">
                             <div class="card-body">
@@ -376,7 +364,7 @@ if(isset($_POST['insert_serv'])){
                                 <!-- title -->
                                 <h3 style="font-family: Times New Roman, Times, serif;">Service Providers Request</h3>
                             </div>
-                            
+
                             <!-- Service provider data -->
                             <div id="Service_pro">
                               <div class="table-responsive">
@@ -423,7 +411,7 @@ if(isset($_POST['insert_serv'])){
                                                       </div>
                                                   </div>
                                               </td>
-                                              <td>  
+                                              <td>
                                                 <div class="d-flex align-items-center">
                                                       <div class="">
                                                           <label class="m-b-0 font-16"><?php echo $lno; ?></label>
@@ -455,7 +443,7 @@ if(isset($_POST['insert_serv'])){
                                                           </label>
                                                       </div>
                                                   </div>
-                                              
+
                                               </td>
                                               <td>
                                               <div class="d-flex align-items-center">
@@ -470,7 +458,7 @@ if(isset($_POST['insert_serv'])){
                                                           </label>
                                                       </div>
                                                   </div>
-                                            
+
                                               </td>
                                               <td>
                                               <div class="d-flex align-items-center">
@@ -482,7 +470,7 @@ if(isset($_POST['insert_serv'])){
                                                           </label>
                                                       </div>
                                                   </div>
-                                                  
+
                                               </td>
                                           </tr>
                                           <?php
@@ -514,7 +502,7 @@ if(isset($_POST['insert_serv'])){
  <!-- Admin District control -->
     <!-- <span id="error-msg"></span> -->
 
-  
+
  <div id="adminlocation">
     <div id="new-district" style="display:none;">
       <div class="container">
@@ -578,10 +566,10 @@ if(isset($_POST['insert_serv'])){
             </table>
        </div>
     </div>
-  </div>               
+  </div>
 <br>
     <!-- Location Management -->
-      
+
       <div id="new-location" style="display: none;">
                             <div class="col-sm-12">
                                <button class="btn btn-primary" data-target="#demo-lg-modalSMSAll" data-toggle="modal" id="add-new-loc" style="margin-left:30px;font: size 18px;">Add New</button>
@@ -593,7 +581,7 @@ if(isset($_POST['insert_serv'])){
                                                 <th>District</th>
                                                 <th>Location</th>
                                                 <th>Action</th>
-                                                
+
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -604,14 +592,14 @@ if(isset($_POST['insert_serv'])){
                                             while($data=mysqli_fetch_array($sql_query))
                                             {
                                               $dis_id=$data['district_id'];
-                                                
+
                                           ?>
                                             <tr>
                                                 <th rowspan="1" style="text-align:left;"> <?php
-                                                 
+
                                                     echo $data['district_name'];
                                                 ?></th>
-                                               <?php 
+                                               <?php
                                                 $loc_data="select * from tbl_location where district_id=$dis_id and is_delete='1'";
                                                 $loc_data_query=mysqli_query($con,$loc_data);
                                                 while($loc_details=mysqli_fetch_array($loc_data_query))
@@ -638,12 +626,12 @@ if(isset($_POST['insert_serv'])){
                                 </div>
                                 <!-- END DATA TABLE-->
         </div>
-        </div>                 
-                                                  
+        </div>
 
- 
+
+
       <!-- </div> -->
-    
+
             <br>
 
       <!-- add new location  text field-->
@@ -689,14 +677,13 @@ if(isset($_POST['insert_serv'])){
 <!-- #admin location control -->
 
 <!--  admin service category management-->
- 
+
     <div id="service_cate" style="display:none;">
-      <div class="container col-sm-12" >
+      <div class="container col-sm-12" id="cate-body">
         <div class="table-responsive">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <!-- <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div> -->
                         <div>
                             <button type="button" class="btn btn-info add-new"  id="add-new"><i class="fa fa-plus"></i> Add New</button>
                         </div>
@@ -708,21 +695,19 @@ if(isset($_POST['insert_serv'])){
                 <table class="table table-bordered" id="pre-sc">
                     <thead>
                         <tr>
-                            <!-- <th>slno</th> -->
-                            <th>Service Category</th> 
+                            <th>Service Category</th>
                             <th>Amount/Month</th>
                             <th>Image</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
+                         <?php
                                 $services="SELECT * FROM tbl_service_category WHERE is_delete='1'";
                                 $ser_query=mysqli_query($con,$services);
                                 while($row=mysqli_fetch_array($ser_query))
                                 {?>
                         <tr>
-                            <!-- <td>John Doe</td> -->
                             <th>
                               <?php
                                   echo $row['sc_name'];
@@ -742,19 +727,19 @@ if(isset($_POST['insert_serv'])){
                             <td style="border-top:0px;text-align:center;">
                             <button class="btn btn-sm btn-success btn-inline sc_edit" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
                             <button class="btn btn-sm btn-danger btn-inline sc_del" onclick=""  title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
-                            <!-- <button class="btn btn-sm btn-primary btn-inline" style="padding-top: 3px;" onclick="" title="Upload/View data"><i class="fa fa-upload"></i></button> -->
+                            
                             </a></td>
                         </tr>
                        <?php } ?>
                     </tbody>
                 </table>
               </div>
-        </div>   
-      </div> 
+        </div>
+      </div>
       <div id="delsc" style="display:none">
         <div class="row m-t-30">
         <div class="col-md-8" style="margin-left: auto;margin-right: auto;">
-            <!-- DATA TABLE-->
+            
               <div class="table-responsive m-b-40">
                 <table class="table table-borderless table-data3">
                   <thead>
@@ -769,10 +754,12 @@ if(isset($_POST['insert_serv'])){
                   <?php
                                 $services="SELECT * FROM tbl_service_category WHERE is_delete='0'";
                                 $ser_query=mysqli_query($con,$services);
+                                if(mysqli_num_rows($ser_query)>0)
+                                {
                                 while($row=mysqli_fetch_array($ser_query))
                                 {?>
                         <tr>
-                            <!-- <td>John Doe</td> -->
+                            
                             <td>
                               <?php
                                   echo $row['sc_name'];
@@ -781,24 +768,30 @@ if(isset($_POST['insert_serv'])){
 
                               ?>
                             </td>
-                   
-                      <td><?php echo $amt; ?></td> 
-                      <td><img src="images/<?php echo $ima; ?>" width="60px" height="50px"/></td> 
-                      <td><button class="btn btn-sm btn-success btn-inline sc-restore" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit">Restore</button><a></td>                     
+
+                      <td><?php echo $amt; ?></td>
+                      <td><img src="images/<?php echo $ima; ?>" width="60px" height="50px"/></td>
+                      <td><button class="btn btn-sm btn-success btn-inline sc-restore" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit">Restore</button><a></td>
                       </tr>
                       <?php
-                                }?>
+                                }}
+                                else{?>
+                                <tr>
+                                  <td colspan="4" style="text-align:center">No Deleted Category</td>
+                                </tr>
+                                <?php 
+                                } ?>
                   </tbody>
                 </table>
               </div>
-              <!-- END DATA TABLE-->
+             
             </div>
-          </div>
+        </div>
       </div>
     </div>
        <!-- Add new category -->
 <div id="new-sc" style="display : none;margin-left :50px;">
-   <table class="table" >
+          <table class="table" >
               <thead>
                       <tr>
                           <th>Service Category</th>
@@ -820,17 +813,17 @@ if(isset($_POST['insert_serv'])){
                         </form>
                       </tr>
                   </thead>
-              </table>
+          </table>
       </div>
     <!-- services inside each service category -->
               <div id="services" style="display:none;">
-                    <div class="row m-t-40">
+                    <div class="row m-t-40" id="service-body">
                                   <div class="col-md-12">
                                       <div>
                                         <button type="button" class="btn btn-info add-new"  id="new-service"><i class="fa fa-plus"></i> Add New</button>
                                       </div>
-                                        <!-- DATA TABLE-->
-                                      
+                                       
+
                                             <table class="table table-data3">
                                                 <thead>
                                                     <tr>
@@ -843,20 +836,22 @@ if(isset($_POST['insert_serv'])){
                                                 </thead>
                                                 <tbody>
                                                 <?php
-                                                $services="SELECT * FROM tbl_service_category WHERE is_delete='1'";
+                                                $services="SELECT * FROM tbl_service_category WHERE is_delete=1";
                                                 $ser_query=mysqli_query($con,$services);
                                                 while($row=mysqli_fetch_array($ser_query))
-                                            {
+                                                {
                                                 ?>
-                                                    <tr>
+                                                <tr>
                                                         <th><?php
                                                         echo $row['sc_name'];
                                                         $rid=$row['sc_id'];
                                                         ?>
                                                         </th>
                                                         <?php
-                                                            $ser="SELECT * from tbl_services where sc_id=$rid";
+                                                            $ser="SELECT * from tbl_services where sc_id=$rid and is_delete=1";
                                                             $service_query=mysqli_query($con,$ser);
+                                                            if(mysqli_num_rows($service_query)>0)
+                                                            {
                                                             while($ser_data=mysqli_fetch_array($service_query))
                                                             {
                                                               $serimg=$ser_data['service_img'];
@@ -865,28 +860,33 @@ if(isset($_POST['insert_serv'])){
                                                             <tr>
                                                               <td colspan="1"></td>
                                                                 <td>
-                                                                <?php echo $ser_data['service_name']; 
+                                                                <?php echo $ser_data['service_name'];
                                                               ?>
                                                               </td>
-                                                        <td><img src="images/icon/<?php echo $serimg;?>" width="60px" height="50px"/></td>
+                                                        <td><img src="images/icon/<?php echo $serimg;?>" id="ser_img" width="60px" height="50px"/></td>
                                                         <td class="process"><?php echo $seramt;?></td>
                                                         <td style="border-top:0px;text-align:right;">
-                                                          <button class="btn btn-sm btn-success btn-inline sedit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
-                                                          <button class="btn btn-sm btn-danger btn-inline sdel" title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button>
+                                                          <button class="btn btn-sm btn-success btn-inline sedit" data-target="#demo-lg-modal1" data-toggle="modal" title="Edit" value="<?php echo $rid; ?>"><i class='fas fa-edit'></i></button><a>
+                                                          <button class="btn btn-sm btn-danger btn-inline sdel" title="Delete" value="<?php echo $rid; ?>"><i class="fa fa-times" aria-hidden="true"></i></button>
                                                         </td>
-                                                      <?php
-                                                        }
-                                                      ?>
                                                       </tr>
-                                                    <?php  
-                                                    } 
-                                                    ?>
+                                                      <?php
+                                                        }}
+                                                        else
+                                                        { ?>
+                                                        <tr><td colspan="5" style="text-align:center">No service Category</td></tr>
+                                                        <?php } ?>
+                                                     
                                                     </tr>
+                                                    <?php
+                                                    } 
+                                                   
+                                                    ?>
                                                 </tbody>
                                             </table>
+
                                         
-                                        <!-- END DATA TABLE-->
-                                    </div>
+                                  </div>
                       </div>
                 </div>
 
@@ -900,10 +900,10 @@ if(isset($_POST['insert_serv'])){
                                 <th>Image</th>
                                 <th>Amount</th>
                                 <th>Action</th>
-                              </tr> 
+                              </tr>
                               <tr>
                               <form action="#" name="service-upload" method="post" enctype="multipart/form-data">
-                                <td><input type="text" class="form-control" required="" id="ser1"></input></td>
+                                <td><input type="text" class="form-control" required="" id="service"></input></td>
                                 <td>
                                   <div class="dropdown">
                                       <select class="btn dropdown-toggle caret-dropdown-menu" type="button" data-toggle="dropdown" name="sc" id="service_id" required="">
@@ -916,12 +916,11 @@ if(isset($_POST['insert_serv'])){
                                           {
                                             echo "<option value='".$data_sc['sc_id']."'>" .$data_sc['sc_name'] ."</option>";
                                           }
-
                                        ?>
                                     </div>
                                 </td>
                                 <td><input type="file" name="scImage" id="sc-img" accept="image/icon/*" /></td>
-                                <td><input type="text" class="form-control" required="" id="sc-amt"></input></td>
+                                <td><input type="text" class="form-control" required="" id="ser-amt"></input></td>
                                 <td style="border-top:0px;text-align:center;">
                                   <button class="btn btn-sm btn-primary" type="submit" style="padding-top: 3px; padding" id="service-submit" name="insert_serv" title="Upload/View data"><i class="fa fa-upload"></i></button>
                                 </td>
@@ -939,7 +938,7 @@ if(isset($_POST['insert_serv'])){
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800"></h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>
+            <a href="pdf.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i>
 			        Generate Report</a>
           </div>
     </div>
@@ -962,7 +961,7 @@ if(isset($_POST['insert_serv'])){
                         </tr>
                       </thead>
                       <tbody id="myTable">
-                        <?php 
+                        <?php
                         $spsql="select * from tbl_login where role_id=4 and is_delete=1 and aproval_status=1";
                         $activesp=mysqli_query($con,$spsql);
                         while($spdata=mysqli_fetch_array( $activesp))
@@ -971,34 +970,34 @@ if(isset($_POST['insert_serv'])){
                           $sp="select * from tbl_serviceproviders where login_id= $activelogin";
                           $ser_pro_query=mysqli_query($con,$sp);
                           $spid=mysqli_fetch_array($ser_pro_query);
-                          
+
                         ?>
                         <tr>
                           <td><?php echo $spid['sp_name']; ?></td>
-                          <td><?php echo $spid['sp_phone']; ?></td> 
-                          <td><?php echo $spid['sp_email']; ?></td> 
-                          <td><?php echo $spid['sp_address']; ?></td>   
-                          <td><?php $disid=$spid['district_id']; 
+                          <td><?php echo $spid['sp_phone']; ?></td>
+                          <td><?php echo $spid['sp_email']; ?></td>
+                          <td><?php echo $spid['sp_address']; ?></td>
+                          <td><?php $disid=$spid['district_id'];
                                     $sqldisname="select * from tbl_district where district_id=$disid";
                                     $disnamequery=mysqli_query($con,$sqldisname);
                                     $disdata=mysqli_fetch_array($disnamequery);
-                                    echo $disdata['district_name'];?></td>  
-                          <td><?php $loc_id=$spid['location_id'];  
+                                    echo $disdata['district_name'];?></td>
+                          <td><?php $loc_id=$spid['location_id'];
                                     $sql_location="select * from tbl_location where location_id=$loc_id";
                                     $sql_loc_query=mysqli_query($con,$sql_location);
                                     $loc_name=mysqli_fetch_array($sql_loc_query);
-                                    echo $loc_name['location'];?></td> 
-                          <td><?php echo $spid['lisenceno']; ?></td> 
+                                    echo $loc_name['location'];?></td>
+                          <td><?php echo $spid['lisenceno']; ?></td>
                           <td><?php $serv_cat= $spid['sc_id'];
                                     $sql_ser_cat="select * from tbl_service_category where sc_id=$serv_cat";
                                     $ser_cat_query=mysqli_query($con,$sql_ser_cat);
                                     $ser_name=mysqli_fetch_array($ser_cat_query);
-                                    echo $ser_name['sc_name']; ?></td>  
+                                    echo $ser_name['sc_name']; ?></td>
                           <!-- <td>
                             <button class="btn btn-sm btn-danger btn-inline sp_dismiss" title="Dismiss">Dismiss</button>
                           </td>                  -->
                           </tr>
-                          <?php    
+                          <?php
                         }
                         ?>
                       </tbody>
@@ -1013,62 +1012,66 @@ if(isset($_POST['insert_serv'])){
 
 <!-- Employee Details -->
   <div id="emp" style="display:none;">
-  <table class="table table-bordered">
-  <thead>
+    <table class="table table-bordered">
+      <thead>
 
-  <tr>
-  <th>Name</th>
-  <th>Service Provider</th>
-  <th>Service Category</th>
-  <th>Action</th>
-  </tr>
-  </thead>
-  <tbody>
-  <?php
-    $employe="select * from tbl_employee";
-    $employee_query=mysqli_query($con,$employe);
-    while($r=mysqli_fetch_array($employee_query))
-    {
-      $name=$r['employee_name'];
-      $sp=$r['sp_id'];
-      $sc=$r['sc_id'];
-    ?>
-  <tr>
-  <th><?php echo $name; ?></th>
-  <th><?php
-  $service_providers="select * from tbl_serviceproviders where sc_id=$sc";
-  $sp_query=mysqli_query($con,$service_providers);
-  $row=mysqli_fetch_array($sp_query);
-  
-    echo $row['sp_name'];
-  
-  ?></th>
-  <th>
-  <?php
-  $sc="select * from tbl_services where sc_id=$sc";
-  $sc_query=mysqli_query($con,$sc);
-  $row=mysqli_fetch_array($sc_query);
-  
-    echo $row['service_name'];
-  
-  ?>
-  </th>
-  <td>
-    <button class="btn btn-sm btn-success btn-inline sc_edit" data-target="#demo-lg-modal1" onclick="" data-toggle="modal" title="Edit"><i class='fas fa-edit'></i></button><a>
-    <button class="btn btn-sm btn-danger btn-inline sc_del" onclick=""  title="Delete"><i class="fa fa-times" aria-hidden="true"></i></button></a><a>
-  </td>
-  </tr>
-  <?php
-    }
-  ?>
-  </tbody>
-  </table>
+        <tr>
+          <th>Name</th>
+          <th>Service Provider</th>
+          <th>Category</th>
+          <th>Service</th>
+        </tr>
+      </thead>
+      <tbody>
+      <?php
+        $l_q=mysqli_query($con,"select * from tbl_login where role_id=3 and aproval_status=1");
+        while($emp=mysqli_fetch_array($l_q))
+        { $emplid=$emp['lid'];
+        $employe="select * from tbl_employee where login_id=$emplid";
+        $employee_query=mysqli_query($con,$employe);
+        $r=mysqli_fetch_array($employee_query);
+        
+          $name=$r['employee_name'];
+          $sp=$r['sp_id'];
+          $sc=$r['sc_id'];
+          $ser_id=$r['service_id'];
+        ?>
+      <tr>
+        <td><?php echo $name; ?></td>
+        <td><?php
+          $service_providers="select * from tbl_serviceproviders where sc_id=$sc";
+          $sp_query=mysqli_query($con,$service_providers);
+          $row=mysqli_fetch_array($sp_query);
+            echo $row['sp_name'];
+          ?>
+        </td>
+        <td>
+          <?php
+          $sc="select * from tbl_service_category where sc_id=$sc";
+          $sc_query=mysqli_query($con,$sc);
+          $sprow=mysqli_fetch_array($sc_query);
+          echo $sprow['sc_name'];
+          ?>
+        </td> 
+        <td>
+        <?php 
+        $s_q=mysqli_query($con,"select * from tbl_services");
+        $row_ser=mysqli_fetch_array($s_q);
+        echo $row_ser['service_name'];
+        ?>
+        </td>
+      </tr>
+      <?php
+        }
+      ?>
+      </tbody>
+    </table>
   </div>
 
 <!-- Employee Details -->
 
 <!-- customer Details -->
-  <div id="customer" style="display:none;">
+  <div id="customer" style="display:none;padding-left:180px;">
     <h2 style="font-family: Times New Roman, Times, serif;">Booking Details</h2>
       <table class="table table-bordered">
       <thead>
@@ -1076,7 +1079,7 @@ if(isset($_POST['insert_serv'])){
       <th>Customer Name</th>
       <th>Service</th>
       <th>Booking Date</th>
-      
+
       </tr>
       </thead>
       <tbody>
@@ -1131,6 +1134,43 @@ if(isset($_POST['insert_serv'])){
 //         myTableArray.push(arrayOfThisRow);
 //     }
 // });
+// $(document).on('click','#serv',function()
+// {
+//   $.ajax({
+//     url:"admin_service_mgmt.php",
+//     method:"POST",
+//     data :{
+//      dat: 1,
+//     },
+//       success: function(data){
+//         console.log(data);
+//         $('#service-body').html(data);
+//         $('#services').css("display","inline");
+//         $('#service_cate').css("display","none");
+//       }
+
+//   });
+// });
+
+// $(document).on('click','#sc',function()
+// {
+//   $.ajax({
+//     url:"admin_service_mgmt.php",
+//     method:"POST",
+//     data :{
+//      categ: 2,
+//     },
+//       success: function(data){
+//         console.log(data);
+//         $('#cate-body').html(data);
+//         $('#service_cate').css("display","inline");
+//         $('#services').css("display","none");
+//       }
+
+//   });
+// });
+
+
 $(document).ready(function(){
 
     $('#searchbar').keyup(function() {
@@ -1146,37 +1186,36 @@ $(document).ready(function(){
                       },
                     success: function(data){
                       console.log(data);
-                      $('#result-body').html(data);  
+                      $('#result-body').html(data);
                       $("#searchresult").css("display", "inline");
                       $('#Service_pro').css("display","none");
                       $('.sc_approve').on('click',function()
-                      { 
+                      {
                         var apr=$(this).closest('tr').find('th:nth-child(1)').text();
                         var sc_nam=apr.trim();
                         var log='<?php echo $lid; ?>';
                         $(this).closest("tr").remove();
                         $.ajax({
-                        url: "admin_uploaddata.php",
-                        method:"POST",
-                        data :{
-                        ser_name :sc_nam,
-                        login :log,
-                      },
-                        success: function(response){
-                          $('#sucess-msg').text(response);
-                        }
-                      }); 
+                          url: "admin_uploaddata.php",
+                          method:"POST",
+                          data :{
+                          ser_name :sc_nam,
+                          login :log,
+                        },
+                          success: function(response){
+                            $('#sucess-msg').text(response);
+                          }
+                        });
 
                       });
-                      
+
                     }
                 });
-        }
-        else
-        {
-          $('#searchresult').html('');
-        }
-        
+            }
+            else
+            {
+              $('#searchresult').html('');
+            }
     });
 });
 
@@ -1188,7 +1227,7 @@ $(document).ready(function(){
           var sc = $("#c1").val();
           var amt=$("#c2").val();
           // var filename= $('#img').text($this.get(0).files.item(0).name);
-          var filename = document.getElementById('img').files[0].name; 
+          var filename = document.getElementById('img').files[0].name;
           // var filename = fileInput.files[0].name;
         // var fd = new FormData(this);
         // var files = $('#img')[0].files[0];
@@ -1208,7 +1247,7 @@ $(document).ready(function(){
                   $("#c1").val(" ");
                   $("#c2").val(" ");
                 }
-                // timeout: 5000 
+                // timeout: 5000
            });
         });
 
@@ -1220,7 +1259,7 @@ $(document).ready(function(){
     $('.sc-restore').on('click',function(){
       var restore= $(this).closest('tr').find('td:eq(0)').text();
       var resetamt=$(this).closest('tr').find('td:eq(1)').text();
-      
+
       $(this).closest("tr").remove();
       var res=restore.trim();
       console.log(resetamt);
@@ -1232,7 +1271,7 @@ $(document).ready(function(){
           resetamount:resetamt,
         },
         success: function(result){
-          $("#pre-sc").append(result);    
+          $("#pre-sc").append(result);
           }
       });
     });
@@ -1242,7 +1281,7 @@ $(document).ready(function(){
 
 
   // district and location add
-  $(document).ready(function(){
+$(document).ready(function(){
   $("#add-new-loc").on('click',function(){
     $("#new-loc").css("display","inline");
     $("#upload-data").on('click',function(){
@@ -1257,14 +1296,12 @@ $(document).ready(function(){
         district :dis,
         },
         success: function(result){
-        // $('#add-location').append(result);
         $("#loc-name").val(" ");
-
-        // $('#error_uname').text(response);
         }
       });
+    });
   });
-  });
+
   $("#add-new-dis").on('click',function(){
     $("#new-dis").css("display","inline");
     $("#upload").on('click',function(){
@@ -1285,12 +1322,12 @@ $(document).ready(function(){
                     $("#add-district").append(result)
                     $("#dis").val(" ");
                   }
-                 
+
                   // $("#c2").reset();
                 }
               });
-  });
-});
+        });
+    });
 
 });
 // delete district from db
@@ -1376,8 +1413,8 @@ $(document).on('click','.loc_edit',function()
   $("#upload-data").on('click',function(){
     var loc_new=$("#loc-name").val();
     var dis=$("#dis-name").val();
-    
-    
+
+
   $.ajax({
     url: "admin_uploaddata.php",
     method:"POST",
@@ -1385,12 +1422,12 @@ $(document).on('click','.loc_edit',function()
     loc_edit :loc_new,
     locat:loca,
     new_dis :dis
-  },
-    success: function(result){
-      $("#add-location").append(result);
-      $("#loc-name").val(" ");
-    }
-  });
+    },
+      success: function(result){
+        $("#add-location").append(result);
+        $("#loc-name").val(" ");
+      }
+    });
   });
 });
 // delete sc
@@ -1404,11 +1441,12 @@ $(document).on('click','.sc_del',function()
     url: "admin_uploaddata.php",
     method:"POST",
     data :{
-      ser_cat :ser_cat},
-    success: function(result){
-      $("#pre-sc").append(result);
-                  // $("#loc-name").val(" ");
-    }
+      ser_cat :ser_cat
+      },
+      success: function(result){
+        $("#pre-sc").append(result);
+                    // $("#loc-name").val(" ");
+      }
   });
 
 });
@@ -1425,8 +1463,9 @@ $(document).on('click','.sc_edit',function()
   $("#sc3").on('click',function(){
     var sc_new=$("#c1").val();
     var amt_new=$("#c2").val();
-    var img_new=$("#img").val();
-    
+    // var img_new=$("#img").val();
+    var filename = document.getElementById('img').files[0].name;
+
   $.ajax({
     url: "admin_uploaddata.php",
     method:"POST",
@@ -1434,14 +1473,14 @@ $(document).on('click','.sc_edit',function()
     ser :sc_new,
     old_sc :sc,
     new_amt:amt_new,
-    image:img_new
-  },
-    success: function(result){
-      $('#pre-sc').append(result);
-      $("#c1").val(" ");
-      $("#c2").val(" ");
-    }
-  });
+    image:filename
+    },
+      success: function(result){
+        $('#pre-sc').append(result);
+        $("#c1").val(" ");
+        $("#c2").val(" ");
+      }
+    });
   });
 });
 
@@ -1451,10 +1490,11 @@ $(document).on('click','#new-service',function()
 {
   $('#add-service').css("display","inline");
   $("#service-submit").on('click',function(){
-    var name_ser = $("#ser1").val();
-    var ser_amt=$("#sc-amt").val();
-    var ser_categ=$("#sc-name").val();
-    var ser_id=$("#service_id").val();
+    var name_ser= $('#service').val();
+    // var name_ser = $("#service").val();
+    var ser_amt=$("#ser-amt").val();
+    // var ser_categ=$("#sc-name").val();
+    var sercat_id=$("#service_id").val();
     var service_img = document.getElementById('sc-img');
     var sc_filename = service_img.files[0].name;
     
@@ -1462,29 +1502,80 @@ $(document).on('click','#new-service',function()
       url: "admin_uploaddata.php",
       method:"POST",
       data :{
-      service_id:ser_id,
+      service_id: sercat_id,
       service_name :name_ser,
       service_amt:ser_amt,
-      service_catogery:ser_categ,
+      // service_catogery:sercat_id,
       service_image:sc_filename
-    },
-    success: function(result){
-      $('#add-service').append(result);
-      // $("#c1").val(" ");
-      // $("#c2").val(" ");
-    }
+      },
+      success: function(data){
+        // alert(data)
+        $('#add-service').html(data);
+        
+      }
     });
   });
 });
 
 // Edit Service
-// $document.on('click','.sedit',function(){
-//   $('#add-service').css("display","inline");
- 
-// });
+$(document).on('click','.sedit',function(){
+  $('#add-service').css("display","inline");
+    var btnval=$(this).val();
+    var oldserv=$(this).closest('tr').find('td:eq(1)').text();
+    oldser=oldserv.trim();
+      $("#service-submit").on('click',function()
+      {
+        var ser_name = $("#service").val();
+        var ser_amte=$("#ser-amt").val();
+        // var ser_categ=$("#sc-name").val();
+        var serv_id=$("#service_id").val();
+        var service_img = document.getElementById('sc-img');
+        var ser_filename = service_img.files[0].name;
+        $.ajax({
+          url: "admin_uploaddata.php",
+          method:"POST",
+          data :{
+          serv_name : ser_name,
+          serv_amount : ser_amte,
+          serv_img : ser_filename,
+          serv_id : serv_id,
+          oldscid :btnval,
+          oldserv : oldser
+          },
+          success: function(data){
+            // alert(data)
+            $('#add-service').html(data);
+          }
+      });
+    });
+});
 
 // end of edit service
 
+
+// Delete Services
+
+$(document).on('click','.sdel',function(){
+    var id=$(this).val();
+    var sname=$(this).closest('tr').find('td:eq(1)').text();
+    var snam=sname.trim();
+    var samount=$(this).closest('tr').find('td:eq(3)').text();
+    var samt=samount.trim();
+    $.ajax({
+          url: "admin_uploaddata.php",
+          method:"POST",
+          data :{
+          ser_nam :snam,
+          ser_amt : samt,
+          sid : id
+          },
+          success: function(data){
+            // alert(data);
+          }
+      });
+    
+});
+// End delete service
 
 // Approve service Providers
 
@@ -1502,13 +1593,10 @@ $(document).on('click','.sc_approve',function()
     data :{
     ser_name :sc_name,
     login :login,
-  },
-    success: function(response){
-      $('#sucess-msg').text(response);
-      
-      // $("#c1").val(" ");
-      // $("#c2").val(" ");
-    }
+    },
+      success: function(response){
+        $('#sucess-msg').text(response);
+      }
   });
 
 });
@@ -1552,10 +1640,10 @@ $(document).on('click','.sc_reject',function()
     data :{
     reject :rj_name,
     login :login,
-  },
-    success: function(response){
-      $('#sucess-msg').text(response);
-    }
+    },
+      success: function(response){
+        $('#sucess-msg').text(response);
+      }
   });
 
 });
@@ -1566,7 +1654,7 @@ $('#bar').click(function(){
 	$(this).toggleClass('open');
   $('#page-content-wrapper ,#sidebar-wrapper,#adminlocation,#admin_sc_management,#service_management,#servicepro',).toggleClass('toggled');
 
-
+});
   $('#district').click(function()
 {
   $('#new-district').show();
@@ -1581,7 +1669,7 @@ $('#location').click(function()
 $('#sc').click(function()
 {
   $('#service_cate').show();
-  $('#new-location,#new-district,#services,#servicepro','#serviceprovider').hide();
+  $('#new-location,#new-district,#services,#servicepro,#serviceprovider').hide();
 });
 $('#serv').click(function()
 {
@@ -1598,9 +1686,6 @@ $('#spdata').click(function()
   $('#serviceprovider').show();
   $('#new-location,#service_cate,#new-district,#services').hide();
 });
-
-});
-
   </script>
   <?php
     mysqli_close($con);

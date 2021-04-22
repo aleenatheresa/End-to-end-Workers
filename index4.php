@@ -168,7 +168,7 @@ $_SESSION['sc']=$sc;
             <section class="alert-wrap p-t-70 p-b-70">
                 <div class="container">
                     <!-- ALERT-->
-                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:inline" id="msg">
+                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none" id="msg">
                         <i class="zmdi zmdi-check-circle"></i>
                         <span class="content">You successfully read this important alert message.</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -224,11 +224,11 @@ $_SESSION['sc']=$sc;
                                             </a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                                 <li>
-                                                    <a href="button.html">Employess Available</a>
+                                                    <a href="#">Employee Available</a>
                                                 </li>
-                                                <li>
-                                                    <a href="badge.html">Employess Charge</a>
-                                                </li>
+                                                <!-- <li>
+                                                    <a href="#">Employee Charge</a>
+                                                </li> -->
                                             </ul>
                                         </li>
                                     </ul>
@@ -271,12 +271,6 @@ $_SESSION['sc']=$sc;
                                                                     $custn=mysqli_fetch_array($custquery);
                                                               ?>
                                                 <tr>
-                                                    <td>
-                                                        <!-- <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label> -->
-                                                    </td>
                                                     <td>
                                                         <div class="table-data__info">
                                                             <h6>
@@ -322,82 +316,82 @@ $_SESSION['sc']=$sc;
                                             </tbody>
                                         </table>
                                     </div>
+        
                                     <div class="user-data__footer">
                                         <button class="au-btn au-btn-load"></button>
                                     </div>
                                 </div>
                                 <!-- End Employee Notification -->
-                                <div class="row">
-                                    <div class="col-md-12" id="stafftable-body" style="display:none;">
+        <div class="row">
+            <div class="col-md-12" id="stafftable-body" style="display:none;">
                                         <!-- DATA TABLE-->
                                         <div class="table-responsive m-b-40" id="stafftable">
 
                                         </div>
                                         <!-- END DATA TABLE-->
+            </div>
+        </div>
+
+                        <!-- Employee Aproval Aproval Status -->
+            <div class="user-data m-b-30" id="emp-aproval">
+                <div id="emp-aproval-body">
+                    <h3 class="title-3 m-b-30">Employee Notification</h3>
+                <div class="row m-t-30">
+                <div class="col-md-12">
+                                <!-- DATA TABLE-->
+                     <div class="table-responsive m-b-40">
+                        <table class="table table-borderless table-data3">
+                            <thead>
+                                <tr>
+                                <td>Name</td>
+                                <td>Specification</td>
+                                <td>Date</td>
+                                <td>Time</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $emp_apr=mysqli_query($con,"select * from tbl_booking where aproval_status=1 and servicecompleted=0");
+                                if(mysqli_num_rows($emp_apr))
+                                {
+                                    while($apr=mysqli_fetch_array($emp_apr))
+                                    {
+                                        $cus_id=$apr['customer_id'];
+                                        $emp_id=$apr['employee_id'];
+                                        $serv=$apr['service_id'];
+                                        $d=$apr['booked_on'];
+                                        $t=$apr['time'];
+                                        $cus_query=mysqli_query($con,"select * from tbl_customer where customer_id=$cus_id");
+                                        $cus_name=mysqli_fetch_array($cus_query);
+
+                                        $emp_que=mysqli_query($con,"select * from tbl_employee where employee_id=$emp_id");
+                                        $emp=mysqli_fetch_array($emp_que);
+
+                                        $ser_quer=mysqli_query($con,"select * from tbl_services where service_id=$serv");
+                                        $serc=mysqli_fetch_array($ser_quer);
+
+                                ?>
+                                <tr>
+                                    <td><?php echo $emp['employee_name'];?></td>
+                                    <td><?php echo $serc['service_name'];?></td>
+                                    <td><?php echo $d;?></td>
+                                    <td><?php $tim=date("g:i a", strtotime($t));
+                                              echo $tim;?></td>
+                                </tr>
+                                <?php
+                                    } }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                                <!-- END DATA TABLE-->
+                 </div>
+            </div>
+
                                     </div>
                                 </div>
 
-                        
-                                <!-- <div class="row" style="text-align: center;display:none;" id="tsk">
-                                    <div class="col-lg-6">
-                                        <div class="au-card au-card--no-shadow au-card--no-pad m-b-40 au-card--border">
-                                            <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');">
-                                                <div class="bg-overlay bg-overlay--blue"></div>
-                                                <h3>
-                                                    <i class="zmdi zmdi-account-calendar"></i><p id="date"></p>
-                                                    <script>
-                                                    document.getElementById("date").innerHTML = Date();
-                                                    </script></h3>
-                                                <button class="au-btn-plus">
-                                                    <i class="zmdi zmdi-plus"></i>
-                                                </button>
-                                            </div>
-                                            <div class="au-task js-list-load au-task--border">
-                                                <div class="au-task__title">
-                                                    <p>Tasks for John Doe</p>
-                                                </div>
-                                                <div class="au-task-list js-scrollbar3">
-                                                    <div class="au-task__item au-task__item--danger">
-                                                        <div class="au-task__item-inner">
-                                                            <h5 class="task">
-                                                                <a href="#">Meeting about plan for Admin Template 2018</a>
-                                                            </h5>
-                                                            <span class="time">10:00 AM</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-task__item au-task__item--warning">
-                                                        <div class="au-task__item-inner">
-                                                            <h5 class="task">
-                                                                <a href="#">Create new task for Dashboard</a>
-                                                            </h5>
-                                                            <span class="time">11:00 AM</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-task__item au-task__item--danger js-load-item">
-                                                        <div class="au-task__item-inner">
-                                                            <h5 class="task">
-                                                                <a href="#">Meeting about plan for Admin Template 2018</a>
-                                                            </h5>
-                                                            <span class="time">10:00 AM</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-task__item au-task__item--warning js-load-item">
-                                                        <div class="au-task__item-inner">
-                                                            <h5 class="task">
-                                                                <a href="#">Create new task for Dashboard</a>
-                                                            </h5>
-                                                            <span class="time">11:00 AM</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="au-task__footer">
-                                                    <button class="au-btn au-btn-load js-load-btn">load more</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                </div> -->
+                        <!-- End Aproval Status -->
                                <?php
                                 include("footer.php");
                                ?>

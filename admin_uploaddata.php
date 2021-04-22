@@ -193,7 +193,8 @@ if(isset($_POST['ser']))
 //         }
 //         else
 //         {
-            // $s=ltrim($service);
+// $s=ltrim($service);
+
             $new_serv="update tbl_service_category set sc_name='$new_sc',amount='$new_amt',img='$imgage_new' where sc_id=$sc_id";
             $newsc_query=mysqli_query($con,$new_serv);
             echo "<tr><th>".$new_sc."</th><th>".$new_amt."</th><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success sc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger sc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
@@ -231,11 +232,11 @@ if(isset($_POST['service_id']))
     $sid=$_POST['service_id'];
     $sname=$_POST['service_name'];
     $samt=$_POST['service_amt'];
-    $scat=$_POST['service_catogery'];
+    // $scat=$_POST['service_catogery'];
     $simg=$_POST['service_image'];
     // $scat=""
-    $ser="select * from tbl_services where sc_id=$sid and is_delete=1";
-    $serv_query=mysqli_connect($con,$ser);
+    $ser="select * from tbl_services where sc_id=$sid and service_name='$sname' and service_amt=$samt and service_img='$simg'and is_delete=1";
+    $serv_query=mysqli_query($con,$ser);
     if(mysqli_num_rows($serv_query)>0)
     {
         echo "already exist";
@@ -248,26 +249,40 @@ if(isset($_POST['service_id']))
     }
 }
 
-// Dismiss current Service providers
-// if(isset($_POST['dis']))
-// {
-//     $sp_mail=$_POST['dis'];
-//     $sql_sp_name="select * from tbl_serviceproviders where sp_email='$sp_mail'";
-//     $sp_name_query=mysqli_query($con,$sql_sp_name);
-//     $sp_lid=mysqli_fetch_array($sp_name_query);
-//     $dis_sp_lid=$sp_lid['login_id'];
-//     $sql_update_stts="update tbl_login set aproval_status=0 where lid=$dis_sp_lid";
-//     $update_stts_query=mysqli_query($con,$sql_update_stts);
-//     echo "table updated";
-// }
-// end
 
-// Search for
-// if(isset($_POST['search']))
-// {
-//     $search_data=$_POST['search'];
-//     $sql_search="select * from tbl_service_category where sc_name='$search_data'";
-//     $search_query=mysqli_query($con,$sql_search);
+// Edit service
+if(isset($_POST['serv_name']))
+{
+    $serv_name=$_POST['serv_name'];
+    $ser_amt=$_POST['serv_amount'];
+    $ser_id=$_POST['serv_id'];
+    $sc_id=$_POST['oldscid'];
+    $ser_img=$_POST['serv_img'];
+    $old_service=$_POST['oldserv'];
+    $check_ser_query=mysqli_query($con,"select * from tbl_services where sc_id=$ser_id and service_name='$serv_name' and service_img='$ser_img' and service_amt=$ser_amt");
+    if(mysqli_num_rows($check_ser_query)>0)
+    {
+        echo "<tr><td colspan='4'>Service Already Exist<td></tr>";
+    }
+    else
+    {
+        $sql_up="update tbl_services set service_name='$serv_name',service_amt=$ser_amt,service_img='$ser_img',sc_id=$ser_id where service_name='$old_service' and sc_id=$sc_id";
+        $ser_update=mysqli_query($con,$sql_up);
+        echo "<tr><td colspan='4'>sucessfully updated<td></tr>";
+       
+    }
+}
+// End edit service
 
-// }
-// End search for
+// DELETE SERVICE
+if(isset($_POST['ser_nam']))
+{
+    $sername=$_POST['ser_nam'];
+    $seramt=$_POST['ser_amt'];
+    $serid=$_POST['sid'];
+    $del_ser_sql="update tbl_services set is_delete=0 where sc_id=$serid and service_name='$sername' and service_amt=$seramt";
+    $del_ser_query=mysqli_query($con,$del_ser_sql);
+    echo "sucessfully deleted";
+}
+
+// END DELETE SERVICE
