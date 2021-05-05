@@ -12,13 +12,15 @@ if(!empty($_POST["id"])) {
         $service_id=$row['service_id'];
         $name=$row['service_name'];
         $img=$row['service_img'];
+        $amt=$row['service_amt'];
         // $jsonResponse=json_encode($service_id);
     ?>
     <div class="column" style="margin-left:10px;margin-top:15px">
         <div class="card" style="width: 15rem; display:block;">
-        <img src="images/icon/<?php echo $img;?>" class="card-img-top" alt="8.jpg" width="60px" height="180px">
+        <img src="../images/icon/<?php echo $img;?>" class="card-img-top" alt="8.jpg" width="60px" height="180px">
         <div class="card-body">
-            <button type="button" class="btn btn-link btn-lg bkser" data-toggle="modal" data-target="#myModal" id="<?php echo $service_id ?>"value="<?php echo $service_id; ?>"><?php echo $name; ?>
+            <button type="button" class="btn btn-link btn-lg bkser" data-toggle="modal" data-target="#myModal" id="<?php echo $service_id ?>"value="<?php echo $service_id; ?>"><?php echo $name; ?><br>
+            <?php echo $amt; ?>
             </button>
         </div>
      </div>

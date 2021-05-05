@@ -55,16 +55,16 @@ if(isset($_POST['confirmbooking']))
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
         <title>Customer Index</title>
 
-        <link href="css/font-face.css" rel="stylesheet" media="all">
+        <link href="../css/font-face.css" rel="stylesheet" media="all">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 	      <!--fontawesome-->
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" type="text/css" href="cust_index.css">
-        <link href="css/theme.css" rel="stylesheet" media="all">
+        <!-- <link href="css/theme.css" rel="stylesheet" media="all"> -->
 
-        <link href="css/cust_index.css" rel="stylesheet" media="all">
+        <link href="../css/cust_index.css" rel="stylesheet" media="all">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -226,7 +226,7 @@ function button()
                 </li> -->
 
                 <li class="">
-                  <a class="nav-link text-left active"  role="button" href="#service_rate" id="ser-rate">
+                  <a class="nav-link text-left active"  role="button" href="service_rate.php" id="ser-rate">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
                       <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                       <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
@@ -327,13 +327,21 @@ function button()
                               if(mysqli_num_rows($ser)>0)
                               {
                           ?>
-
-                          <div class="column" style="margin-left:10px;margin-top:15px">
-                            <div class="card" style="width: 15rem; display:block;">
-                                <img src="images/<?php echo $image;?>" class="card-img-top" alt="9.jpg" width="60px" height="180px">
+                            <!-- <div class="col-sm-3">
+                                <div class="card">
+                                    <img class="card-img-top" src="images/<?php echo $image;?>" alt="Card image cap">
+                                    <div class="card-body">
+                                        <h4 class="card-title mb-3" style="color:black"><?php echo $scname;?></h4>
+                                        <button type="button" class="test btn btn-link btn-lg" name="ser" id="<?php echo $scid?>" value="<?php echo $scid; ?>"><?php echo $scrate;?>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> -->
+                          <div class="column" style="margin-left:10px;margin-top:15px;width: 15rem; height:20rem;">
+                            <div class="card" style="width: 15rem; height:20rem; display:block;">
+                                <img src="../images/<?php echo $image;?>" class="card-img-top" alt="9.jpg" width="60px" height="180px">
                                 <div class="card-body">
                                   <form action="" method="POST">
-                                    <!-- <a href="#exampleModal" class="btn btn-link"></a> -->
                                     <button type="button" class="test btn btn-link btn-lg" name="ser" id="<?php echo $scid?>" value="<?php echo $scid; ?>"><?php echo $scname;?>
                                     </button>
                                   </form>
@@ -345,7 +353,7 @@ function button()
                           ?>
                   </div>
               </div>
-              <div id="services_under_sc" style="display:none">
+              <div id="services_under_sc" style="display:inline">
                 <div class="row" id="services_under_sc_body">
 
                 </div>
@@ -444,7 +452,7 @@ function button()
         </thead>
         <tbody>
               <?php
-                $bkdate="select * from tbl_booking where customer_id=$cust_id and status=1";
+                $bkdate="select * from tbl_booking where customer_id=$cust_id and status=1 and servicecompleted=0";
                 $bkdate_query=mysqli_query($con,$bkdate);
                 if(mysqli_num_rows($bkdate_query)>0){
                 while($bkrow=mysqli_fetch_array($bkdate_query))
@@ -457,11 +465,12 @@ function button()
                   $ap=$bkrow['aproval_status'];
                   $stat=$bkrow['status'];
                   $ap=$bkrow['aproval_status'];
+                  $serid=$bkrow['service_id'];
 
                   $bk_category="Select * from tbl_service_category where sc_id=$bk_service";
                   $cat_query=mysqli_query($con,$bk_category);
                   
-                  $service_query=mysqli_query($con,"select * from tbl_services where sc_id=$bk_service");
+                  $service_query=mysqli_query($con,"select * from tbl_services where service_id=$seri");
                   $ser_data=mysqli_fetch_array($service_query);
                   ?>
           <tr>
@@ -520,59 +529,7 @@ function button()
 
     <!-- End Book details -->
 
-    <!-- Service Rate Details -->
-    <div id="service_rate" style="display: none;">
-      <div class="row m-t-30">
-                            <div class="col-md-12">
-                                <!-- DATA TABLE-->
-                                <div class="table-responsive m-b-40">
-                                    <table class="table table-borderless table-data3 py-3">
-                                        <thead>
-                                            <tr>
-                                                <th>Service Category</th>
-                                                <th>service</th>
-                                                <th>Rate</th>
-                                                <!-- <th>Action</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                             $rate_query=mysqli_query($con,"select * from tbl_service_category where is_delete=1"); 
-                                              while($rate=mysqli_fetch_array($rate_query))
-                                              {
-                                                $id=$rate['sc_id'];
-                                                $sql_ser=mysqli_query($con,"select * from tbl_services where sc_id=$id");
-                                                if(mysqli_num_rows($sql_ser)>0)
-                                                {
-                                              ?>
-                                                  <tr>
-                                                      <th colspan="3" style="text-align:left;"><?php echo $rate['sc_name']; ?></th>
-                                                  </tr><?php
-                                                  while($serv=mysqli_fetch_array($sql_ser))
-                                                  {
-                                                  ?>
-                                                  <tr>
-                                                    <td></td>
-                                                    <td><?php echo $serv['service_name'];?>
-                                                    </td>
-                                                    <td><?php echo $serv['service_amt'];  ?></td>
-                                                    <!-- <td><button class="btn btn-sm btn-danger btn-inline bk" data-toggle="modal" data-target="#myModal" title="Book Now" value="<?php echo $id;?>" id="bk">Book</button></td> -->
-                                                  </tr>
-                                            
-                                           <?php 
-                                          }}}
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- END DATA TABLE-->
-                            </div>
-                        </div>
-      </div>
-                
-    <!-- End Service Rate Details -->
-
-  </div>
+  
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 

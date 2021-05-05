@@ -85,11 +85,11 @@ p {
     padding-right: 1px;
 }
 
-.card {
+/* .card {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-}
+} */
 
 .btn {
     -webkit-border-radius: 3px;
@@ -1151,9 +1151,9 @@ section {
     border-radius: 2px;
 }
 
-.card {
+/* .card {
     margin-bottom: 30px;
-}
+} */
 
 .input-group-addon {
     background-color: transparent;

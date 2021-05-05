@@ -28,11 +28,11 @@ if($status==1)
 	
 		if($rows['role_id']=='1')
 		{
-			header("location:admin_index.php");
+			header("location:Admin/admin_index.php");
 		}
 		elseif($rows['role_id']=='2')
 		{
-			header("location:customer_index.php");
+			header("location:customer/customer_index.php");
 		}
 		elseif($rows['role_id']=='3')
 		{

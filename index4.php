@@ -259,7 +259,7 @@ $_SESSION['sc']=$sc;
                                             </thead>
                                             <tbody>
                                             <?php 
-                                                                $bkname="select * from tbl_booking where sc_id='$sc' and employee_id=0 and status=0";
+                                                                $bkname="select * from tbl_booking where sc_id=$sc and employee_id=0 and status=1 and servicecompleted=0";
                                                                 $bkquery=mysqli_query($con,$bkname);
                                                                 while($bkdata=mysqli_fetch_array($bkquery))
                                                                 {
@@ -271,6 +271,7 @@ $_SESSION['sc']=$sc;
                                                                     $custn=mysqli_fetch_array($custquery);
                                                               ?>
                                                 <tr>
+                                                    <td></td>
                                                     <td>
                                                         <div class="table-data__info">
                                                             <h6>

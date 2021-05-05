@@ -88,7 +88,7 @@ if(isset($_POST['diste']))
   
     $district_id=$r['district_id'];
     
-    $update_loc="update tbl_location set is_delete=0 where district_id=$district_id";
+    $update_loc="update tbl_location set is_delete=0 where district_name='$diste'";
     $update_sql=mysqli_query($con,$update_loc);
     
 }
@@ -118,22 +118,18 @@ if(isset($_POST['dist_edit']))
 {
     $dist_edit=$_POST['dist_edit'];
     $d=$_POST['distee'];
-    $did="SELECT * FROM `tbl_district` WHERE `district_name`='$d' AND `is_delete`=1";
+    $did="SELECT * FROM `tbl_district` WHERE `district_name`='$dist_edit' AND `is_delete`=1";
     $id1=mysqli_query($con,$did);
     $row=mysqli_fetch_array($id1);
-    $d_id=$row['district_id'];
-    $check_dup="Select * from tbl_district where district_name='$dist_edit'";
-    $dup_query=mysqli_query($con,$check_dup);
-    if(mysqli_num_rows($dup_query)>0)
+    if(mysqli_num_rows($id1)>0)
     {
         echo "Cant'insert Already Exist"; 
     }
     else
     {
-    $edit="UPDATE `tbl_district` SET `district_name`= '$dist_edit' where `district_id`=$d_id AND `is_delete`=1";
+    $edit="UPDATE `tbl_district` SET `district_name`= '$dist_edit' where `district_name`='$d' AND `is_delete`=1";
     $edit_query=mysqli_query($con,$edit);
-    // echo "<tr><th scope='row'>".$dist_edit."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
-    // echo $dis;
+    echo "updated"; 
     }
     
 }
@@ -165,6 +161,7 @@ if(isset($_POST['loc_edit']))
     {
     $edit_loc="UPDATE `tbl_location` SET `location`= '$location_new',district_id=$new_dis where `location_id`=$l_id AND `is_delete`=1";
     $edit_loc_query=mysqli_query($con,$edit_loc);
+    echo "updated";
     // echo "<tr><th scope='row'>".$location_new."</th><th scope='row'>".$dist1."</th><td style='border-top:0px;text-align:right'><button class='btn btn-sm btn-success loc_edit' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fas fa-edit'></button><a><button class='btn btn-sm btn-danger loc_del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>";
     // echo $dis;
     
@@ -210,7 +207,20 @@ if(isset($_POST['ser_name']))
     $login=$_POST['login'];
     $ap="update tbl_login set aproval_status=1 where role_id=4 and lid='$login'";
     $aproval_query=mysqli_query($con,$ap);
-    echo "Approved Sucessfully ";
+    $sp_email="select * from tbl_serviceproviders where login_id=$login";
+    $em_query=mysqli_query($con,$sp_email);
+    $e=mysqli_fetch_array($em_query);
+    $email=$e['sp_email'];
+    $to_email = "$email";
+    $subject = "End To End Workers";
+    $body = "Hi, $name This is to inform that, we are happy to work with you.";
+    $headers = "From: aleenatgv@gmail.com";
+    
+    if (mail($to_email, $subject, $body, $headers)) {
+        echo "Aproved. Email successfully sent to $to_email...";
+    } else {
+        echo "Email sending failed...";
+    }
 }
 
 // reject Service providers
@@ -286,3 +296,35 @@ if(isset($_POST['ser_nam']))
 }
 
 // END DELETE SERVICE
+
+// RESTORE DELETED SERVICE
+
+if(isset($_POST['rcate']))
+{
+ $cate=$_POST['rcate'];
+ $serv=$_POST['rser'];
+ $cat_query=mysqli_query($con,"select * from tbl_service_category where sc_name='$cate' and is_delete=1");
+ $c=mysqli_fetch_array($cat_query);
+ $cat_id=$c['sc_id'];
+ $ser_query=mysqli_query($con,"select * from tbl_services where sc_id=$cat_id and is_delete=0");
+ if(mysqli_num_rows($ser_query)>0)
+ {
+    $restore=mysqli_fetch_array($ser_query);
+    $ser_name=$restore['service_name'];
+    $updateser=mysqli_query($con,"update tbl_services set is_delete=1 where sc_id=$cat_id and service_name='$ser_name'");
+    
+ }
+ else
+ {
+     ?>
+     <tr>
+         <td colspan="5">
+            No  deleted Services
+         </td>
+    </tr>
+     <?php
+ }
+ 
+
+}
+// END

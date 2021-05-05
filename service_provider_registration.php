@@ -10,7 +10,7 @@ $sql_result=mysqli_query($con,$sql);
 $loc="SELECT * FROM tbl_location WHERE is_delete=1";
 $result_loc=mysqli_query($con,$loc);
 
-$sc="SELECT * FROM tbl_services Where iS_delete=1";
+$sc="SELECT * FROM tbl_service_category Where iS_delete=1";
 $sc_query=mysqli_query($con,$sc);
 
 
@@ -42,7 +42,7 @@ function check() {
               if (this.readyState == 4 && this.status == 200 ){
                 console.log(this.response); //helps SEE WHATS GOING ON in the php file;
                 if(this.response=='TRUE'){
-                    document.getElementById('error_li').innerHTML="licensce no taken";
+                    // document.getElementById('error_li').innerHTML="licensce no taken";
                     document.getElementById('txt9').value="";
                     document.forms["form"]["licensceno"].focus();
                 }

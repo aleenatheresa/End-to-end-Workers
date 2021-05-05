@@ -40,9 +40,6 @@ if(!empty($_POST["ser_name"]))
                                 $row=mysqli_fetch_array($emp_query);
                                 $emp_id=$row['employee_id'];
                                 $emp_name=$row['employee_name'];
-                            
-                           
-
                         ?>
                     <tr>
                         <td><?php echo $emp_name; ?></td>

@@ -115,6 +115,7 @@ if($roleid==2){
         $login_id=$rows['login_id'];
         }
         elseif($roleid==4){
+			$sel_query = "SELECT login_id FROM `tbl_serviceproviders` WHERE sp_email='".$email."'";
             $results = mysqli_query($con,$sel_query);
             $rows=mysqli_fetch_array($results);
             $login_id=$rows['login_id'];
