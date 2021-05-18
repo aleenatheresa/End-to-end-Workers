@@ -36,11 +36,11 @@ if($status==1)
 		}
 		elseif($rows['role_id']=='3')
 		{
-			header("location:empindex.php");
+			header("location:emp/employee_index.php");
 		}
 		elseif($rows['role_id']=='4')
 		{
-			header("location:index4.php");
+			header("location:servicepro/index4.php");
 		}
 	
 	

@@ -1,7 +1,7 @@
 <?php
 session_start();
 if($_SESSION['role_id']!="2"){
-  header('location:login.php');
+  header('location:../login.php');
 }
 $con=mysqli_connect("localhost","root","","projectdb");
 $user=$_SESSION['uname'];
@@ -31,7 +31,6 @@ $row_sp = mysqli_num_rows($countsp_query);
 
 
 // Confirm booking
-
 if(isset($_POST['confirmbooking']))
 {
 
@@ -43,7 +42,7 @@ if(isset($_POST['confirmbooking']))
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="js/custsidebar.js"></script>
+    <script src="../js/custsidebar.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
@@ -61,8 +60,8 @@ if(isset($_POST['confirmbooking']))
          <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" type="text/css" href="cust_index.css">
-        <!-- <link href="css/theme.css" rel="stylesheet" media="all"> -->
+        <link rel="stylesheet" type="text/css" href="../css/cust_index.css">
+      
 
         <link href="../css/cust_index.css" rel="stylesheet" media="all">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
@@ -74,6 +73,13 @@ if(isset($_POST['confirmbooking']))
         <script src = "https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <!-- Modal class -->
 
+        <!-- <link rel="stylesheet" href="../css/cal.css" /> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"/>
+       
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+         <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+  
   </head>
 
 
@@ -92,24 +98,6 @@ if(isset($_POST['confirmbooking']))
 <script>
 
 var c=[0];
-// function button()
-// {
-//     var l = c.length;
-//     var s=0;
-//     for(var i=0;i<l;i++)
-//     {
-//         s=s+c[i];
-//     }
-//     if(l==s)
-//     {
-//         document.getElementById("addStu").disabled = false;
-//     }
-//     else
-//     {
-//          document.getElementById("addStu").disabled = true;
-//     }
-// }
-
 var c=[0,0];
 // validation date picker
 function checkDate()
@@ -119,37 +107,23 @@ function checkDate()
   if(date=="")
   {
     document.getElementById("datepicker").style.borderColor="red";
-    //document.getElementById("cbk").disabled = true;
+    document.getElementById("cbk").disabled = true;
     var today=new Date();
   }
   else if(new Date(date).getDate() <= ToDate.getDate())
   {
     document.getElementById("datepicker").style.borderColor="red";
+    document.getElementById("cbk").disabled = true;
     c[0]=0;
   }
   else
   {
     document.getElementById("datepicker").style.borderColor="green";
+    document.getElementById("cbk").disabled = false;
     c[0]=1;
   }
- button();
+//  button();
 }
-
-function checkTime()
-{
-  var t=document.getElementById("timepicker").value;
-  if((t>"09:00") && (t<"17:00"))
-  {
-  document.getElementById("timepicker").style.borderColor="green";
-  c[1]=1;
-  }
-  else{
-    document.getElementById("timepicker").style.borderColor="red";
-    c[1]=0;
-  }
-  button();
-}
-
 
 function button()
 {
@@ -183,13 +157,15 @@ function button()
               </a>
               
               <ul class="navbar-nav align-self-stretch">
-              <li class="sidebar-header"><b>
-                  Welcome <?php echo $uname; ?></b>
+                <li>
+                  <a href="edit_pro.php" id="" role="button" style="text-color:white;" data-toggle="modal"  data-target="#ProModal">
+                    <label ><b style="font-famiy: Times New Roman, Times, serif;"> <?php echo $_SESSION['uname']; ?></b></label>
+                  </a>
                 </li>
                 <li class="sidebar-header">
                   Pages
                 </li>
-                <li class=""><a class="nav-link text-left active" href="#book" onclick="home()">
+                <li class=""><a class="nav-link text-left active" href="customer_index.php" onclick="home()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                   <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
                   </svg>&ensp;Home</a>
@@ -208,8 +184,8 @@ function button()
                                 <div class="col-lg-12 px-2">
                                   <div class="submenu-box">
                                     <ul class="list-unstyled m-0" id="dropdown-menu">
-                                      <li><a href="#book" onclick="home()">Booking</a></li>
-                                      <li><a href="#bookdetails" onclick="cust_book()">Booked Details</a></li>
+                                      <li><a href="customer_index.php" onclick="home()">Booking</a></li>
+                                      <li><a href="booked_details.php" onclick="cust_book()">Booked Details</a></li>
                                     </ul>
                                   </div>
                                 </div>
@@ -274,7 +250,9 @@ function button()
                   <input type="text" class="form-control bg-light " placeholder="Search for..." aria-label="Search">
                   <div class="input-group-append">
                     <button class="btn btn-primary" type="button">
-                      <i class="fas fa-search fa-sm"></i>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
                     </button>
                   </div>
                 </div>
@@ -282,12 +260,17 @@ function button()
 
               <!-- Topbar Navbar -->
              <ul class="navbar-nav ml-auto">
-             <li>
-              <a  href="logout.php" id="userDropdown" role="button" >
-                <label ><b style="font-famiy: Times New Roman, Times, serif;">Signout</b></label>
-              </a>
-            </li>
-             </u>
+              <li>
+                <a  href="#" id="userDropdown" role="button" >
+                  <label ><b style="font-famiy: Times New Roman, Times, serif;">Welcome <?php echo $_SESSION['uname']; ?></b></label>
+                </a>
+              </li>
+              <li>
+                <a  href="../logout.php" id="userDropdown" role="button" >
+                  <label ><b style="font-famiy: Times New Roman, Times, serif;">Signout</b></label>
+                </a>
+              </li>
+             </ul>
           </nav>
           <!-- End of Topbar -->
     </div>
@@ -296,9 +279,9 @@ function button()
 
 <!-- Sucess Message -->
 <br><br>
-<div class="alert alert-success" id="msg" style="display:none;">
+<div class="alert alert-success" id="msg" style="display:none;width:100%">
     <strong>Success!</strong> Sucessfully completed action.
-  </div>
+</div>
 
   <!-- End Sucess Msg -->
         <!-- /#wrapper -->
@@ -358,183 +341,49 @@ function button()
 
                 </div>
               </div>
-
-
-    <!-- modal class for confirm booking -->
+      <!-- modal class for confirm booking -->
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="modalLabel">Datepicker</h5>
+            <h5 class="modal-title" id="modalLabel" style="font-size:10px;">Datepicker</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
           </div>
-          <div class="modal-body" style="height: 200px;">
+          <div class="modal-body" style="height: auto;">
             <label>Date</label>  <br>
             <input type="date" class="asd" id="datepicker" min="2021-01-01"  onblur="checkDate();">
-              <br><br>
-              <label>Time</label> <br>
-              <input type="time" class="asd" id="timepicker" onblur="checkTime();"  required>
-
-          </div>
+              <div id="date-msg">
+                          
+              </div>
+              </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal" disabled href="#msg" id="cbk">Book</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="refreshPage()">Close</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" disabled id="cbk">Book</button>
           </div>
         </div>
       </div>
     </div>
-
+    
     <!-- ends modal class -->
+  
 
-        <!-- customer Profile -->
-    <div id="profile" style="display:none">
-      <div class="container col-sm-6">
-        <!-- Modal -->
-        <div class="modal fade" id="ProModal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="modalLabel">Edit Profile</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span>
-                </button>
-              </div>
-              <div class="modal-body" style="height: auto;">
-                <table class="table table-borderless col-sm-3" >
-                  <tr>
-                      <th>Name :<input type="text" value="<?php echo $_SESSION['name']?>" id="name"></th>
-                  </tr>
-                  <tr>
-                      <th>Address :<input type="text" value="<?php echo $_SESSION['addr']?>" id="addr"></th>
-                  </tr>
-                  <tr>
-                      <th>Phone :<input type="text" value="<?php echo $_SESSION['phone']?>" id="ph"></th>
-                  </tr>
-                  <tr>
-                      <th>Email :<input type="text" value="<?php echo $_SESSION['email']?>" id="em"></th>
-                  </tr>
-                  <tr>
-                      <th>Username :<input type="text" value="<?php echo $user?>" id="user"></th>
-                  </tr>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <a class="btn btn-success" data-dismiss="modal" href="#" onclick="" id="proedit">Save</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      <!-- </div> -->
-      <!-- ends modal class -->
-    </div>
   </div>
-
-
-
-
-    <!-- Book Details -->
-    <div id="bookdetails" style="display: none;">
-      <table class="table table-bordered col-sm-8" style="margin-left:100px;">
-        <thead>
-          <tr>
-            <th>Booking ID</th>
-            <th>Booked On</th>
-            <th>Category</th>
-            <th>Service</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-              <?php
-                $bkdate="select * from tbl_booking where customer_id=$cust_id and status=1 and servicecompleted=0";
-                $bkdate_query=mysqli_query($con,$bkdate);
-                if(mysqli_num_rows($bkdate_query)>0){
-                while($bkrow=mysqli_fetch_array($bkdate_query))
-                {
-                  $bkon=$bkrow['booked_on'];
-                  $bking_id=$bkrow['booking_id'];
-                  $bk_service=$bkrow['sc_id'];
-                  $bk_status=$bkrow['servicecompleted'];
-                  $bk_emp=$bkrow['employee_id'];
-                  $ap=$bkrow['aproval_status'];
-                  $stat=$bkrow['status'];
-                  $ap=$bkrow['aproval_status'];
-                  $serid=$bkrow['service_id'];
-
-                  $bk_category="Select * from tbl_service_category where sc_id=$bk_service";
-                  $cat_query=mysqli_query($con,$bk_category);
-                  
-                  $service_query=mysqli_query($con,"select * from tbl_services where service_id=$seri");
-                  $ser_data=mysqli_fetch_array($service_query);
-                  ?>
-          <tr>
-              <td>
-                <?php
-                  echo $bking_id;
-                ?>
-              </td>
-              <td>
-                <?php
-                      echo $bkon;
-                ?>
-              </td>
-              <td>
-                <?php
-                    $rcat=mysqli_fetch_array($cat_query);
-                    echo $rcat['sc_name'];
-                ?>
-              </td>
-              <td><?php echo $ser_data['service_name'];?></td>
-              <td>
-                <?php
-                 if($bk_status==1)
-                  {
-                      echo "Work completed";
-
-                  }
-                elseif($bk_emp!=0 && $ap==1)
-                {
-                    echo "Employee Assigned, will be there soon";
-                }
-                else
-                {
-                  echo "Requested";
-                }
-                ?>
-              </td>
-              <td>
-                  <button class="btn btn-sm btn-primary btn-inline cmplt" title="Work Finished" id="c1" value="<?php echo $bking_id;?>"<?php if($ap==0) {?> disabled <?php }?>>Completed</button>
-                  <button class="btn btn-sm btn-danger btn-inline cancel" title="Cancel Booking" value="<?php echo $bking_id;?>" id="can2">Cancel</button>
-
-              </td>
-            </tr>
-                <?php
-                  }}
-                  else{?>
-                      <th colspan="6" style="text-align:center">No current Booking</th>
-                <?php  }
-                ?>
-        </tbody>
-      </table>
-    </div>
-     
-
-
-
-    <!-- End Book details -->
-
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-
+    <script src="../js/cal.js"></script>
 
 <script>
+
+function refreshPage(){
+    window.location.reload();
+} 
+
+
 $(document).ready(function(){
     $('.test').click(function(){
     // var id = $(this).attr("id");
@@ -550,23 +399,23 @@ $(document).ready(function(){
                      $('.bkser').click(function()
                      {
                         var sc=$(this).val();
-
                         $('#cbk').on('click',function(){
-                        var datee=$("#datepicker").val();
-                        var timee=$("#timepicker").val();
+                          
+                          var datee=$("#datepicker").val();
+                          
+                     // var timee=$("#timepicker").val();
 
                         $.ajax({
                           url: "edit_customer.php",
                           method:"POST",
                           data :{
                           dat :datee,
-                          tim:timee,
                           service_id : sc,
                           category_id:id
                         },
                           success: function(result){
                             console.log(result);
-                            $("#msg").css("display","inline");
+                             $("#msg").css("display", "block");
                             $("#msg").delay(1000).fadeOut();
 
                           }
@@ -580,112 +429,7 @@ $(document).ready(function(){
  });
 
 
-$("#proedit").on('click',function(){
-          // $("#pre-sc").append("<tr><td>"+$("#c1").val()+"</td><td>"+$("#c2").val()+"</td><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
-          var name = $("#name").val();
-          var addr=$("#addr").val();
-          var phone=$("#ph").val();
-          var email=$("#em").val();
-          var uname=$("#user").val();
-          $.ajax({
-                url: "edit_customer.php",
-                method:"POST",
-                data :{
-                  name:name,
-                  address: addr,
-                  phone:phone,
-                  email:email,
-                  uname:uname},
-                success: function(result){
-                  $('#msg').text("sucessfully entered");
-                  $("#edit").css("display","none");
-                  $("#profile").replaceWith(result);
 
-                }
-           });
-        });
-
-
-    $(".cmplt").on('click',function()
-    {
-    var bookid=$(this).val();
-    console.log(bookid);
-            $.ajax({
-                  url: "edit_customer.php",
-                  method:"POST",
-                  data :{
-                  comp : bookid
-                },
-                  success: function(result){
-                    console.log(result);
-                    $("#msg").css("display","inline");
-                    $("#msg").delay(1000).fadeOut();
-
-                  }
-              });
-
-      });
-      // End Complete work button function
-
-// Cancel booking
-$(".cancel").on('click',function()
-      {
-        var bkid_cancel=$(this).val();
-        $(this).closest("tr").remove();
-        console.log(bkid_cancel);
-          $.ajax({
-                url: "edit_customer.php",
-                method:"POST",
-                data :{
-                can : bkid_cancel
-              },
-                success: function(result){
-                  console.log(result);
-                  $("#msg").css("display","inline");
-                  $("#msg").delay(1000).fadeOut();
-
-                }
-            });
-
-      });
-
-      // End Cancel booking
-// End booking
-// Date picker for employee booking
-// $(function(){
-//   $('#datepicker').datepicker();
-// });
-
-// End
-
-
-// $(document).on('click','.bk',function()
-// {
-//   var bk=$(this).closest('tr').find('td:eq(0)').val();
-//   console.log(bk);
-//   var bk_id=$(this).val();
-//   $('#cbk').on('click',function(){
-//                         var datee=$("#datepicker").val();
-//                         var timee=$("#timepicker").val();
-
-//                         $.ajax({
-//                           url: "edit_customer.php",
-//                           method:"POST",
-//                           data :{
-//                           dat :datee,
-//                           tim:timee,
-//                           service_id : bk_id,
-//                           category_id:id
-//                         },
-//                           success: function(result){
-//                             console.log(result);
-//                             $("#msg").css("display","inline");
-//                             $("#msg").delay(1000).fadeOut();
-
-//                           }
-//                           });
-//                         });
-// });
 
 
 $('#ser-rate').click(function(){
@@ -697,10 +441,8 @@ $('#bar').click(function(){
 	$(this).toggleClass('open');
 	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
 });
-
-
-
 });
+
   </script>
   </body>
 </html>

@@ -1,14 +1,13 @@
 <?php
-session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+
 ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Rate</title>
-    
+    <title>Edit Profile</title>
+
     <script src="../js/custsidebar.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
@@ -19,8 +18,7 @@ $con=mysqli_connect("localhost","root","","projectdb");
       <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-        <title>Customer Index</title>
-
+       
         <link href="../css/font-face.css" rel="stylesheet" media="all">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 	      <!--fontawesome-->
@@ -28,7 +26,7 @@ $con=mysqli_connect("localhost","root","","projectdb");
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" type="text/css" href="cust_index.css">
-        <link href="../css/theme.css" rel="stylesheet" media="all">
+        <!-- <link href="css/theme.css" rel="stylesheet" media="all"> -->
 
         <link href="../css/cust_index.css" rel="stylesheet" media="all">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
@@ -41,31 +39,26 @@ $con=mysqli_connect("localhost","root","","projectdb");
         <!-- Modal class -->
 
 </head>
-
 <body>
-
 <div id="wrapper">
-   <div class="overlay"></div>
-
-        <!-- Sidebar -->
-    <nav class="fixed-top align-top" id="sidebar-wrapper" role="navigation">
-      <div class="simplebar-content" style="padding: 0px;">
-				<a class="sidebar-brand" href="Admin_index.php">
-          <span class="align-middle">End To End Workers</span>
-        </a>
-
-				<ul class="navbar-nav align-self-stretch">
-          <li>
-            <a href="edit_pro.php" id="userDropdown" role="button" style="text-color:white;">
-              <label ><b style="font-famiy: Times New Roman, Times, serif;"> <?php echo $_SESSION['uname']; ?></b></label>
-            </a>
-           </li>
-
-          <li class="sidebar-header">
-                Pages
-		      </li>
-
-              <li class=""><a class="nav-link text-left active" href="customer_index.php" onclick="home()">
+    <div class="overlay"></div>
+            <!-- Sidebar -->
+        <nav class="fixed-top align-top" id="sidebar-wrapper" role="navigation">
+            <div class="simplebar-content" style="padding: 0px;">
+              <a class="sidebar-brand" href="customer_index.php">
+                <span class="align-middle">End To End Workers</span>
+              </a>
+              
+              <ul class="navbar-nav align-self-stretch">
+                <li>
+                  <a href="edit_pro.php" id="userDropdown" role="button" style="text-color:white;">
+                    <label ><b style="font-famiy: Times New Roman, Times, serif;"> <?php echo $_SESSION['uname']; ?></b></label>
+                  </a>
+                </li>
+                <li class="sidebar-header">
+                  Pages
+                </li>
+                <li class=""><a class="nav-link text-left active" href="customer_index.php" onclick="home()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
                   <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
                   </svg>&ensp;Home</a>
@@ -117,119 +110,83 @@ $con=mysqli_connect("localhost","root","","projectdb");
                     </svg>&ensp;Shop
                   </a>
                 </li> -->
-          </ul>
+              </ul>
               
-      </div>
-    </nav>
-        <!-- /#sidebar-wrapper -->
-
-
-        <!-- Page Content -->
-    <div id="page-content-wrapper">
-			<div id="content">
-        <div class="container-fluid p-0 px-lg-0 px-md-0">
-        <!-- Topbar -->
-          <nav class="navbar navbar-expand navbar-light my-navbar">
-
-          <!-- Sidebar Toggle (Topbar) -->
-            <div type="button"  id="bar" class="nav-icon1 hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
-               <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light " placeholder="Search for..." aria-label="Search" id="searchbar">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button" id="search_submit"><i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-            <!-- Nav Item - User Information -->
-            <li>
-              <a  href="#" id="userDropdown" role="button" >
-                <label ><b style="font-famiy: Times New Roman, Times, serif;">Welcome <?php echo $_SESSION['uname']; ?></b></label>
-              </a>
-            </li>
-            <li>
-              <a  href="../logout.php" id="userDropdown" role="button" >
-                <label ><b style="font-famiy: Times New Roman, Times, serif;">Signout</b></label>
-              </a>
-            </li>
-          </ul>
-        </nav>
-</div>
-
-
-      <!-- Service Rate Details -->
-      <div id="rate">
-            <h4>SERVICE RATE DETAILS</h4>
-      </div>
-      <div class="container" id="service_rate">
-      <div class="row">
-                            <div class="col">
-                                <!-- DATA TABLE-->
-                                <div class="table-responsive m-b-40">
-                                    <table class="table table-borderless table-data3 py-3">
-                                        <thead>
-                                            <tr>
-                                                <th>Service Category</th>
-                                                <th>service</th>
-                                                <th>Rate</th>
-                                                <!-- <th>Action</th> -->
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                             $rate_query=mysqli_query($con,"select * from tbl_service_category where is_delete=1"); 
-                                              while($rate=mysqli_fetch_array($rate_query))
-                                              {
-                                                $id=$rate['sc_id'];
-                                                $sql_ser=mysqli_query($con,"select * from tbl_services where sc_id=$id");
-                                                if(mysqli_num_rows($sql_ser)>0)
-                                                {
-                                              ?>
-                                                  <tr>
-                                                      <th colspan="3" style="text-align:left;"><?php echo $rate['sc_name']; ?></th>
-                                                  </tr><?php
-                                                  while($serv=mysqli_fetch_array($sql_ser))
-                                                  {
-                                                  ?>
-                                                  <tr>
-                                                    <td></td>
-                                                    <td><?php echo $serv['service_name'];?>
-                                                    </td>
-                                                    <td><?php echo $serv['service_amt'];  ?></td>
-                                                    <!-- <td><button class="btn btn-sm btn-danger btn-inline bk" data-toggle="modal" data-target="#myModal" title="Book Now" value="<?php echo $id;?>" id="bk">Book</button></td> -->
-                                                  </tr>
-                                            
-                                           <?php 
-                                          }}}
-                                            ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- END DATA TABLE-->
-                            </div>
-                        </div>
-      </div>
-                
-    <!-- End Service Rate Details -->
+        </div>
+      </nav>
+      <!-- /#sidebar-wrapper -->
 
   </div>
+        <!-- customer Profile -->
+    <div id="profile">
+      <div class="container col-sm-6">
+        <!-- Modal -->
+        <div class="modal fade" id="ProModal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div class="modal-body" style="height: auto;">
+                <table class="table table-borderless col-sm-3" >
+                  <tr>
+                      <th>Name :<input type="text" value="<?php echo $_SESSION['name']?>" id="name"></th>
+                  </tr>
+                  <tr>
+                      <th>Address :<input type="text" value="<?php echo $_SESSION['addr']?>" id="addr"></th>
+                  </tr>
+                  <tr>
+                      <th>Phone :<input type="text" value="<?php echo $_SESSION['phone']?>" id="ph"></th>
+                  </tr>
+                  <tr>
+                      <th>Email :<input type="text" value="<?php echo $_SESSION['email']?>" id="em"></th>
+                  </tr>
+                  <tr>
+                      <th>Username :<input type="text" value="<?php echo $user?>" id="user"></th>
+                  </tr>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <a class="btn btn-success" data-dismiss="modal" href="#" onclick="" id="proedit">Save</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- </div> -->
+      <!-- ends modal class -->
+    </div>
 
-  <script>
-$('#bar').click(function(){
-	$(this).toggleClass('open');
-	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
-});
+<script>
+    
+$("#proedit").on('click',function(){
+          // $("#pre-sc").append("<tr><td>"+$("#c1").val()+"</td><td>"+$("#c2").val()+"</td><td style='border-top:0px;text-align:center'><button class='btn btn-sm btn-success' data-target='#demo-lg-modal1' data-toggle='modal' title='Edit' id='sc1'><i class='fa fa-pencil'></i></button><a><button class='btn btn-sm btn-danger del' title='Delete' id='sc2'><i class='fa fa-times' aria-hidden='true'></i></button></a></td>");
+          var name = $("#name").val();
+          var addr=$("#addr").val();
+          var phone=$("#ph").val();
+          var email=$("#em").val();
+          var uname=$("#user").val();
+          $.ajax({
+                url: "edit_customer.php",
+                method:"POST",
+                data :{
+                  name:name,
+                  address: addr,
+                  phone:phone,
+                  email:email,
+                  uname:uname},
+                success: function(result){
+                  $('#msg').text("sucessfully entered");
+                  $("#edit").css("display","none");
+                  $("#profile").replaceWith(result);
+
+                }
+           });
+        });
+
 </script>
 </body>
 </html>

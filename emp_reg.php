@@ -27,7 +27,7 @@ $service=$_POST['service'];
 
     $now = date('Y-m-d H:i:s');
 
-    $insert_login="INSERT into tbl_login(uname,password,role_id,aproval_status,is_delete)values('$uname','$pass',3,0,1)";
+    $insert_login="INSERT into tbl_login(uname,password,role_id,aproval_status,is_delete)values('$uname','$pass',3,1,1)";
     $login_result=mysqli_query($con,$insert_login);
 
     $status="SELECT lid from tbl_login where uname='$uname'";

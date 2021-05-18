@@ -21,17 +21,15 @@ if(isset($_POST['dat']))
 {
     // header('location:asd.php');
     $date=$_POST['dat'];
-    $time=$_POST['tim'];
+    // $time=$_POST['tim'];
     $sc_id=$_POST['service_id'];
     $category=$_POST['category_id'];
     $cust_id=$_SESSION['lid'];
-    
-    $bkemployee="insert into tbl_booking(customer_id,booked_on,time,servicecompleted,employee_id,sc_id,service_id,aproval_status,status)
-    values($cust_id,'$date','$time',0,0,$category,$sc_id,0,1)";
+    $bkemployee="insert into tbl_booking(customer_id,booked_on,servicecompleted,employee_id,sc_id,service_id,aproval_status,status)
+    values($cust_id,'$date',0,0,$category,$sc_id,0,1)";
     // echo $cust_id;
     // echo "<script>console.log('$bkemployee');</script>"; 
-    $bk_query=mysqli_query($con,$bkemployee) or die("ghghjghj");
-    
+    $bk_query=mysqli_query($con,$bkemployee) or die("ghghjghj");   
 }
 // End Confirm booking
 

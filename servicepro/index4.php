@@ -1,8 +1,10 @@
 <?php
+
 $con=mysqli_connect("localhost","root","","projectdb");
+
 session_start();
 if($_SESSION['role_id']!="4"){
-  header('location:login.php');
+  header('location:../login.php');
 }
 
 
@@ -21,7 +23,8 @@ $spdetail="select * from tbl_serviceproviders where login_id=$logid";
 $sp_query=mysqli_query($con,$spdetail);
 $sp=mysqli_fetch_array($sp_query);
 $val=$sp['sp_email'];
-
+$sc=$sp['sc_id'];
+$_SESSION['sc']=$sc;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,7 +41,7 @@ $val=$sp['sp_email'];
     <title> ServiceProvider Dashboard</title>
 
     <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
+   
     <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -54,16 +57,12 @@ $val=$sp['sp_email'];
     <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="css/theme.css" rel="stylesheet" media="all">
-    <link href="servicepro" rel="stylesheet" media="all">
+    <link href="../css/font-face.css" rel="stylesheet" media="all">
+    <link href="../css/theme.css" rel="stylesheet" media="all">
+   
     
 
-    <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
-    <script src="js/spsidebar.js"></script>
-    <link rel="stylesheet" href="">
-
+   
 </head>
 
 <body class="animsition">
@@ -72,7 +71,7 @@ $val=$sp['sp_email'];
         <header class="header-desktop4">
             <div class="container">
                 <div class="header4-wrap">
-                    <div class="header__logo">
+                    <div class="header__logo py-3">
                        <h1>End To End Workers</h1>
                     </div>
                     <div class="header__tool">
@@ -106,7 +105,7 @@ $val=$sp['sp_email'];
                                        
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a href="logout.php">
+                                        <a href="../logout.php">
                                             <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
                                 </div>
@@ -119,7 +118,7 @@ $val=$sp['sp_email'];
         <!-- END HEADER DESKTOP -->
 
         <!-- WELCOME-->
-        <section class="welcome2 p-t-40 p-b-55">
+        <section class="welcome2 p-t-15 p-b-10">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -141,10 +140,10 @@ $val=$sp['sp_email'];
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="welcome2-inner m-t-60">
+                        <div class="welcome2-inner m-t-20">
                             <div class="welcome2-greeting">
                                 <h1 class="title-6">Hi
-                                    <span>ghdgfh</span>, Welcome back</h1>
+                                    <span><?php echo $_SESSION['uname'];  ?></span>, Welcome back</h1>
                                
                             </div>
                             <form class="form-header form-header2" action="" method="post">
@@ -162,10 +161,10 @@ $val=$sp['sp_email'];
 
         <!-- PAGE CONTENT-->
         <div class="page-container3">
-            <section class="alert-wrap p-t-70 p-b-70">
+            <section class="alert-wrap p-t-20 p-b-20">
                 <div class="container">
                     <!-- ALERT-->
-                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none">
+                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none" id="msg">
                         <i class="zmdi zmdi-check-circle"></i>
                         <span class="content">You successfully read this important alert message.</span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -186,13 +185,13 @@ $val=$sp['sp_email'];
                                 <nav class="navbar-sidebar2 navbar-sidebar3">
                                     <ul class="list-unstyled navbar__list">
                                       <h4>Dashboard</h4>
-                                        <li>
-                                            <a href="inbox.html">
+                                        <!-- <li>
+                                            <a href="#">
                                                 <i class="fas fa-chart-bar"></i>Inbox</a>
                                             <span class="inbox-num"><?php
                                             
                                             ?></span>
-                                        </li>
+                                        </li> -->
                                         <!-- <li>
                                             <a href="#">
                                                 <i class="fas fa-shopping-basket"></i>Employess</a>
@@ -221,18 +220,13 @@ $val=$sp['sp_email'];
                                             </a>
                                             <ul class="list-unstyled navbar__sub-list js-sub-list">
                                                 <li>
-                                                    <a href="button.html">Employess Available</a>
+                                                    <a href="#">Employee Available</a>
                                                 </li>
-                                                <li>
-                                                    <a href="badge.html">Employess Charge</a>
-                                                </li>
+                                                <!-- <li>
+                                                    <a href="#">Employee Charge</a>
+                                                </li> -->
                                             </ul>
                                         </li>
-                                         <li>
-                                            <a href="task.php">
-                                                <i class="	fas fa-file" aria-hidden="true"></i>Task
-                                            </a>
-                                         </li>
                                     </ul>
                                 </nav>
                             </aside>
@@ -241,218 +235,159 @@ $val=$sp['sp_email'];
                         <div class="col-xl-9">
                             <!-- PAGE CONTENT-->
                             <div class="page-content">
-                                <div class="row">
-                                    <div class="col-lg-8">
-                                        <!-- RECENT REPORT-->
-                                        <div class="recent-report3 m-b-40">
-                                            <div class="title-wrap">
-                                                <h3 class="title-3">recent reports</h3>
-                                                <div class="chart-info-wrap">
-                                                    <div class="chart-note">
-                                                        <span class="dot dot--blue"></span>
-                                                        <span>Blue</span>
-                                                    </div>
-                                                    <div class="chart-note mr-0">
-                                                        <span class="dot dot--green"></span>
-                                                        <span>green</span>
-                                                    </div>  
-                                                </div>
-                                            </div>
-                                         
-                                            <div class="chart-wrap">
-                                                <canvas id="recent-rep3-chart"></canvas>
-                                            </div>
-                                        </div>
-                                        <!-- END RECENT REPORT-->
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <!-- CHART PERCENT-->
-                                        <div class="chart-percent-3 m-b-40">
-                                            <h3 class="title-3 m-b-25">chart by %</h3>
-                                            <div class="chart-note m-b-5">
-                                                <span class="dot dot--blue"></span>
-                                                <span>products</span>
-                                            </div>
-                                            <div class="chart-note">
-                                                <span class="dot dot--red"></span>
-                                                <span>services</span>
-                                            </div>
-                                            <div class="chart-wrap m-t-60">
-                                                <canvas id="percent-chart2"></canvas>
-                                            </div>
-                                        </div>
-                                        <!-- END CHART PERCENT-->
-                                    </div>
-                                </div>
                                 <!-- Employee Notification -->
                                 <div class="user-data m-b-30">
                                     <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-account-calendar"></i>user data</h3>
-                                    <div class="filters m-b-45">
-                                        <div class="rs-select2--dark rs-select2--md m-r-10 rs-select2--border">
-                                            <select class="js-select2" name="property">
-                                                <option selected="selected">All Properties</option>
-                                                <option value="">Products</option>
-                                                <option value="">Services</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                        <div class="rs-select2--dark rs-select2--sm rs-select2--border">
-                                            <select class="js-select2 au-select-dark" name="time">
-                                                <option selected="selected">All Time</option>
-                                                <option value="">By Month</option>
-                                                <option value="">By Day</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                    </div>
+                                        <i class="zmdi zmdi-account-calendar"></i>Booking Request</h3>
                                     <div class="table-responsive table-data">
                                         <table class="table">
                                             <thead>
                                                 <tr>
                                                     <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
+                                                    
                                                     </td>
                                                     <td>name</td>
                                                     <td>Specification</td>
+                                                    <td>District</td>
                                                     <td>Location</td>
-                                                    <td></td>
+                                                    <td>Action</td>
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php 
+                                                                $bkname="select * from tbl_booking where sc_id=$sc and employee_id=0 and status=1 and servicecompleted=0";
+                                                                $bkquery=mysqli_query($con,$bkname);
+                                                                while($bkdata=mysqli_fetch_array($bkquery))
+                                                                {
+                                                                    $ser_cat=$bkdata['sc_id'];
+                                                                    $service=$bkdata['service_id'];
+                                                                    $custid=$bkdata['customer_id'];
+                                                                    $cust="select * from tbl_customer where customer_id=$custid";
+                                                                    $custquery=mysqli_query($con,$cust);
+                                                                    $custn=mysqli_fetch_array($custquery);
+                                                              ?>
                                                 <tr>
-                                                    <td>
-                                                        <label class="au-checkbox">
-                                                            <input type="checkbox">
-                                                            <span class="au-checkmark"></span>
-                                                        </label>
-                                                    </td>
+                                                    <td></td>
                                                     <td>
                                                         <div class="table-data__info">
-                                                            <h6>lori lynch</h6>
+                                                            <h6>
+                                                            <span><?php echo $custn['customer_name']; ?></span>
+                                                            </h6>
                                                             <span>
-                                                                <a href="#">johndoe@gmail.com</a>
+                                                                <a href="#"><?php echo $custn['customer_email'];  ?></a>
                                                             </span>
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <span class="role admin">admin</span>
+                                                        <span><?php 
+                                                            $ser="select * from tbl_services where service_id=$service";
+                                                            $serquery=mysqli_query($con,$ser);
+                                                            $serdata=mysqli_fetch_array($serquery);
+                                                            echo $serdata['service_name'];
+                                                        ?></span>
+                                                    </td>
+                                                    <td><?php $dis= $custn['location_id'];
+                                                                $dis_sql="select * from tbl_district where district_id=$dis";
+                                                                $dis_query=mysqli_query($con,$dis_sql);
+                                                                $dis_data=mysqli_fetch_array($dis_query);
+                                                                echo $dis_data['district_name'];
+                                                    ?></td>
+                                                    <td>
+                                                        <span><?php  
+                                                            $loc=$custn['location_id'];
+                                                            $locname="select * from tbl_location where location_id=$loc";
+                                                            $locquery=mysqli_query($con,$locname);
+                                                            $locdta=mysqli_fetch_array($locquery);
+                                                            echo $locdta['location'];
+                                                        ?></span>
                                                     </td>
                                                     <td>
-                                                        <div class="rs-select2--trans rs-select2--sm">
-                                                            <select class="js-select2" name="property">
-                                                                <option selected="selected">Full Control</option>
-                                                                <option value="">Post</option>
-                                                                <option value="">Watch</option>
-                                                            </select>
-                                                            <div class="dropDownSelect2"></div>
-                                                        </div>
+                                                    <button type="button" class="btn btn-danger assign" id="assign">Assign Staff</button>
                                                     </td>
-                                                    <td>
-                                                        <span class="more">
-                                                            <i class="zmdi zmdi-more"></i>
-                                                        </span>
-                                                    </td>
+                                                   
                                                 </tr>
+                                                <?php
+                                            }
+                                                               
+                                            ?>
                                             </tbody>
                                         </table>
                                     </div>
+        
                                     <div class="user-data__footer">
-                                        <button class="au-btn au-btn-load">load more</button>
+                                        <button class="au-btn au-btn-load"></button>
                                     </div>
                                 </div>
                                 <!-- End Employee Notification -->
-                                <div class="row">
-                                    <div class="col-md-12">
+        
+            <div class="col-md-12" id="stafftable-body" tabindex="1" style="display:none;">
                                         <!-- DATA TABLE-->
-                                        <div class="table-responsive m-b-40">
-                                            <table class="table table-borderless table-data3">
-                                                <thead>
-                                                    <tr>
-                                                        <th>date</th>
-                                                        <th>Employee</th>
-                                                        <th>Description</th>
-                                                       
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>2018-09-29 05:57</td>
-                                                        <td>Mobile</td>
-                                                        
-                                                        <td class="process">Processed</td>
-                                                        
-                                                    </tr>
-                                                   
-                                                </tbody>
-                                            </table>
+                                        <div class="table-responsive m-b-40" id="stafftable">
+
                                         </div>
                                         <!-- END DATA TABLE-->
+            </div>
+           
+        </div>
+
+                        <!-- Employee Aproval Aproval Status -->
+            <div class="user-data m-b-30" id="emp-aproval">
+                <div id="emp-aproval-body">
+                    <h3 class="title-3 m-b-30">Employee On Duty</h3>
+                <div class="row m-t-30">
+                <div class="col-md-12">
+                                <!-- DATA TABLE-->
+                     <div class="table-responsive m-b-40">
+                        <table class="table table-borderless table-data3">
+                            <thead>
+                                <tr>
+                                <td>Name</td>
+                                <td>Specification</td>
+                                <td>Date</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $emp_apr=mysqli_query($con,"select * from tbl_booking where aproval_status=1 and servicecompleted=0");
+                                if(mysqli_num_rows($emp_apr))
+                                {
+                                    while($apr=mysqli_fetch_array($emp_apr))
+                                    {
+                                        $cus_id=$apr['customer_id'];
+                                        $emp_id=$apr['employee_id'];
+                                        $serv=$apr['service_id'];
+                                        $d=$apr['booked_on'];
+                                       
+                                        $cus_query=mysqli_query($con,"select * from tbl_customer where customer_id=$cus_id");
+                                        $cus_name=mysqli_fetch_array($cus_query);
+
+                                        $emp_que=mysqli_query($con,"select * from tbl_employee where employee_id=$emp_id");
+                                        $emp=mysqli_fetch_array($emp_que);
+
+                                        $ser_quer=mysqli_query($con,"select * from tbl_services where service_id=$serv");
+                                        $serc=mysqli_fetch_array($ser_quer);
+
+                                ?>
+                                <tr style="text-align:left">
+                                    <td><?php echo $emp['employee_name'];?></td>
+                                    <td><?php echo $serc['service_name'];?></td>
+                                    <td><?php echo $d;?></td>
+                                    
+                                </tr>
+                                <?php
+                                    } }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                                <!-- END DATA TABLE-->
+                 </div>
+            </div>
+
                                     </div>
                                 </div>
-                                <div class="row" style="text-align: center;display:none;" id="tsk">
-                                    <div class="col-lg-6">
-                                        <div class="au-card au-card--no-shadow au-card--no-pad m-b-40 au-card--border">
-                                            <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');">
-                                                <div class="bg-overlay bg-overlay--blue"></div>
-                                                <h3>
-                                                    <i class="zmdi zmdi-account-calendar"></i><p id="date"></p>
-                                                    <script>
-                                                    document.getElementById("date").innerHTML = Date();
-                                                    </script></h3>
-                                                <button class="au-btn-plus">
-                                                    <i class="zmdi zmdi-plus"></i>
-                                                </button>
-                                            </div>
-                                            <div class="au-task js-list-load au-task--border">
-                                                <div class="au-task__title">
-                                                    <p>Tasks for John Doe</p>
-                                                </div>
-                                                <div class="au-task-list js-scrollbar3">
-                                                    <div class="au-task__item au-task__item--danger">
-                                                        <div class="au-task__item-inner">
-                                                            <h5 class="task">
-                                                                <a href="#">Meeting about plan for Admin Template 2018</a>
-                                                            </h5>
-                                                            <span class="time">10:00 AM</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-task__item au-task__item--warning">
-                                                        <div class="au-task__item-inner">
-                                                            <h5 class="task">
-                                                                <a href="#">Create new task for Dashboard</a>
-                                                            </h5>
-                                                            <span class="time">11:00 AM</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-task__item au-task__item--danger js-load-item">
-                                                        <div class="au-task__item-inner">
-                                                            <h5 class="task">
-                                                                <a href="#">Meeting about plan for Admin Template 2018</a>
-                                                            </h5>
-                                                            <span class="time">10:00 AM</span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="au-task__item au-task__item--warning js-load-item">
-                                                        <div class="au-task__item-inner">
-                                                            <h5 class="task">
-                                                                <a href="#">Create new task for Dashboard</a>
-                                                            </h5>
-                                                            <span class="time">11:00 AM</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="au-task__footer">
-                                                    <button class="au-btn au-btn-load js-load-btn">load more</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                   
-                                </div>
+
+                        <!-- End Aproval Status -->
                                <?php
                                 include("footer.php");
                                ?>
@@ -489,7 +424,52 @@ $val=$sp['sp_email'];
     </script>
 
     <!-- Main JS-->
-    <script src="js/main.js"></script>
+    <script src="../js/main.js"></script>
+
+    <script>
+        $(document).on('click','.assign',function()
+        {
+            var ser=$(this).closest('tr').find('td:eq(2)').text();
+            var serv=ser.trim();
+            var district=$(this).closest('tr').find('td:eq(3)').text();
+            var dist=district.trim();
+            var location=$(this).closest('tr').find('td:eq(4)').text();
+            var loca=location.trim();
+            $.ajax({
+                url: "assignstaff.php",
+                method:"POST",
+                data :{
+                ser_name :serv,
+                dis : dist,
+                loc : loca
+                },
+                success: function(result){
+                    console.log(result);
+                    $('#stafftable').html(result);
+                    
+                    $("#stafftable-body").css("display", "inline");
+                    $('#stafftable-body').focus();
+                    $('.staff').on('click',function()
+                    {
+                        var data=$(this).val();
+                        $(this).closest("tr").remove();
+                        console.log(data);
+                        $.ajax({
+                          url: "assignstaff.php",
+                          method:"POST",
+                          data :{
+                          dat :data
+                        },
+                          success: function(result){
+                            $("#msg").css("display","inline");
+                            $("#msg").delay(1000).fadeOut();
+                          }
+                        });
+                    });
+                }
+            });
+        });
+    </script>
 
 </body>
 

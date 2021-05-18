@@ -40,8 +40,8 @@ $_SESSION['sc']=$sc;
     <!-- Title Page-->
     <title> ServiceProvider Dashboard</title>
 
-    <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
+   <!-- Fontfaces CSS-->
+   <link href="css/font-face.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -57,15 +57,9 @@ $_SESSION['sc']=$sc;
     <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="css/theme.css" rel="stylesheet" media="all">
-    <link href="servicepro" rel="stylesheet" media="all">
-    
 
     <!-- Main CSS-->
     <link href="css/theme.css" rel="stylesheet" media="all">
-    <script src="js/spsidebar.js"></script>
-    <link rel="stylesheet" href="">
 
 </head>
 
@@ -109,7 +103,7 @@ $_SESSION['sc']=$sc;
                                        
                                     </div>
                                     <div class="account-dropdown__footer">
-                                        <a href="logout.php">
+                                        <a href="../logout.php">
                                             <i class="zmdi zmdi-power"></i>Logout</a>
                                     </div>
                                 </div>

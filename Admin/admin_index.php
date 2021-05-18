@@ -123,26 +123,26 @@ if(isset($_POST['insert_serv'])){
 		  </div>
 		  </li>
       <li class="has-sub">
-		  <a class="nav-link collapsed text-left active" href="#collapseExample" role="button" data-toggle="collapse" >
-        <i class="flaticon-user"></i>   Service
-         </a>
-		  <div class="collapse menu mega-dropdown" id="collapseExample">
-        <div class="dropmenu" aria-labelledby="navbarDropdown">
-		<div class="container-fluid ">
-							<div class="row">
-								<div class="col-lg-12 px-2">
-									<div class="submenu-box">
-										<ul class="list-unstyled m-0">
-											<li><a href="admin_sc.php">Service Category</a></li>
-											<li><a href="admin_service.php" value="serv">Services</a></li>
-										</ul>
-									</div>
-								</div>
+        <a class="nav-link collapsed text-left active" href="#collapseExample" role="button" data-toggle="collapse" >
+          <i class="flaticon-user"></i>   Service
+          </a>
+        <div class="collapse menu mega-dropdown" id="collapseExample">
+          <div class="dropmenu" aria-labelledby="navbarDropdown">
+        <div class="container-fluid ">
+                  <div class="row">
+                    <div class="col-lg-12 px-2">
+                      <div class="submenu-box">
+                        <ul class="list-unstyled m-0">
+                          <li><a href="admin_sc.php">Service Category</a></li>
+                          <li><a href="admin_service.php" value="serv">Services</a></li>
+                        </ul>
+                      </div>
+                    </div>
 
-							</div>
-						</div>
-		     </div>
-		  </div>
+                  </div>
+                </div>
+            </div>
+          </div>
 		  </li>
 
 
@@ -152,10 +152,9 @@ if(isset($_POST['insert_serv'])){
 
             <li class="">
                 <a class="nav-link text-left active" href="admin_emp.php"> Employee </a>
-                </li>
-                <li class="">
-            <a class="nav-link text-left active"  role="button"
-            aria-haspopup="true" aria-expanded="false" href="admin_bk.php" onclick="cust()">  Customers </a>
+            </li>
+            <li class="">
+              <a class="nav-link text-left active"  role="button" aria-haspopup="true" aria-expanded="false" href="admin_bk.php" onclick="cust()">Customers </a>
             </li>
 
 
@@ -172,22 +171,24 @@ if(isset($_POST['insert_serv'])){
 
           <!-- Sidebar Toggle (Topbar) -->
             <div type="button"  id="bar" class="nav-icon1 hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
-               <span></span>
-			    <span></span>
-				 <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
             </div>
 
 
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light " placeholder="Search for..." aria-label="Search" id="searchbar">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button" id="search_submit">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
+                <div class="input-group">
+                  <input type="text" class="form-control bg-light " placeholder="Search for..." aria-label="Search">
+                  <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
           </form>
 
           <!-- Topbar Navbar -->
