@@ -754,9 +754,6 @@ color: #a1aab2;
     font-optical-sizing: 10px;
     color: black;
 } */
-
-
-
 #new-loc
 {
     margin-left: 50px;
@@ -786,7 +783,7 @@ color: #a1aab2;
 }
 #span
 {
-    padding-left: 50px;
+    padding-left: 10px;
 }
 #add-service
 {

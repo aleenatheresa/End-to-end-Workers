@@ -296,13 +296,13 @@ $sc_name=mysqli_fetch_array($sc)
                                                 <a href="#">
                                                     <i class="fa fa-envelope-o"></i> Rating
                                                     <span class="badge pull-right">
-                                                    <div class="rating">
-                                                            <i class="rating__star far fa-star"></i>
-                                                            <i class="rating__star far fa-star"></i>
-                                                            <i class="rating__star far fa-star"></i>
-                                                            <i class="rating__star far fa-star"></i>
-                                                            <i class="rating__star far fa-star"></i>
-                                                    </div>
+                                                        <div class="rating">
+                                                                <i class="rating__star far fa-star"></i>
+                                                                <i class="rating__star far fa-star"></i>
+                                                                <i class="rating__star far fa-star"></i>
+                                                                <i class="rating__star far fa-star"></i>
+                                                                <i class="rating__star far fa-star"></i>
+                                                        </div>
                                                     </span>
                                                 </a>
                                             </li>
@@ -368,7 +368,7 @@ $sc_name=mysqli_fetch_array($sc)
 
     <!-- Main JS-->
     <script src="../js/main.js"></script>
-    <script src="../js/rating.js"></script>
+    <!-- <script src="../js/rating.js"></script> -->
 
 </body>
 

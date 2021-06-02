@@ -34,7 +34,7 @@ $_SESSION['lid']=$cust_id;
       <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
-        <title>Customer Index</title>
+        <title>Details</title>
 
         <link href="../css/font-face.css" rel="stylesheet" media="all">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -53,6 +53,7 @@ $_SESSION['lid']=$cust_id;
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
         <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
         <script src = "https://code.jquery.com/jquery-1.12.0.min.js"></script>
+        <link href="../css/rating.css" rel="stylesheet" media="all">
         <!-- Modal class -->
 
 </head>
@@ -100,6 +101,8 @@ $_SESSION['lid']=$cust_id;
                                         <ul class="list-unstyled m-0" id="dropdown-menu">
                                         <li><a href="customer_index.php" onclick="home()">Booking</a></li>
                                         <li><a href="booked_details.php" onclick="cust_book()">Booked Details</a></li>
+                                        <li><a href="history.php" onclick="cust_book()">Book History</a></li>
+                                    
                                         </ul>
                                     </div>
                                     </div>
@@ -241,7 +244,6 @@ $_SESSION['lid']=$cust_id;
                  if($bk_status==1)
                   {
                       echo "Work completed";
-
                   }
                 elseif($bk_emp!=0 && $ap==1)
                 {
@@ -254,8 +256,8 @@ $_SESSION['lid']=$cust_id;
                 ?>
               </td>
               <td>
-                  <button class="btn btn-sm btn-primary btn-inline cmplt" title="Work Finished" id="c1" value="<?php echo $bking_id;?>"<?php if($ap==0) {?> disabled <?php }?>>Completed</button>
-                  <button class="btn btn-sm btn-danger btn-inline cancel" title="Cancel Booking" value="<?php echo $bking_id;?>" id="can2" <?php if($bk_emp!=0 && $ap==1){?> disabled <?php }?>>Cancel</button>
+                  <button class="btn btn-sm btn-primary btn-inline cmplt" title="Work Finished" id="c1" value="<?php echo $bking_id;?>"<?php if($ap==0) {?> disabled <?php }?> data-target="#myModal" data-toggle="modal">Completed</button>
+                  <button class="btn btn-sm btn-danger btn-inline cancel" title="Cancel Booking" value="<?php echo $bking_id;?>" id="can2" <?php if($bk_emp!=0 && $ap==1){?> disabled <?php }?> data-target="#reasonModal" data-toggle="modal">Cancel</button>
 
               </td>
             </tr>
@@ -269,40 +271,124 @@ $_SESSION['lid']=$cust_id;
       </table>
     </div>
      
+  <div id="rating">
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">  
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">Employee Rating</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body" style="height: auto;">
+            
+            <div id="date-msg"></div>
+                  <span class="badge pull-center">
+                    <div class="rating">
+                      <span class="rating__result"></span>
+                      <i class="rating__star far fa-star"></i>
+                      <i class="rating__star far fa-star"></i>
+                      <i class="rating__star far fa-star"></i>
+                      <i class="rating__star far fa-star"></i>
+                      <i class="rating__star far fa-star"></i>
+                    </div>
+                  </span>
+                  
+                </div>
+            <div class="modal-footer">
+              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="refreshPage()">Close</button> -->
+              <button type="button" class="btn btn-success" data-dismiss="modal" id="sub">Submit</button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
 
-
-
+  <div id="reason">
+    <div class="modal fade" id="reasonModal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">  
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalLabel">Reason for Cancelation</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body" style="height: auto;">
+              <div id="date-msg"></div>
+              <label>Reason:</label><br>
+              <input type="text" id="reason" class="form-control"><br>
+                  
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="refreshPage()">Close</button>
+              <button type="button" class="btn btn-success" data-dismiss="modal" id="reason-submit">Submit</button>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
     <!-- End Book details -->
-
-
 </div>
 
-
+<script src="../js/rating.js"></script>
 <script>
+
 $('#bar').click(function(){
 	$(this).toggleClass('open');
 	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
 });
+
+function refreshPage(){
+    window.location.reload();
+} 
 
 
 
 $(".cmplt").on('click',function()
     {
     var bookid=$(this).val();
+    var d=new Date().toISOString().split('T')[0]
+    
     console.log(bookid);
             $.ajax({
                   url: "edit_customer.php",
                   method:"POST",
                   data :{
-                  comp : bookid
+                  comp : bookid,
+                  date:d
                 },
                   success: function(result){
-                    console.log(result);
                     $("#msg").css("display","inline");
                     $("#msg").delay(1000).fadeOut();
-
+                    
                   }
               });
+
+  // Rating
+            $('#sub').on('click',function(){
+            $d=$('.rating__result').text();
+            var c=parseInt($d);
+            const percentage=(c/5)*100;
+            const PercentageRounded = `${(Math.round(percentage / 10) * 10)}%`;
+            alert(PercentageRounded);
+            
+            $.ajax({
+                            url: "rating_customer.php",
+                            method:"POST",
+                            data :{
+                            star:c,
+                            bkid:bookid
+                          },
+                            success: function(result){
+                              $("#date-msg").html(result);
+                              
+                            }
+                        });
+              });
+              
+  // End Rating
 
       });
       // End Complete work button function
@@ -312,7 +398,7 @@ $(".cancel").on('click',function()
       {
         var bkid_cancel=$(this).val();
         $(this).closest("tr").remove();
-        console.log(bkid_cancel);
+        $('#reason-submit').on('click',function(){
           $.ajax({
                 url: "edit_customer.php",
                 method:"POST",
@@ -326,11 +412,11 @@ $(".cancel").on('click',function()
 
                 }
             });
-
+        });
       });
 
       // End Cancel booking
-
+      
 </script>
 </body>
 </html>

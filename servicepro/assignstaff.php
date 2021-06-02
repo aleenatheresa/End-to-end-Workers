@@ -7,8 +7,8 @@ if(!empty($_POST["ser_name"]))
         $loc=$_POST["loc"];
         $dis=$_POST['dis'];
     ?>
-            <table class="table table-borderless table-data3">
-                <thead>
+            <table class="table table-borderless">
+                <thead class="thead-dark">
                     <tr>
                         <th>Employee</th>
                         <th>Service</th>
@@ -33,11 +33,13 @@ if(!empty($_POST["ser_name"]))
                             $loc_query=mysqli_query($con,$sql_loc);
                             $r2=mysqli_fetch_array($loc_query);
                             $loc_id=$r2['location_id'];
-                            $sql_emp="select * from tbl_employee where sc_id=$sc and service_id=$service_id and location_id=$loc_id and is_available=0";
+                            $sql_emp="select * from tbl_employee where sc_id=$sc and service_id=$service_id and is_available=1";
                             $emp_query=mysqli_query($con,$sql_emp);
+                            
                             if(mysqli_num_rows($emp_query)>0)
                             {
-                                $row=mysqli_fetch_array($emp_query);
+                                while($row=mysqli_fetch_array($emp_query))
+                                {
                                 $emp_id=$row['employee_id'];
                                 $emp_name=$row['employee_name'];
                         ?>
@@ -51,16 +53,19 @@ if(!empty($_POST["ser_name"]))
                         </td>  
                     </tr>
                     <?php
-                        }
+                        }}
                         else
                         {
                             ?>
-                            <td colspan='5' style="text-align:center;"><?php echo "No Employe Available";?></td>
-                            
+                            <tr>
+                                <td colspan='5' style="text-align:center;">no employee available</td>
+                            </tr>
                             <?php
                         }
+                       
                     }
                     ?>
+                   
                 </tbody>
             </table>
     <?php
@@ -72,8 +77,16 @@ if(!empty($_POST["ser_name"]))
     if(!empty($_POST['dat']))
     {
         $data=$_POST['dat'];
-        $sql_booking="update tbl_booking set employee_id=$data";
+        $name=$_POST['ser_name'];
+        $district=$_POST['dis'];
+        $date=$_POST['date'];
+        $loc=$_POST['loc'];
+        $customer=$_POST['cust'];
+        // $sql_booking="update tbl_booking set employee_id=$data where booking_id=(select booking_id from tbl_booking where customer_id=(select customer_id from tbl_customer where customer_name='$name' and district_id=(select district_id from tbl_district where district_name='$district') and location_id=(select location_id from tbl_location where location='')))";
+        $sql_booking="update tbl_booking set employee_id=$data,aproval_status=1 where booking_id=(select booking_id from tbl_booking where booked_on='$date' AND customer_id=(select customer_id from tbl_customer where customer_name='$customer' and district_id=(select district_id from tbl_district where district_name='$district') and location_id=(select location_id from tbl_location where location='$loc')))";
         $booking_query=mysqli_query($con,$sql_booking);
+        $avail=mysqli_query($con,"update tbl_employee set is_available=0 where employee_id=$data");
+        echo "<h4>Sucessfully Assigned An Employee</h4>";
         
     }
     ?>

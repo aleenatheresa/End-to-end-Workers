@@ -37,9 +37,15 @@ if(isset($_POST['dat']))
 if(isset($_POST['comp']))
 {
     $complete=$_POST['comp'];
-    $update_status="update tbl_booking set servicecompleted=1 where booking_id='$complete'";
+    $datee=$_POST['date'];
+    $update_status="update tbl_booking set servicecompleted=1,end='$datee' where booking_id='$complete'";
     $upquery=mysqli_query($con,$update_status);
-    echo "<script>console.log('$update_status');</script>";
+    $emp=mysqli_query($con,"select employee_id from tbl_booking where booking_id='$complete'");
+    $d=mysqli_fetch_array($emp);
+    $empid=$d['employee_id'];
+    $emp_avail=mysqli_query($con,"update tbl_employee set is_available=1 where employee_id=$emp_id");
+    // echo "<script>alert('$update_status');</script>";
+    echo $update_status;
 }
 
 // End

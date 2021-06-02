@@ -11,6 +11,7 @@ $email=$_POST['email'];
 $uname=$_POST['username'];
 $pass=$_POST['password'];
 $pass=md5($pass);
+
 $sc=$_POST['sc'];
 $service=$_POST['service'];
 
@@ -27,7 +28,7 @@ $service=$_POST['service'];
 
     $now = date('Y-m-d H:i:s');
 
-    $insert_login="INSERT into tbl_login(uname,password,role_id,aproval_status,is_delete)values('$uname','$pass',3,1,1)";
+    $insert_login="INSERT into tbl_login(uname,password,role_id,aproval_status,is_delete)values('$uname','$pass',3,0,1)";
     $login_result=mysqli_query($con,$insert_login);
 
     $status="SELECT lid from tbl_login where uname='$uname'";
@@ -41,7 +42,7 @@ $service=$_POST['service'];
     $r=mysqli_fetch_array($sp_query);
     $id=$r['sp_id'];
    
-    $insert_sql="INSERT into tbl_employee(employee_name,employee_address,employee_phone,employee_email,sc_id,location_id,login_id,created_on,sp_id,service_id,is_available) VALUES('$name','$addr','$phone','$email','$sc','$loc_id','$login_id','$now','$id','$service',0)";
+    $insert_sql="INSERT into tbl_employee(employee_name,employee_address,employee_phone,employee_email,sc_id,location_id,login_id,created_on,sp_id,service_id,is_available) VALUES('$name','$addr','$phone','$email','$sc','$loc_id','$login_id','$now','$id','$service',1)";
     $insert_result=mysqli_query($con,$insert_sql);
     header("refresh:2; url=login.php");
 

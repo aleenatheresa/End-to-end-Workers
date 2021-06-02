@@ -144,6 +144,12 @@ function button()
 }
 
 </script>
+<style>
+a
+{
+  text-decoration : none;
+}
+  </style>
 <body>
 
 
@@ -186,6 +192,7 @@ function button()
                                     <ul class="list-unstyled m-0" id="dropdown-menu">
                                       <li><a href="customer_index.php" onclick="home()">Booking</a></li>
                                       <li><a href="booked_details.php" onclick="cust_book()">Booked Details</a></li>
+                                      <li><a href="history.php" onclick="cust_book()">Book History</a></li>
                                     </ul>
                                   </div>
                                 </div>
@@ -375,7 +382,7 @@ function button()
   
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../js/cal.js"></script>
+    
 
 <script>
 

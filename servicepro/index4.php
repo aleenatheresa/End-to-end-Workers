@@ -42,7 +42,7 @@ $_SESSION['sc']=$sc;
 
     <!-- Fontfaces CSS-->
    
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all"> -->
     <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
 
@@ -57,111 +57,182 @@ $_SESSION['sc']=$sc;
     <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
     <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
     <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-    <link href="../css/font-face.css" rel="stylesheet" media="all">
+    <!-- <link href="../css/font-face.css" rel="stylesheet" media="all"> -->
     <link href="../css/theme.css" rel="stylesheet" media="all">
-   
+    <link rel="stylesheet" href="../css/admin_stylesheet.css">
+  
     
 
    
 </head>
 
 <body class="animsition">
-    <div class="page-wrapper">
-        <!-- HEADER DESKTOP-->
-        <header class="header-desktop4">
-            <div class="container">
-                <div class="header4-wrap">
-                    <div class="header__logo py-3">
-                       <h1>End To End Workers</h1>
-                    </div>
-                    <div class="header__tool">
-                        
-                        
-                        <div class="account-wrap">
-                            <div class="account-item account-item--style2 clearfix js-item-menu">
-                               
-                                <div class="content">
-                                    <a class="js-acc-btn" href="#">Welcome <?php                 ?></a>
-                                </div>
-                                <div class="account-dropdown js-dropdown">
-                                    <div class="info clearfix">
-                                       
-                                        <div class="content">
-                                            <h5 class="name">
-                                                <a href="#"><?php echo $_SESSION['uname'];  ?></a>
-                                            </h5>
-                                            <span class="email"><?php echo $val;?></span>
-                                        </div>
-                                    </div>
-                                    <div class="account-dropdown__body">
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-account"></i>Account</a>
-                                        </div>
-                                        <div class="account-dropdown__item">
-                                            <a href="#">
-                                                <i class="zmdi zmdi-settings"></i>Setting</a>
-                                        </div>
-                                       
-                                    </div>
-                                    <div class="account-dropdown__footer">
-                                        <a href="../logout.php">
-                                            <i class="zmdi zmdi-power"></i>Logout</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <!-- END HEADER DESKTOP -->
 
-        <!-- WELCOME-->
-        <section class="welcome2 p-t-15 p-b-10">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="au-breadcrumb3">
-                            <div class="au-breadcrumb-left">
-                                <span class="au-breadcrumb-span">You are here:</span>
-                                <ul class="list-unstyled list-inline au-breadcrumb__list">
-                                    <li class="list-inline-item active">
-                                        <a href="#">Home</a>
+        <div id="wrapper">
+                 <div class="overlay"></div>
+
+        <!-- Sidebar -->
+                            <nav class="fixed-top align-top" id="sidebar-wrapper" role="navigation">
+                            <div class="simplebar-content" style="padding: 0px;">
+                                        <a class="sidebar-brand" href="index4.php">
+                                <span class="align-middle">End To End Workers</span>
+                                </a>
+
+                                        <ul class="navbar-nav align-self-stretch">
+
+                                <li class="sidebar-header">
+                                        Pages
                                     </li>
-                                    <li class="list-inline-item seprate">
-                                        <span>/</span>
+
+                                    <li class=""><a class="nav-link text-left active" href="index4.php" onclick="adminhome()" id="home">Home
+                                    <i class="flaticon-bar-chart-1"></i>
+                                    </a>
+                                </li>
+                            <li class="has-sub">
+                                    <a class="nav-link collapsed text-left active" id="dropdown-toggle" href="#collapseExample2" role="button" data-toggle="collapse">
+                               Employee
+                                </a>
+                            <div class="collapse menu mega-dropdown" id="collapseExample2">
+
+                            <div class="dropmenu" aria-labelledby="navbarDropdown">
+                                    <div class="container-fluid ">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 px-2">
+                                                            <div class="submenu-box">
+                                                                <ul class="list-unstyled m-0" id="dropdown-menu">
+                                                                    <li><a href="#">Employee Available</a></li>
+                                                                    <li><a href="#">Employee On Duty</a></li>
+                                                                    <li><a href="#">Employee Details</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                    </div>
+                                </div>
+                                </li>
+                            <li class="has-sub">
+                                <a class="nav-link collapsed text-left active" href="#collapseExample" role="button" data-toggle="collapse" >
+                                <i class="flaticon-user"></i>   Customers
+                                </a>
+                                <div class="collapse menu mega-dropdown" id="collapseExample">
+                                <div class="dropmenu" aria-labelledby="navbarDropdown">
+                                <div class="container-fluid ">
+                                        <div class="row">
+                                            <div class="col-lg-12 px-2">
+                                            <div class="submenu-box">
+                                                <ul class="list-unstyled m-0">
+                                                <li><a href="#">customer Details</a></li>
+                                                <li><a href="admin_service.php" value="serv">Services</a></li>
+                                                </ul>
+                                            </div>
+                                            </div>
+
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </li>
+
+
+                                <li class="">
+                                    <a class="nav-link text-left active" href="admin_sp.php" onclick="serviceprovider()" id="spdata"> Service Provider</a>
                                     </li>
-                                    <li class="list-inline-item">Dashboard</li>
+
+                                    <li class="">
+                                        <a class="nav-link text-left active" href="admin_emp.php"> Employee </a>
+                                    </li>
+                                    <li class="">
+                                    <a class="nav-link text-left active"  role="button" aria-haspopup="true" aria-expanded="false" href="admin_bk.php" onclick="cust()">Customers </a>
+                                    </li>
+
+
+                            </nav>
+                                <!-- /#sidebar-wrapper -->
+
+
+                                <!-- Page Content -->
+                            <div id="page-content-wrapper">
+                                    <div id="content">
+                            <div class="container-fluid p-0 px-lg-0 px-md-0">
+                                <!-- Topbar -->
+                                <nav class="navbar navbar-expand navbar-light my-navbar py-3">
+
+                                <!-- Sidebar Toggle (Topbar) -->
+                                    <div type="button"  id="bar" class="nav-icon1 hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                                        <span></span>
+                                        <span></span>
+                                        <span></span>
+                                    </div>
+
+
+                                <!-- Topbar Search -->
+                                <form class="d-none d-sm-inline-block form-inline navbar-search">
+                                    <div class="input-group">
+                                    <input type="text" class="form-control bg-light " placeholder="Search for..." aria-label="Search">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                        <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                    </div>
+                                </form>
+
+                                <!-- Topbar Navbar -->
+                                <ul class="navbar-nav ml-auto">
+
+                                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                                   
+                                    <li>
+                                        <div class="account-wrap">
+                                            <div class="account-item account-item--style2 clearfix js-item-menu">
+                                                <div class="content">
+                                                    <a class="js-acc-btn" href="#" style="color:black;">Welcome <?php ?></a>
+                                                </div>
+                                                <div class="account-dropdown js-dropdown">
+                                                    <div class="info clearfix">
+                                                    
+                                                            <div class="content">
+                                                                <h5 class="name">
+                                                                    <a href="#"><?php echo $_SESSION['uname'];  ?></a>
+                                                                </h5>
+                                                                <span class="email"><?php echo $val;?></span>
+                                                            </div>
+                                                    </div>
+                                                    <div class="account-dropdown__body">
+                                                            <div class="account-dropdown__item">
+                                                                <a href="#">
+                                                                    <i class="zmdi zmdi-account"></i>Account</a>
+                                                            </div>
+                                                            <div class="account-dropdown__item">
+                                                                <a href="#">
+                                                                    <i class="zmdi zmdi-settings"></i>Setting</a>
+                                                            </div>
+                                                    
+                                                    </div>
+                                                    <div class="account-dropdown__footer">
+                                                        <a href="../logout.php">
+                                                            <i class="zmdi zmdi-power"></i>Logout</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- <li>
+                                    <a  href="../logout.php" id="userDropdown" role="button" >
+                                        <label ><b style="font-famiy: Times New Roman, Times, serif;">Signout</b></label>
+                                    </a>
+                                    </li> -->
+
                                 </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="welcome2-inner m-t-20">
-                            <div class="welcome2-greeting">
-                                <h1 class="title-6">Hi
-                                    <span><?php echo $_SESSION['uname'];  ?></span>, Welcome back</h1>
-                               
-                            </div>
-                            <form class="form-header form-header2" action="" method="post">
-                                <input class="au-input au-input--w435" type="text" name="search" placeholder="Search for datas &amp; reports...">
-                                <button class="au-btn--submit" type="submit">
-                                    <i class="zmdi zmdi-search"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- END WELCOME-->
 
+                                </nav>
+                        </div>
         <!-- PAGE CONTENT-->
+        <div id="page-content-wrapper">
         <div class="page-container3">
-            <section class="alert-wrap p-t-20 p-b-20">
+            <section class="alert-wrap">
                 <div class="container">
                     <!-- ALERT-->
                     <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none" id="msg">
@@ -177,158 +248,101 @@ $_SESSION['sc']=$sc;
                 </div>
             </section>
             <section>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-3">
-                            <!-- MENU SIDEBAR-->
-                            <aside class="menu-sidebar3 js-spe-sidebar">
-                                <nav class="navbar-sidebar2 navbar-sidebar3">
-                                    <ul class="list-unstyled navbar__list">
-                                      <h4>Dashboard</h4>
-                                        <!-- <li>
-                                            <a href="#">
-                                                <i class="fas fa-chart-bar"></i>Inbox</a>
-                                            <span class="inbox-num"><?php
-                                            
-                                            ?></span>
-                                        </li> -->
-                                        <!-- <li>
-                                            <a href="#">
-                                                <i class="fas fa-shopping-basket"></i>Employess</a>
-                                        </li> -->
-                                        <li class="has-sub">
-                                            <a class="js-arrow" href="#">
-                                            <i class="fa fa-users" aria-hidden="true"></i>Customers
-                                                <span class="arrow">
-                                                    <i class="fas fa-angle-down"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                                <li>
-                                                    <a href="#">Booking Details</a>
-                                                </li>
-                                               
-                                              
-                                            </ul>
-                                        </li>
-                                        <li class="has-sub">
-                                            <a class="js-arrow" href="#">
-                                            <i class="fa fa-user" aria-hidden="true"></i>Employess
-                                                <span class="arrow">
-                                                    <i class="fas fa-angle-down"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="list-unstyled navbar__sub-list js-sub-list">
-                                                <li>
-                                                    <a href="#">Employee Available</a>
-                                                </li>
-                                                <!-- <li>
-                                                    <a href="#">Employee Charge</a>
-                                                </li> -->
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </aside>
-                            <!-- END MENU SIDEBAR-->
-                        </div>
-                        <div class="col-xl-9">
-                            <!-- PAGE CONTENT-->
-                            <div class="page-content">
-                                <!-- Employee Notification -->
-                                <div class="user-data m-b-30">
-                                    <h3 class="title-3 m-b-30">
-                                        <i class="zmdi zmdi-account-calendar"></i>Booking Request</h3>
-                                    <div class="table-responsive table-data">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <td>
-                                                    
-                                                    </td>
-                                                    <td>name</td>
-                                                    <td>Specification</td>
-                                                    <td>District</td>
-                                                    <td>Location</td>
-                                                    <td>Action</td>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <?php 
-                                                                $bkname="select * from tbl_booking where sc_id=$sc and employee_id=0 and status=1 and servicecompleted=0";
-                                                                $bkquery=mysqli_query($con,$bkname);
-                                                                while($bkdata=mysqli_fetch_array($bkquery))
-                                                                {
-                                                                    $ser_cat=$bkdata['sc_id'];
-                                                                    $service=$bkdata['service_id'];
-                                                                    $custid=$bkdata['customer_id'];
-                                                                    $cust="select * from tbl_customer where customer_id=$custid";
-                                                                    $custquery=mysqli_query($con,$cust);
-                                                                    $custn=mysqli_fetch_array($custquery);
-                                                              ?>
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="table-data__info">
-                                                            <h6>
-                                                            <span><?php echo $custn['customer_name']; ?></span>
-                                                            </h6>
-                                                            <span>
-                                                                <a href="#"><?php echo $custn['customer_email'];  ?></a>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <span><?php 
-                                                            $ser="select * from tbl_services where service_id=$service";
-                                                            $serquery=mysqli_query($con,$ser);
-                                                            $serdata=mysqli_fetch_array($serquery);
-                                                            echo $serdata['service_name'];
-                                                        ?></span>
-                                                    </td>
-                                                    <td><?php $dis= $custn['location_id'];
-                                                                $dis_sql="select * from tbl_district where district_id=$dis";
-                                                                $dis_query=mysqli_query($con,$dis_sql);
-                                                                $dis_data=mysqli_fetch_array($dis_query);
-                                                                echo $dis_data['district_name'];
-                                                    ?></td>
-                                                    <td>
-                                                        <span><?php  
-                                                            $loc=$custn['location_id'];
-                                                            $locname="select * from tbl_location where location_id=$loc";
-                                                            $locquery=mysqli_query($con,$locname);
-                                                            $locdta=mysqli_fetch_array($locquery);
-                                                            echo $locdta['location'];
-                                                        ?></span>
-                                                    </td>
-                                                    <td>
-                                                    <button type="button" class="btn btn-danger assign" id="assign">Assign Staff</button>
-                                                    </td>
-                                                   
-                                                </tr>
-                                                <?php
-                                            }
-                                                               
+                <div class="col-xl-12">
+                                <!-- PAGE CONTENT-->
+                    <div class="page-content">
+                                    <!-- Employee Notification -->
+                        <div class="user-data m-b-20">
+                            <h3 class="title-3 m-b-20">
+                            <i class="zmdi zmdi-account-calendar"></i>Booking Request</h3>
+                            <div class="table-responsive table-data">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Specification</td>
+                                            <td>District</td>
+                                            <td>Location</td>
+                                            <td>Date</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php 
+                                            $bkname="select * from tbl_booking where sc_id=$sc and employee_id=0 and status=1 and servicecompleted=0";
+                                            $bkquery=mysqli_query($con,$bkname);
+                                            while($bkdata=mysqli_fetch_array($bkquery))
+                                            {
+                                                $ser_cat=$bkdata['sc_id'];
+                                                $service=$bkdata['service_id'];
+                                                $custid=$bkdata['customer_id'];
+                                                $date=$bkdata['booked_on'];
+                                                $cust="select * from tbl_customer where customer_id=$custid";
+                                                $custquery=mysqli_query($con,$cust);
+                                                $custn=mysqli_fetch_array($custquery);
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <div class="table-data__info">
+                                                    <h6>
+                                                        <span><?php echo $custn['customer_name']; ?></span>
+                                                    </h6>
+                                                    <span>
+                                                        <a href="#"><?php echo $custn['customer_email'];  ?></a>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span><?php 
+                                                    $ser="select * from tbl_services where service_id=$service";
+                                                    $serquery=mysqli_query($con,$ser);
+                                                    $serdata=mysqli_fetch_array($serquery);
+                                                    echo $serdata['service_name'];
+                                                ?></span>
+                                            </td>
+                                            <td><?php $dis= $custn['location_id'];
+                                                $dis_sql="select * from tbl_district where district_id=$dis";
+                                                $dis_query=mysqli_query($con,$dis_sql);
+                                                $dis_data=mysqli_fetch_array($dis_query);
+                                                echo $dis_data['district_name'];
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <span><?php  
+                                                    $loc=$custn['location_id'];
+                                                    $locname="select * from tbl_location where location_id=$loc";
+                                                    $locquery=mysqli_query($con,$locname);
+                                                    $locdta=mysqli_fetch_array($locquery);
+                                                    echo $locdta['location'];
+                                                ?></span>
+                                            </td>
+                                            <td><?php echo $date; ?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger assign" id="assign">Assign Staff</button>
+                                            </td>
+                                        </tr>
+                                            <?php
+                                                }
                                             ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-        
-                                    <div class="user-data__footer">
-                                        <button class="au-btn au-btn-load"></button>
-                                    </div>
-                                </div>
-                                <!-- End Employee Notification -->
-        
-            <div class="col-md-12" id="stafftable-body" tabindex="1" style="display:none;">
-                                        <!-- DATA TABLE-->
-                                        <div class="table-responsive m-b-40" id="stafftable">
-
+                                </tbody>
+                            </table>
+                        </div>
+            
+                                        <div class="user-data__footer">
+                                            <button class="au-btn au-btn-load"></button>
                                         </div>
-                                        <!-- END DATA TABLE-->
-            </div>
-           
-        </div>
+                                    </div>
+                                    <!-- End Employee Notification -->
+            
+                                    <div class="col-md-12" id="stafftable-body" tabindex="1" style="display:none;">
+                                            <!-- DATA TABLE-->
+                                            <div class="table-responsive m-b-40" id="stafftable">
+
+                                            </div>
+                                            <!-- END DATA TABLE-->
+                                    </div>
+                    </div>
+                </div>
 
                         <!-- Employee Aproval Aproval Status -->
             <div class="user-data m-b-30" id="emp-aproval">
@@ -400,7 +414,7 @@ $_SESSION['sc']=$sc;
         </div>
         <!-- END PAGE CONTENT  -->
 
-    </div>
+    <!-- </div> -->
 
     <!-- Jquery JS-->
     <script src="vendor/jquery-3.2.1.min.js"></script>
@@ -469,6 +483,13 @@ $_SESSION['sc']=$sc;
                 }
             });
         });
+
+
+    $('#bar').click(function(){
+	$(this).toggleClass('open');
+    $('#page-content-wrapper ,#sidebar-wrapper').toggleClass('toggled');
+
+    });
     </script>
 
 </body>

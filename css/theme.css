@@ -83,6 +83,7 @@ p {
 
 .table-responsive {
     padding-right: 1px;
+    /* font-size: 8px; */
 }
 
 /* .card {
@@ -99,7 +100,7 @@ p {
 
 /* ----- Typography ----- */
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Times New Roman', Times, serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.625;
@@ -114,7 +115,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: #333333;
+    color: #312f2f;
     font-weight: 700;
     margin: 0;
     line-height: 1.2;
@@ -336,37 +337,6 @@ section {
     height: 100vh;
 }
 
-.login-wrap {
-    max-width: 540px;
-    padding-top: 8vh;
-    margin: 0 auto;
-}
-
-.login-logo {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.login-checkbox {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -webkit-justify-content: space-between;
-    -moz-box-pack: justify;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-}
-
-.login-checkbox label input[type="checkbox"] {
-    margin-right: 8px;
-}
-
-.login-checkbox > label > a {
-    color: #ff2e44;
-}
 
 @media (max-width: 991px) {
     .login-checkbox {
@@ -3871,7 +3841,7 @@ section {
 }
 
 .task-progress .title-3 {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
 }
 
 .task-progress .au-progress {
@@ -4350,7 +4320,7 @@ section {
 }
 
 .table-data {
-    height: 472px;
+    height: 350px;
     overflow-y: auto;
 }
 
