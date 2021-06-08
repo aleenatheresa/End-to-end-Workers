@@ -1,6 +1,7 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 $login=$_SESSION['login'];
 $customer=$_SESSION['lid'];
 if(!empty($_POST["star"])) {

@@ -1,8 +1,8 @@
 
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
-
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 if(!empty($_POST["id"])) {
     // $value= $_POST["id"];
 ?>

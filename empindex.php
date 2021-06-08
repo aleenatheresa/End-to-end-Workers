@@ -1,6 +1,6 @@
 <?php
-$con=mysqli_connect("localhost","root","","projectdb");
-
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
 session_start();
 if($_SESSION['role_id']!="3"){
   header('location:login.php');

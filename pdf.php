@@ -6,7 +6,8 @@ use Spipu\Html2Pdf\Html2Pdf;
 $html2pdf = new Html2Pdf();
 
 
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
 $lid="";
 
     $html='

@@ -1,7 +1,7 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
-
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 // total number of employee
 $count_emp="SELECT * FROM tbl_employee";
 $emp_query=mysqli_query($con,$count_emp);

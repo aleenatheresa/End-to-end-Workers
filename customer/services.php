@@ -1,9 +1,11 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 
 if(!empty($_POST["id"])) {
     $value= $_POST["id"];
+    // $cdate = $_SESSION['sdate'];
     $sql_service="select * from tbl_services where sc_id= ".$value."";
     $service_query=mysqli_query($con,$sql_service);
     while($row=mysqli_fetch_array($service_query))
@@ -36,16 +38,19 @@ if(!empty($_POST["id"])) {
 <script>
 //  validation
 $(".bkser").on("click",function(){
-  var s=$(this).val();
-  $.ajax({
-    url:"validation.php",
-    method:"post",
-    data:{id:s},
-    success:function(data){
-        $("#date-msg").html(data)
-    }
+//   var s=$(this).val();
+//   $.ajax({
+//     url:"validation.php",
+//     method:"post",
+//     data:{id:s,
+   
+//     },
+//     success:function(data){
+//         $("#date-msg").html(data);
 
-  });
+//     }
+
+//   });
 });
 </script>
 </html>

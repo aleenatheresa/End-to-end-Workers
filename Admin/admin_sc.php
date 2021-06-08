@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
-
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 
 // Insert Image and update
 if(isset($_POST['insertimg'])){

@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 ?>
 <html lang="en">
 <head>

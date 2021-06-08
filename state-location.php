@@ -1,6 +1,6 @@
 <?php
-$con=mysqli_connect("localhost","root","","projectdb");
-
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
 if(!empty($_POST["dist_id"]))
 { 
 $district_id = $_POST['dist_id'];

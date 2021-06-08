@@ -1,6 +1,7 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 if(!empty($_POST["ser_name"]))
     {
         $service=$_POST["ser_name"];
@@ -20,20 +21,26 @@ if(!empty($_POST["ser_name"]))
                 <tbody>
                     <?php
                         $sc=$_SESSION['sc'];
-                        $sql_ser_id="select * from tbl_services where service_name='$service' and sc_id=$sc and is_delete=1";
-                        $ser_id_query=mysqli_query($con,$sql_ser_id);
-                        while($r=mysqli_fetch_array($ser_id_query))
+                        $log=mysqli_query($con,"select lid from tbl_login where role_id=3 and aproval_status=1");
+                        if(mysqli_num_rows($log)>0)
                         {
+                            while($l=mysqli_fetch_array($log))
+                            {
+                            $id=$l['lid'];
+                            $sql_ser_id="select * from tbl_services where service_name='$service' and sc_id=$sc and is_delete=1";
+                            $ser_id_query=mysqli_query($con,$sql_ser_id);
+                            $r=mysqli_fetch_array($ser_id_query);
                             $service_id=$r['service_id'];
-                            $sql_dis="select district_id from tbl_district where district_name='$dis' and is_delete=1";
-                            $dis_query=mysqli_query($con,$sql_dis);
-                            $r1=mysqli_fetch_array($dis_query);
-                            $dis_id=$r1['district_id'];
-                            $sql_loc="select * from tbl_location where location='$loc' and district_id=$dis_id and is_delete=1";
-                            $loc_query=mysqli_query($con,$sql_loc);
-                            $r2=mysqli_fetch_array($loc_query);
-                            $loc_id=$r2['location_id'];
-                            $sql_emp="select * from tbl_employee where sc_id=$sc and service_id=$service_id and is_available=1";
+                            // $sql_dis="select district_id from tbl_district where district_name='$dis' and is_delete=1";
+                            // $dis_query=mysqli_query($con,$sql_dis);
+                            // $r1=mysqli_fetch_array($dis_query);
+                            // $dis_id=$r1['district_id'];
+                            // $sql_loc="select * from tbl_location where location='$loc' and district_id=$dis_id and is_delete=1";
+                            // $loc_query=mysqli_query($con,$sql_loc);
+                            // $r2=mysqli_fetch_array($loc_query);
+                            // $loc_id=$r2['location_id'];
+                            
+                            $sql_emp="select * from tbl_employee where sc_id=$sc and service_id=$service_id and is_available=1 and login_id=$id";
                             $emp_query=mysqli_query($con,$sql_emp);
                             
                             if(mysqli_num_rows($emp_query)>0)
@@ -53,19 +60,16 @@ if(!empty($_POST["ser_name"]))
                         </td>  
                     </tr>
                     <?php
-                        }}
-                        else
+                    }} }}
+                    else
                         {
                             ?>
                             <tr>
-                                <td colspan='5' style="text-align:center;">no employee available</td>
+                                <td colspan='5' style="text-align:center;">No employee available</td>
                             </tr>
                             <?php
-                        }
-                       
-                    }
+                        } 
                     ?>
-                   
                 </tbody>
             </table>
     <?php
@@ -84,9 +88,10 @@ if(!empty($_POST["ser_name"]))
         $customer=$_POST['cust'];
         // $sql_booking="update tbl_booking set employee_id=$data where booking_id=(select booking_id from tbl_booking where customer_id=(select customer_id from tbl_customer where customer_name='$name' and district_id=(select district_id from tbl_district where district_name='$district') and location_id=(select location_id from tbl_location where location='')))";
         $sql_booking="update tbl_booking set employee_id=$data,aproval_status=1 where booking_id=(select booking_id from tbl_booking where booked_on='$date' AND customer_id=(select customer_id from tbl_customer where customer_name='$customer' and district_id=(select district_id from tbl_district where district_name='$district') and location_id=(select location_id from tbl_location where location='$loc')))";
-        $booking_query=mysqli_query($con,$sql_booking);
+        $booking_query=mysqli_query($con,$sql_booking) or die("killed");
         $avail=mysqli_query($con,"update tbl_employee set is_available=0 where employee_id=$data");
-        echo "<h4>Sucessfully Assigned An Employee</h4>";
+        // echo "<h4>Sucessfully Assigned An Employee</h4>";
+        echo $sql_booking;
         
     }
     ?>

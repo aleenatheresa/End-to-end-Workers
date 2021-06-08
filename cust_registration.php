@@ -1,7 +1,8 @@
 
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
 
 $sql="SELECT * FROM tbl_district WHERE is_delete=1";
 $sql_result=mysqli_query($con,$sql);
@@ -42,7 +43,7 @@ $result_loc=mysqli_query($con,$loc);
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="1home.html">
+						<li><a href="index.html">
           <span class="glyphicon glyphicon-home"></span> Home
         </a></li>
             <li><a href="login.php" ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

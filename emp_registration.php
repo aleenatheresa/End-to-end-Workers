@@ -33,7 +33,7 @@ $sc_query=mysqli_query($con,$sc);
 				</div>
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
-						<li><a href="1home.html">
+						<li><a href="index.html">
           <span class="glyphicon glyphicon-home"></span> Home
         </a></li>
             <li><a href="login.php" ><span class="glyphicon glyphicon-log-in"></span> Login</a></li>

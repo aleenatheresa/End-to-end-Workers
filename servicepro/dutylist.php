@@ -1,6 +1,7 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 $lid="";
 $sc=$_SESSION['sc'];
 ?>
@@ -90,7 +91,7 @@ td
                                 {
                                     ?>
                                     <tr>
-                                        <td col-span="3" style="text-align:center;">No Employee on duty</td>
+                                        <td colspan="3" style="text-align:center;">No Employee on duty</td>
                                     </tr>
                                     <?php
                                 }

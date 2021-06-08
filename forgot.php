@@ -1,6 +1,6 @@
 <?php
-$con=mysqli_connect("localhost","root","","projectdb");
-
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
 $name=$_POST['fusername'];
 $phno=$_POST['fphno'];
 $pass=$_POST['npass'];

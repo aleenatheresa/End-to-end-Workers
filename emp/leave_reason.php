@@ -1,13 +1,13 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
-
-if(isset($_POST['fdate']))
-{   ?>
-<script> console.log("kuzhapam reason illa");</script>
-   <?php
-    $start=$_POST['fdate'];
-    $end=$_POST['sdate'];
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
+if(isset($_GET['sd']))
+{
+   
+    $start=$_GET['fdate'];
+    $end=$_GET['sdate'];
+    $reason=$_GET['lreason'];
     $empid=$_SESSION['eid'];
     $empsc=$_SESSION['emp_sc'];
 
@@ -21,10 +21,10 @@ if(isset($_POST['fdate']))
     }
         $r=mysqli_fetch_array($sp);
         $sid=$r['sp_id'];
-        $leave=mysqli_query($con,"INSERT INTO `tbl_leave`(`leave_start_date`, `employee_id`, `sp_id`, `leave_end_date`) 
-        VALUES ('$start',$eid,$sid,'$end')");
+        $leave=mysqli_query($con,"INSERT INTO `tbl_leave`(`leave_start_date`, `employee_id`, `sp_id`, `leave_end_date`,reason,aproval_status) 
+        VALUES ('$start',$empid,$sid,'$end','$reason',0)");
         // $leave="INSERT INTO `tbl_leave`(`leave_start_date`, `employee_id`, `sp_id`, `leave_end_date`) VALUES ('$start',$empid,$sid,'$end'";
-        echo "hi";
+        echo "<p>Sucessfully sent leave application</p>";
         
 }
 

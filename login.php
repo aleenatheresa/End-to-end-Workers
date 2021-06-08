@@ -27,7 +27,7 @@ $_SESSION['msg']="";
 <body>
   <nav class="navbar navbar-expand-lg navbar">
     <a class="navbar-brand" href="#">End To End Workers</a>
-    <a class="nav-item nav-link" href="1home.html">Home</a>
+    <a class="nav-item nav-link" href="index.html">Home</a>
     <div class="dropdown" style="float: right;">
   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Register

@@ -4,7 +4,8 @@ if(isset($_POST["email"]) && (!empty($_POST["email"]))){
 $email = $_POST["email"];
 // echo $email;
 $error="";
- $con=mysqli_connect("localhost","root","","projectdb");
+//  $con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
 	$sel_query = "SELECT * FROM `tbl_login` WHERE uname='".$email."'";
 	$resultse = mysqli_query($con,$sel_query) or die($sel_query);
 	$rows=mysqli_fetch_array($resultse);

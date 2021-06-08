@@ -1,6 +1,7 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
 if (isset($_POST['email'])) {
     $email = $_POST['email'];
     $sql = "SELECT * FROM tbl_serviceproviders WHERE sp_email='$email'";

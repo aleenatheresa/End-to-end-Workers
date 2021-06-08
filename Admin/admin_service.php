@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
-
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 // service image
 if(isset($_POST['insert_serv'])){
     $pic1=$_FILES['scImage']['name'];

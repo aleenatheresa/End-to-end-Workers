@@ -1,6 +1,7 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 ?>
 <html lang="en">
 <head>
@@ -87,6 +88,7 @@ $con=mysqli_connect("localhost","root","","projectdb");
                                       <li><a href="customer_index.php" onclick="home()">Booking</a></li>
                                       <li><a href="booked_details.php" onclick="cust_book()">Booked Details</a></li>
                                       <li><a href="history.php" onclick="cust_book()">Book History</a></li>
+                                      <li><a href="bill.php" onclick="cust_book()">Booking Bill</a></li>
                                     
                                     </ul>
                                   </div>

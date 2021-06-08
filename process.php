@@ -1,7 +1,8 @@
 
 <?php
 
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
 // $name=$_POST['name'];
 // $addr=$_POST['address'];
 // $phone=$_POST['phone'];

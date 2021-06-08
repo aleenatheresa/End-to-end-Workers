@@ -1,6 +1,7 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 $login=$_SESSION['login'];
 if(isset($_POST['name']))
 {
@@ -21,6 +22,7 @@ if(isset($_POST['dat']))
 {
     // header('location:asd.php');
     $date=$_POST['dat'];
+    $_SESSION['sdate'] = $date;
     // $time=$_POST['tim'];
     $sc_id=$_POST['service_id'];
     $category=$_POST['category_id'];
@@ -29,7 +31,8 @@ if(isset($_POST['dat']))
     values($cust_id,'$date',0,0,$category,$sc_id,0,1)";
     // echo $cust_id;
     // echo "<script>console.log('$bkemployee');</script>"; 
-    $bk_query=mysqli_query($con,$bkemployee) or die("ghghjghj");   
+    $bk_query=mysqli_query($con,$bkemployee) or die("ghghjghj"); 
+
 }
 // End Confirm booking
 
@@ -54,9 +57,17 @@ if(isset($_POST['comp']))
 if(isset($_POST['can']))
 {
     $canc=$_POST['can'];
+    $reason=$_POST['cancelreason'];
     $cancel_booking="update tbl_booking set status=0 where booking_id='$canc'";
     $canquery=mysqli_query($con,$cancel_booking);
-    echo "<script>console.log('$cancel_booking');</script>";
+    $c=mysqli_query($con,"select * from tbl_booking where booking_id=$canc");
+    $empn=mysqli_fetch_array($c);
+    $cid=$empn['customer_id'];
+    $cantbl=mysqli_query($con,"INSERT INTO `tbl_cancel`( `customer_id`, `booking_id`, `Reason`) VALUES ($cid,$canc,'$reason')");
+    echo "<script>alert('updated');</script>";
 }
 
 // End 
+
+session_write_close();
+?>

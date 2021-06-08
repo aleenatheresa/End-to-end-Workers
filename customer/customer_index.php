@@ -1,9 +1,12 @@
 <?php
 session_start();
+require('payment/config.php');
 if($_SESSION['role_id']!="2"){
   header('location:../login.php');
 }
-$con=mysqli_connect("localhost","root","","projectdb");
+
+require('../DbConnection.php');
+// $con=mysqli_connect("localhost","root","","projectdb");
 $user=$_SESSION['uname'];
 $data="SELECT * FROM tbl_login where uname='$user'";
 $data_query=mysqli_query($con,$data);
@@ -153,85 +156,9 @@ a
 <body>
 
 
-  <div id="wrapper">
-    <div class="overlay"></div>
-            <!-- Sidebar -->
-        <nav class="fixed-top align-top" id="sidebar-wrapper" role="navigation">
-            <div class="simplebar-content" style="padding: 0px;">
-              <a class="sidebar-brand" href="customer_index.php">
-                <span class="align-middle">End To End Workers</span>
-              </a>
-              
-              <ul class="navbar-nav align-self-stretch">
-                <li>
-                  <a href="edit_pro.php" id="" role="button" style="text-color:white;" data-toggle="modal"  data-target="#ProModal">
-                    <label ><b style="font-famiy: Times New Roman, Times, serif;"> <?php echo $_SESSION['uname']; ?></b></label>
-                  </a>
-                </li>
-                <li class="sidebar-header">
-                  Pages
-                </li>
-                <li class=""><a class="nav-link text-left active" href="customer_index.php" onclick="home()">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
-                  <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
-                  </svg>&ensp;Home</a>
-                </li>
-                <li class="has-sub">
-                  <a class="nav-link collapsed text-left active" href="#collapseExample2" role="button" data-toggle="collapse">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
-                      <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-                      <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
-                    </svg>&ensp;  Customer Booking
-                  </a>
-                  <div class="collapse menu mega-dropdown" id="collapseExample2">
-                    <div class="dropmenu" aria-labelledby="navbarDropdown">
-                        <div class="container-fluid ">
-                              <div class="row">
-                                <div class="col-lg-12 px-2">
-                                  <div class="submenu-box">
-                                    <ul class="list-unstyled m-0" id="dropdown-menu">
-                                      <li><a href="customer_index.php" onclick="home()">Booking</a></li>
-                                      <li><a href="booked_details.php" onclick="cust_book()">Booked Details</a></li>
-                                      <li><a href="history.php" onclick="cust_book()">Book History</a></li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                        </div>
-                    </div>
-                  </div>
-                </li>
-
-                <!-- <li class="">
-                  <a class="nav-link text-left active" href="#profile" onclick="userprofile()">
-                  <i class="fa fa-user" aria-hidden="true"></i>  Profile
-                  </a>
-                </li> -->
-
-                <li class="">
-                  <a class="nav-link text-left active"  role="button" href="service_rate.php" id="ser-rate">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
-                      <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-                      <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
-                    </svg> &ensp;Service Rate
-                  </a>
-                </li>
-
-                <!-- <li class="">
-                  <a class="nav-link text-left active"  role="button" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                    </svg>&ensp;Shop
-                  </a>
-                </li> -->
-              </ul>
-              
-        </div>
-      </nav>
-      <!-- /#sidebar-wrapper -->
-
-  </div>
-
+<?php
+include("header.php");
+?>
 
 
 
@@ -361,22 +288,46 @@ a
             </button>
           </div>
           <div class="modal-body" style="height: auto;">
-            <label>Date</label>  <br>
-            <input type="date" class="asd" id="datepicker" min="2021-01-01"  onblur="checkDate();">
-              <div id="date-msg">
-                          
+            <form>
+              <label>Date</label>  <br>
+              <input type="date" class="asd" id="datepicker" min="2021-01-01"  onblur="checkDate();">
+                <div id="date-msg"></div>
               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="refreshPage()">Close</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" disabled id="cbk" data-toggle="modal" data-target="#payment">Book</button>
               </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="refreshPage()">Close</button>
-            <button type="button" class="btn btn-success" data-dismiss="modal" disabled id="cbk">Book</button>
+            </form>
           </div>
         </div>
-      </div>
     </div>
     
     <!-- ends modal class -->
-  
+    <div class="modal fade" id="payment" role="dialog" aria-labelledby="modalLabel" tabindex="-1">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalLabel" style="font-size:10px;">Card Paymet</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body" style="height: auto;">
+            <form action="payment/submit.php" method="POST" id="frm">
+              <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<?php echo $pubk?>"
+              data-amount="15000"
+              data-name="Payment with E2E workers"
+              data-description="Payment with E2E workers description"
+              data-image=""
+              data-currency="inr"
+              ></script>
+            </form>
+          </div>
+              <div class="modal-footer">
+               </div>
+        </div>
+    </div>
 
   </div>
   
@@ -396,7 +347,7 @@ $(document).ready(function(){
     // var id = $(this).attr("id");
     var id = $(this).val();
     console.log(id);
-    $.ajax({
+      $.ajax({
                 url:"services.php",
                 method:"post",
                 data:{id:id},
@@ -405,35 +356,51 @@ $(document).ready(function(){
                      $("#services_under_sc").css("display", "inline");
                      $('.bkser').click(function()
                      {
+                     
                         var sc=$(this).val();
-                        $('#cbk').on('click',function(){
-                          
-                          var datee=$("#datepicker").val();
-                          
-                     // var timee=$("#timepicker").val();
-
                         $.ajax({
-                          url: "edit_customer.php",
-                          method:"POST",
-                          data :{
-                          dat :datee,
-                          service_id : sc,
-                          category_id:id
-                        },
-                          success: function(result){
-                            console.log(result);
-                             $("#msg").css("display", "block");
-                            $("#msg").delay(1000).fadeOut();
+                                url:"validation.php",
+                                method:"post",
+                                data:{id:sc,
+                               
+                                },
+                                success:function(data){
+                                    $("#date-msg").html(data);
 
-                          }
+                                }
+
+                              });
+                        // var s=$(this).val();
+                        $('#datepicker').blur(function(){
+                          var datee=$("#datepicker").val();
+                          // var s=$(this).val();
+                              
+                          $("#frm").submit(function( e ) {
+                            e.preventDefault(); // dont submit multiple times
+                             this.submit(); // use native js submit
+                              $.ajax({
+                                url: 'edit_customer.php' ,
+                                method:"POST",
+                                data :{
+                                dat :datee,
+                                service_id : sc,
+                                category_id:id
+                              },
+                                success: function(result){
+                                alert(result);
+                                  // $("#msg").css("display", "block");
+                                  // $("#msg").delay(1000).fadeOut();
+
+                                }
+                              });
                           });
                         });
 
-                     });
+                      });
 
                 }
-           });
- });
+            });
+      });
 
 
 

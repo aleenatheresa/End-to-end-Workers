@@ -1,6 +1,7 @@
 <?php
 
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 
 ?>
 <html lang="en">
@@ -17,6 +18,10 @@ $con=mysqli_connect("localhost","root","","projectdb");
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link href="../css/admin_stylesheet.css"  rel="stylesheet" media="all">
         <link href="../css/theme.css" rel="stylesheet" media="all">
+        <!-- <link href="../css/font-face.css" rel="stylesheet" media="all"> -->
+        <link href="../vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
+        <link href="../vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+
         <!-- <link href="../css/sp_style.css" rel="stylesheet" media="all"> -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -56,6 +61,7 @@ $con=mysqli_connect("localhost","root","","projectdb");
                                                             <ul class="list-unstyled m-0" id="dropdown-menu">
                                                                 <li><a href="dutylist.php">Employee On Duty</a></li>
                                                                 <li><a href="emplist.php">Employee Details</a></li>
+                                                                <li><a href="empleave.php">Leave Request</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -98,8 +104,8 @@ $con=mysqli_connect("localhost","root","","projectdb");
                                     <div class="col-lg-12 px-2">
                                     <div class="submenu-box">
                                         <ul class="list-unstyled m-0">
-                                        <li><a href="wreport.php">Weekly Report</a></li>
-                                        <li><a href="mreport.php">Monthly Report</a></li>
+                                        <!-- <li><a href="wreport.php">Weekly Report</a></li> -->
+                                        <li><a href="wreport.php">Monthly Report</a></li>
                                         </ul>
                                     </div>
                                     </div>

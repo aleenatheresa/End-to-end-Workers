@@ -4,8 +4,8 @@ session_start();
 // print_r($_POST);
 // die();
 
-$con=mysqli_connect("localhost","root","","projectdb");
-
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 if(isset($_POST['service_catagory']))
 {
 $service=$_POST['service_catagory'];

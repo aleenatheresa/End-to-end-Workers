@@ -3,7 +3,8 @@ session_start();
 if($_SESSION['role_id']!="1"){
   header('location:../login.php');
 }
-$con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
+// $con=mysqli_connect("localhost","root","","projectdb");
 $lid="";
 // $_SESSION['uname']=;
 

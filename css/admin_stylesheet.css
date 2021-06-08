@@ -22,11 +22,10 @@ body {
     position: relative;
     overflow-x:hidden;
     background: #f7f7fc;
-    font-family: 'Times New Roman', Times, serif;
 }
 
 a:hover{
-  color:white;
+  color:black;
   text-decoration:none;
 }
 

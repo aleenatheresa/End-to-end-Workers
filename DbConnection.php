@@ -1,4 +1,4 @@
 <?php 
-$con=mysqli_connect("localhost","root","","Store1")
+$con=mysqli_connect("localhost","root","","projectdb")
 or die("couldn't connect");
 ?>

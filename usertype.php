@@ -1,7 +1,8 @@
 <?php
-
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+require('DbConnection.php');
+// $con = connect();
+// $con=mysqli_connect("localhost","root","","projectdb");
 $password=$_POST["pass"];
 
 $password=md5($password);

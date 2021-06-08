@@ -1,6 +1,7 @@
 <?php
 session_start();
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 $lid="";
 //total num of service providers
 $count_sp="SELECT * from tbl_login where role_id=4 and aproval_status=1";

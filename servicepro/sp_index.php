@@ -3,7 +3,8 @@ session_start();
 if($_SESSION['role_id']!="4"){
   header('location:../login.php');
 }
-$con=mysqli_connect("localhost","root","","projectdb");
+// $con=mysqli_connect("localhost","root","","projectdb");
+require('../DbConnection.php');
 $lid="";
 
 
@@ -24,9 +25,12 @@ $sp_query=mysqli_query($con,$spdetail);
 $sp=mysqli_fetch_array($sp_query);
 $sp_id=$sp['sp_id'];
 $_SESSION['sp']=$sp_id;
+$_SESSION['sp']=$sp_id;
 $val=$sp['sp_email'];
 $sc=$sp['sc_id'];
 $_SESSION['sc']=$sc;
+
+
 ?>
 <html lang="en">
 <head>
@@ -103,10 +107,10 @@ $_SESSION['sc']=$sc;
                 </div>
             </div> -->
     </div>
-
+    
       
                 <div class="container">
-                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none">
+                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" id="noti" style="display:none">
                         <i class="zmdi zmdi-check-circle"></i>
                         <span class="content"  tabindex="1" id="msg" ></span>
                         <button class="close" type="button" data-dismiss="alert" aria-label="Close">
@@ -138,26 +142,27 @@ $_SESSION['sc']=$sc;
                                            <tbody>
                                            <?php
                                             $req=mysqli_query($con,"select * from tbl_login where aproval_status=0 and role_id=3 and is_delete=1");
-                                            while($req_data=mysqli_fetch_array($req))
-                                            {
-                                                $logid=$req_data['lid'];
-                                                $emp_data=mysqli_query($con,"select * from tbl_employee where login_id=$logid and sc_id=$sc");
-                                                if(mysqli_num_rows($emp_data)>0)
-                                                        {
-                                                    while($r=mysqli_fetch_array($emp_data))
+                                            if(mysqli_num_rows($req)>0){
+                                                while($req_data=mysqli_fetch_array($req))
+                                                {
+                                                    $logid=$req_data['lid'];
+                                                    $emp_data=mysqli_query($con,"select * from tbl_employee where login_id=$logid and sc_id=$sc");
+                                                    if(mysqli_num_rows($emp_data)>0)
+                                                            {
+                                                        while($r=mysqli_fetch_array($emp_data))
 
-                                                    {  
-                                                   
-                                                    $emp_name=$r['employee_name'];
-                                                    $emp_adr=$r['employee_email'];
-                                                    $emp_phone=$r['employee_phone'];
-                                                    $emp_loc=$r['location_id'];
-                                                    $emp_service=$r['service_id'];
-                                                    $location=mysqli_query($con,"select * from tbl_location where location_id='$emp_loc'");
-                                                    $l=mysqli_fetch_array($location);
-                                                    $loca=$l['location'];
-                                                    $service_name=mysqli_query($con,"select * from tbl_services where service_id='$emp_service'");
-                                                    $s=mysqli_fetch_array($service_name);
+                                                        {  
+                                                    
+                                                        $emp_name=$r['employee_name'];
+                                                        $emp_adr=$r['employee_email'];
+                                                        $emp_phone=$r['employee_phone'];
+                                                        $emp_loc=$r['location_id'];
+                                                        $emp_service=$r['service_id'];
+                                                        $location=mysqli_query($con,"select * from tbl_location where location_id='$emp_loc'");
+                                                        $l=mysqli_fetch_array($location);
+                                                        $loca=$l['location'];
+                                                        $service_name=mysqli_query($con,"select * from tbl_services where service_id='$emp_service'");
+                                                        $s=mysqli_fetch_array($service_name);
                                            ?>
                                             <tr>
                                                 <td><?php echo $emp_name; ?></td>
@@ -172,6 +177,8 @@ $_SESSION['sc']=$sc;
                                             </tr>
                                             <?php
                                             }}
+                                            
+                                            }}
                                             else
                                             {
                                                 ?>
@@ -179,7 +186,7 @@ $_SESSION['sc']=$sc;
                                                     <td colspan="4" style="text-align:center;font-weight:10px;font-size:20px;">No request yet</td>
                                                 </tr>
                                                 <?php
-                                            }}
+                                            }
                                             ?>
                                             
                                            </tbody>
@@ -194,8 +201,13 @@ $_SESSION['sc']=$sc;
                                         <table class="table table-top-campaign">
                                             <tbody>
                                                 <tr>
-                                                    <td>1. Australia</td>
-                                                    <td>$70,261.65</td>
+                                                    <td>1.Chippy</td>
+                                                    <td></td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td>2.Manas</td>
+                                                    <td></td>
                                                 </tr>
                                                 
                                                
@@ -228,6 +240,7 @@ $_SESSION['sc']=$sc;
                                     </thead>
                                     <tbody>
                                         <?php 
+                                            
                                             $bkname="select * from tbl_booking where sc_id=$sc and employee_id=0 and status=1 and servicecompleted=0";
                                             $bkquery=mysqli_query($con,$bkname);
                                             while($bkdata=mysqli_fetch_array($bkquery))
@@ -305,9 +318,25 @@ $_SESSION['sc']=$sc;
             
             <?php
                  include("footer.php");
-            ?>
-        
-
+            
+                $leavereq=mysqli_query($con,"select * from tbl_leave where sp_id=$sp_id and aproval_status=0");
+                if(mysqli_num_rows($leavereq)>0)
+                {?>
+                    <script>
+                        $("#msg").css("display","block");
+                        $("#msg").html("<p style='color:red;text-align:center'>You have a leave request application</p>");
+                        
+                    </script>
+                    <?php
+                    while($request=mysqli_fetch_array($leavereq))
+                    {
+                        $custm=$request['leave_start_date'];
+                        $empid=$request['employee_id'];
+                        $enddate=$request['leave_end_date'];
+                        $reason=$request['reason'];
+                    }
+                }
+?>
 <script>
 
 
@@ -324,7 +353,7 @@ $('.emp_approve').on('click',function(){
                     details: det
                 },
                 success: function(result){
-                    
+                $("#noti").css('dispaly','block');
                 $('#msg').html(result);
                 $('#msg').css("display","block");
                 $('#msg').fadeIn().delay(500).fadeOut();
