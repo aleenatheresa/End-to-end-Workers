@@ -9,8 +9,8 @@ $password=md5($password);
 
 
 $username=$_POST["name"];
-// $sql="select * from tbl_login where uname='$username' and password='$password'";
-$sql="select * from tbl_login where uname='$username'";
+$sql="select * from tbl_login where uname='$username' and password='$password'";
+// $sql="select * from tbl_login where uname='$username'";
 $result=mysqli_query($con,$sql);
 $n=mysqli_num_rows($result);
 $rows=mysqli_fetch_array($result);

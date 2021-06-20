@@ -38,19 +38,19 @@ if(!empty($_POST["id"])) {
 <script>
 //  validation
 $(".bkser").on("click",function(){
-//   var s=$(this).val();
-//   $.ajax({
-//     url:"validation.php",
-//     method:"post",
-//     data:{id:s,
+  var s=$(this).val();
+  $.ajax({
+    url:"validation.php",
+    method:"post",
+    data:{id:s,
    
-//     },
-//     success:function(data){
-//         $("#date-msg").html(data);
+    },
+    success:function(data){
+        $("#date-msg").html(data);
 
-//     }
+    }
 
-//   });
+  });
 });
 </script>
 </html>

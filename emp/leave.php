@@ -193,7 +193,9 @@ $("#leave-apply").on('click',function(){
                 lreason:rea
                 },
             success: function(data){
-                $("#reason-msg").html(data);
+                alert(data);
+                // $("#reason-msg").html(data);
+                
                 }
         });
 

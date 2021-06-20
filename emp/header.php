@@ -18,10 +18,7 @@ require('../DbConnection.php');
         <link href="../css/admin_stylesheet.css"  rel="stylesheet" media="all">
         <link href="../css/theme.css" rel="stylesheet" media="all">
         <!-- <link href="../css/font-face.css" rel="stylesheet" media="all"> -->
-        <link href="../vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-        <link href="../vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-        <!-- <link href="../css/sp_style.css" rel="stylesheet" media="all"> -->
+       <!-- <link href="../css/sp_style.css" rel="stylesheet" media="all"> -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -84,8 +81,8 @@ require('../DbConnection.php');
                                     <div class="col-lg-12 px-2">
                                     <div class="submenu-box">
                                         <ul class="list-unstyled m-0">
-                                        <li><a href="admin_sc.php">Customer Feedback</a></li>
-                                        <li><a href="admin_sc.php">Complaint</a></li>
+                                        <li><a href="custfeedback.php">Customer Feedback</a></li>
+                                        <!-- <li><a href="admin_sc.php">Complaint</a></li> -->
                                         </ul>
                                     </div>
                                     </div>
@@ -95,28 +92,7 @@ require('../DbConnection.php');
                             </div>
                         </div>
                     </li>
-                    <li class="has-sub">
-                        <a class="nav-link collapsed text-left active" href="#report" role="button" data-toggle="collapse" >
-                        <i class="flaticon-user"></i>   Report
-                        </a>
-                        <div class="collapse menu mega-dropdown" id="report">
-                        <div class="dropmenu" aria-labelledby="navbarDropdown">
-                        <div class="container-fluid ">
-                                <div class="row">
-                                    <div class="col-lg-12 px-2">
-                                    <div class="submenu-box">
-                                        <ul class="list-unstyled m-0">
-                                        <!-- <li><a href="wreport.php">Weekly Report</a></li> -->
-                                        <li><a href="wreport.php">Monthly Report</a></li>
-                                        </ul>
-                                    </div>
-                                    </div>
-
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                   
                     
                 </ul>
             </div>

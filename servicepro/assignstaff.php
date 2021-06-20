@@ -8,7 +8,8 @@ if(!empty($_POST["ser_name"]))
         $loc=$_POST["loc"];
         $dis=$_POST['dis'];
     ?>
-            <table class="table table-borderless">
+    <div class="container">
+            <table class="table table-bordered">
                 <thead class="thead-dark">
                     <tr>
                         <th>Employee</th>
@@ -56,7 +57,9 @@ if(!empty($_POST["ser_name"]))
                         <td><?php echo  $dis;?></td>
                         <td><?php echo $loc;?></td>
                         <td>
-                             <button type="button" class="btn btn-danger staff" id="staff" value=<?php echo $emp_id; ?>>Assign</button>
+                            <center>
+                                <button type="button" class="btn btn-danger staff" id="staff" value=<?php echo $emp_id; ?>>Assign</button>
+                            </center>
                         </td>  
                     </tr>
                     <?php
@@ -72,26 +75,12 @@ if(!empty($_POST["ser_name"]))
                     ?>
                 </tbody>
             </table>
+    </div>
+            <?php
+            // }
+            }
+            ?>
+    
     <?php
-    // }
-    }
-    ?>
-
-    <?php
-    if(!empty($_POST['dat']))
-    {
-        $data=$_POST['dat'];
-        $name=$_POST['ser_name'];
-        $district=$_POST['dis'];
-        $date=$_POST['date'];
-        $loc=$_POST['loc'];
-        $customer=$_POST['cust'];
-        // $sql_booking="update tbl_booking set employee_id=$data where booking_id=(select booking_id from tbl_booking where customer_id=(select customer_id from tbl_customer where customer_name='$name' and district_id=(select district_id from tbl_district where district_name='$district') and location_id=(select location_id from tbl_location where location='')))";
-        $sql_booking="update tbl_booking set employee_id=$data,aproval_status=1 where booking_id=(select booking_id from tbl_booking where booked_on='$date' AND customer_id=(select customer_id from tbl_customer where customer_name='$customer' and district_id=(select district_id from tbl_district where district_name='$district') and location_id=(select location_id from tbl_location where location='$loc')))";
-        $booking_query=mysqli_query($con,$sql_booking) or die("killed");
-        $avail=mysqli_query($con,"update tbl_employee set is_available=0 where employee_id=$data");
-        // echo "<h4>Sucessfully Assigned An Employee</h4>";
-        echo $sql_booking;
-        
-    }
+    
     ?>

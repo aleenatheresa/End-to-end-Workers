@@ -31,24 +31,28 @@ if(isset($_POST['dat']))
     values($cust_id,'$date',0,0,$category,$sc_id,0,1)";
     // echo $cust_id;
     // echo "<script>console.log('$bkemployee');</script>"; 
+  
     $bk_query=mysqli_query($con,$bkemployee) or die("ghghjghj"); 
 
 }
 // End Confirm booking
 
 // Complete booking
-if(isset($_POST['comp']))
+if(isset($_POST['bkid']))
 {
-    $complete=$_POST['comp'];
-    $datee=$_POST['date'];
-    $update_status="update tbl_booking set servicecompleted=1,end='$datee' where booking_id='$complete'";
+    $complete=$_POST['bkid'];
+    $datee=$_POST['workdate'];
+    $cmplt=$_POST['compdate'];
+    $cat=$_POST['category'];
+    $ser=$_POST['service'];
+    $update_status="update tbl_booking set servicecompleted=1,end='$cmplt' where booking_id='$complete'";
     $upquery=mysqli_query($con,$update_status);
     $emp=mysqli_query($con,"select employee_id from tbl_booking where booking_id='$complete'");
     $d=mysqli_fetch_array($emp);
     $empid=$d['employee_id'];
-    $emp_avail=mysqli_query($con,"update tbl_employee set is_available=1 where employee_id=$emp_id");
-    // echo "<script>alert('$update_status');</script>";
-    echo $update_status;
+    $emp_avail=mysqli_query($con,"update tbl_employee set is_available=1 where employee_id=$empid");
+    
+    echo "<p>Thanku for using our system</p>";
 }
 
 // End

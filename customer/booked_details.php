@@ -1,5 +1,6 @@
 <?php
 session_start();
+require('payment/config.php');
 // $con=mysqli_connect("localhost","root","","projectdb");
 require('../DbConnection.php');
 $user=$_SESSION['uname'];
@@ -55,19 +56,31 @@ $_SESSION['lid']=$cust_id;
         <script src = "https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <link href="../css/rating.css" rel="stylesheet" media="all">
         <!-- Modal class -->
+        <link rel="stylesheet" href="../css/payment.css">
+
 
 </head>
 <body>
-
+<style>
+  #msg{
+    background-color:white;
+    color:black;
+  }
+</style>
 <?php
 include("header.php");
 ?>
+<div class="container">
+  <div id="msg" tableindex="1">
 
+  </div>
+</div>
 <!-- Book Details -->
+
 <div class="container">
   <div id="bookdetails">
-      <table class="table table-bordered col-sm-8" style="margin-left:100px;">
-        <thead>
+      <table class="table table-bordered col-sm-12">
+        <thead class="thead-dark">
           <tr>
             <th>Booking ID</th>
             <th>Booked On</th>
@@ -135,7 +148,7 @@ include("header.php");
                 ?>
               </td>
               <td>
-                  <button class="btn btn-sm btn-primary btn-inline cmplt" title="Work Finished" id="c1" value="<?php echo $bking_id;?>"<?php if($ap==0) {?> disabled <?php }?> data-target="#myModal" data-toggle="modal">Completed</button>
+                 <button class="btn btn-sm btn-primary btn-inline cmplt" title="Work Finished" id="c1" value="<?php echo $bking_id;?>"<?php if($ap==0) {?> disabled <?php }?> data-target="#payModal" data-toggle="modal">Completed</button>
                   <button class="btn btn-sm btn-danger btn-inline cancel" title="Cancel Booking" value="<?php echo $bking_id;?>" id="can2" <?php if($bk_emp!=0 && $ap==1){?> disabled <?php }?> data-target="#reasonModal" data-toggle="modal">Cancel</button>
 
               </td>
@@ -149,38 +162,21 @@ include("header.php");
         </tbody>
       </table>
     </div>
-     
-  <div id="rating">
-    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="modalLabel" tabindex="-1">  
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modalLabel">Employee Rating</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body" style="height: auto;">
-            
-            <div id="date-msg"></div>
-                  <span class="badge pull-center">
-                    <div class="rating">
-                      <span class="rating__result"></span>
-                      <i class="rating__star far fa-star"></i>
-                      <i class="rating__star far fa-star"></i>
-                      <i class="rating__star far fa-star"></i>
-                      <i class="rating__star far fa-star"></i>
-                      <i class="rating__star far fa-star"></i>
+
+                <div id="payment" style="display:none;">
+                    <div id="payment-body">
+
                     </div>
-                  </span>
-                  
                 </div>
-            <div class="modal-footer">
-              <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="refreshPage()">Close</button> -->
-              <button type="button" class="btn btn-success" data-dismiss="modal" id="sub">Submit</button>
-            </div>
-          </div>
-        </div>
+
+   
+
+
+
+
+  <div id="rating" style="display:none;">
+    <div class="rating-body">
+
     </div>
   </div>
 
@@ -197,7 +193,7 @@ include("header.php");
             <div class="modal-body" style="height: auto;">
               <div id="date-msg"></div>
               <label>Reason:</label><br>
-              <input type="text" id="can-reason" class="form-control"/><br>
+              <input type="text" id="reason" class="form-control"><br>
                   
             </div>
             <div class="modal-footer">
@@ -208,68 +204,65 @@ include("header.php");
         </div>
     </div>
   </div>
-    <!-- End Book details -->
 </div>
+
+
+   
+
 
 <script src="../js/rating.js"></script>
 <script>
 
-$('#bar').click(function(){
-	$(this).toggleClass('open');
-	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
-});
+// $('#bar').click(function(){
+// 	$(this).toggleClass('open');
+// 	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
+// });
 
 function refreshPage(){
     window.location.reload();
 } 
 
-
-
-$(".cmplt").on('click',function()
+$('.cmplt').on('click',function()
     {
+     
     var bookid=$(this).val();
-    var d=new Date().toISOString().split('T')[0]
-    
-    console.log(bookid);
+    var datee=$(this).closest('tr').find('td:eq(1)').text().trim();
+    var categ=$(this).closest('tr').find("td:eq(2)").text().trim();
+    var serv=$(this).closest('tr').find("td:eq(3)").text().trim();
+    var d=new Date().toISOString().split('T')[0];
             $.ajax({
-                  url: "edit_customer.php",
+                  url: "paymodal.php",
                   method:"POST",
                   data :{
-                  comp : bookid,
-                  date:d
+                  bkid : bookid,
+                  compdate:d,
+                  workdate:datee,
+                  category:categ,
+                  service:serv
                 },
-                  success: function(result){
-                    $("#msg").css("display","inline");
-                    $("#msg").delay(1000).fadeOut();
-                    
+                  success: function(data){
+                    $("#payment").css("display","inline");
+                    $("#payment-body").html(data);
+                    // $.ajax({
+                    //     url: "edit_customer.php",
+                    //     method:"POST",
+                    //     data :{
+                    //     bkid : bookid,
+                    //     compdate:d,
+                    //     workdate:datee,
+                    //     category:categ,
+                    //     service:serv, 
+                    //   },
+                    //   success: function(result){
+
+                    //   }
+                    // });
                   }
               });
+            });
+  
 
-  // Rating
-            $('#sub').on('click',function(){
-            $d=$('.rating__result').text();
-            var c=parseInt($d);
-            const percentage=(c/5)*100;
-            const PercentageRounded = `${(Math.round(percentage / 10) * 10)}%`;
-            alert(PercentageRounded);
-            
-            $.ajax({
-                            url: "rating_customer.php",
-                            method:"POST",
-                            data :{
-                            star:c,
-                            bkid:bookid
-                          },
-                            success: function(result){
-                              $("#date-msg").html(result);
-                              
-                            }
-                        });
-              });
-              
-  // End Rating
-
-      });
+    
       // End Complete work button function
 
 // Cancel booking

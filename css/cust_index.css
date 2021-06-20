@@ -760,3 +760,8 @@
         padding: 20px 0px 0px 30px;
         
       }
+#payModal table td
+{
+  line-height: 20px;
+  column-gap: 10px;
+}

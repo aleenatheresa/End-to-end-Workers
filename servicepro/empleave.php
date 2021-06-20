@@ -10,6 +10,7 @@ $sp_id=$_SESSION['sp'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Leave Management</title>
+   
 </head>
 <body>
 
@@ -46,7 +47,11 @@ $sp_id=$_SESSION['sp'];
                                 $start = strtotime($startdate);
                                 $end = strtotime($enddate);
                                 $days = $end - $start;
-                                $days = ceil($days/86400);?>
+                                $days = ceil($days/86400);
+                                if($days==0)
+                                {
+                                    $days=1;
+                                }?>
                             <tr>
                                 <td><?php echo $empid; ?></td>
                                 <td><?php echo $empname; ?></td>

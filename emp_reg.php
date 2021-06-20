@@ -42,7 +42,7 @@ $service=$_POST['service'];
     $r=mysqli_fetch_array($sp_query);
     $id=$r['sp_id'];
    
-    $insert_sql="INSERT into tbl_employee(employee_name,employee_address,employee_phone,employee_email,sc_id,location_id,login_id,created_on,service_id,is_available,aproval_status) VALUES('$name','$addr','$phone','$email','$sc','$loc_id','$login_id','$now','$service',1,0)";
+    $insert_sql="INSERT into tbl_employee(employee_name,employee_address,employee_phone,employee_email,sc_id,location_id,district_id,login_id,created_on,service_id,is_available,aproval_status) VALUES('$name','$addr','$phone','$email','$sc','$loc_id','$dist','$login_id','$now','$service',1,0)";
     $insert_result=mysqli_query($con,$insert_sql);
     header("refresh:2; url=login.php");
 

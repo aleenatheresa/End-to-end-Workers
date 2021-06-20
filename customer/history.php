@@ -161,10 +161,10 @@ include("header.php");
     <!-- End Booking History -->
 
 <script>
-$('#bar').click(function(){
-	$(this).toggleClass('open');
-	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
-});
+// $('#bar').click(function(){
+// 	$(this).toggleClass('open');
+// 	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
+// });
 </script>
 </body>
 </html>

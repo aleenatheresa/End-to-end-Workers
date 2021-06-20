@@ -14,16 +14,19 @@ $emp="select * from tbl_employee where login_id=$logid";
 $emp_query=mysqli_query($con,$emp);
 $emp_details=mysqli_fetch_array($emp_query);
 $emp_id=$emp_details['employee_id'];
-$_SESSION['eid']=$emp_id;
 $emp_name=$emp_details['employee_name'];
 $emp_addr=$emp_details['employee_address'];
 $emp_phone=$emp_details['employee_phone'];
 $emp_email=$emp_details['employee_email'];
 $emp_loc=$emp_details['location_id'];
+$emp_dis=$emp_details['district_id'];
 $sc_id=$emp_details['sc_id'];
 $_SESSION['emp_sc']=$sc_id;
+$_SESSION['eid']=$emp_id;
+$_SESSION['dis']=$emp_dis;
 $sc=mysqli_query($con,"select * from tbl_services where sc_id=$sc_id");
-$sc_name=mysqli_fetch_array($sc)
+$sc_name=mysqli_fetch_array($sc);
+$sc_name['service_name'];
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +44,6 @@ $sc_name=mysqli_fetch_array($sc)
     <title>Employee</title>
 
     <!-- Fontfaces CSS-->
-    <link href="../css/font-face.css" rel="stylesheet" media="all">
     <link href="../vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
     <link href="../vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
     <link href="../vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -64,7 +66,8 @@ $sc_name=mysqli_fetch_array($sc)
 
 </head>
 <script>
-    var date=new Date(Date.now()).toLocaleString().split(',')[0];
+    // var date=new Date(Date.now()).toLocaleString().split(',')[0];
+    var date=new Date().toDateString();
 
 </script>
 <style>
@@ -101,7 +104,7 @@ $sc_name=mysqli_fetch_array($sc)
                             <div class="page-content">
                                 <div class="row">
                                     <div class="col-sm-8">
-                                        <div class="au-card au-card--no-shadow au-card--no-pad m-b-10 au-card--border">
+                                        <div class="au-card au-card--no-shadow au-card--no-pad au-card--border">
                                             <div class="au-card-title">
                                                 <div class="bg-overlay bg-overlay--blue"></div>
                                                 <h3>
@@ -160,16 +163,21 @@ $sc_name=mysqli_fetch_array($sc)
                                                             }
                                                             else
                                                             {?>
-                                                                <div class="au-task-list js-scrollbar3">
-                                                                    <div class="au-task__item au-task__item--danger">
-                                                                        <div class="au-task__item-inner">
-                                                                            <h5 class="task">
-                                                                                <a href="#"></a>
-                                                                            </h5>
-                                                                            <span class="time">Not Assigned any meeting</span>
+                                                            <tr>
+                                                                <td colspan="3" style="text-align:center;">
+                                                                    <div class="au-task-list js-scrollbar3">
+                                                                        <div class="au-task__item au-task__item--danger">
+                                                                            <div class="au-task__item-inner">
+                                                                                <h5 class="task">
+                                                                                    <a href="#"></a>
+                                                                                </h5>
+                                                                                <span class="time">Not Assigned any meeting</span>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>   
+                                                                    </div>   
+                                                                </td>
+                                                            </tr>
+                                                               
                                                             <?php  } ?>
                                                         </tbody>
                                                     </table>
@@ -195,18 +203,7 @@ $sc_name=mysqli_fetch_array($sc)
 
                                                 <ul class="list-group list-group-flush">
                                                     <li class="list-group-item">
-                                                        <a href="#">
-                                                            <i class="fa fa-envelope-o"></i> Rating
-                                                            <span class="badge pull-right">
-                                                                <div class="rating">
-                                                                        <i class="rating__star far fa-star"></i>
-                                                                        <i class="rating__star far fa-star"></i>
-                                                                        <i class="rating__star far fa-star"></i>
-                                                                        <i class="rating__star far fa-star"></i>
-                                                                        <i class="rating__star far fa-star"></i>
-                                                                </div>
-                                                            </span>
-                                                        </a>
+                                                       <?php include("ratingresult.php");?>
                                                     </li>
                                                     <li class="list-group-item">
                                                         <a href="#">
@@ -278,6 +275,9 @@ $sc_name=mysqli_fetch_array($sc)
     <!-- Main JS-->
     <script src="../js/main.js"></script>
     <!-- <script src="../js/rating.js"></script> -->
+   <script>
+      
+   </script>
 
 </body>
 

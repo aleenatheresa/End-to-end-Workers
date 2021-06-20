@@ -9,10 +9,15 @@ require('../DbConnection.php');
     <meta name="viewport" content="width=, initial-scale=1.0">
     <title>Document</title>
     
+    
 </head>
 <body>
    
-
+<style>
+    a{
+        text-decoration:none;
+    }
+</style>
   <div id="wrapper">
    <div class="overlay"></div>
 
@@ -54,9 +59,9 @@ require('../DbConnection.php');
                                   <div class="submenu-box">
                                     <ul class="list-unstyled m-0" id="dropdown-menu">
                                       <li><a href="customer_index.php" onclick="home()">Booking</a></li>
-                                      <li><a href="booked_details.php" onclick="cust_book()">Booked Details</a></li>
-                                      <li><a href="bill.php" onclick="cust_book()">Booking Bill</a></li>
-                                   
+                                      <li><a href="booked_details.php">Booked Details</a></li>
+                                      <li><a href="bill.php">Booking Bill</a></li>
+                                      <!-- <li><a href="feedback.php">Feedback and Rating</a></li> -->
                                     </ul>
                                   </div>
                                 </div>
@@ -95,12 +100,13 @@ require('../DbConnection.php');
         <!-- /#sidebar-wrapper -->
 
 
-        <!-- Page Content -->
+      <!-- Page Content -->
+      
     <div id="page-content-wrapper">
 			<div id="content">
         <div class="container-fluid p-0 px-lg-0 px-md-0">
         <!-- Topbar -->
-          <nav class="navbar navbar-expand navbar-light my-navbar">
+          <nav class="navbar navbar-expand navbar-light my-navbar py-3">
 
           <!-- Sidebar Toggle (Topbar) -->
             <div type="button"  id="bar" class="nav-icon1 hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
@@ -136,6 +142,15 @@ require('../DbConnection.php');
             </li>
           </ul>
         </nav>
-</div>
+    </div>
+
+<script>
+
+    
+$('#bar').click(function(){
+	$(this).toggleClass('open');
+	$('#page-content-wrapper ,#sidebar-wrapper,#profile,#bookdetails,#book').toggleClass('toggled');
+});
+</script>
 </body>
 </html>

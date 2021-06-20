@@ -1,5 +1,5 @@
 <?php
-require('paymet/config.php');
+require('config.php');
 ?>
 <html lang="en">
 <head>
