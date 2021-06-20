@@ -23,8 +23,8 @@ $logid=$log['lid'];
 $spdetail="select * from tbl_serviceproviders where login_id=$logid";
 $sp_query=mysqli_query($con,$spdetail);
 $sp=mysqli_fetch_array($sp_query);
+$sp_dis=$sp['district_id'];
 $sp_id=$sp['sp_id'];
-$_SESSION['sp']=$sp_id;
 $_SESSION['sp']=$sp_id;
 $val=$sp['sp_email'];
 $sc=$sp['sc_id'];
@@ -39,20 +39,7 @@ $_SESSION['sc']=$sc;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Service Provider</title>
 
-   <!-- Bootstrap CSS -->
-         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-	      <!--fontawesome-->
-         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link href="../css/admin_stylesheet.css"  rel="stylesheet" media="all">
-        <link href="../css/theme.css" rel="stylesheet" media="all">
-        <!-- <link href="../css/sp_style.css" rel="stylesheet" media="all"> -->
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-        <script src="//widget.cloudinary.com/global/all.js" type="text/javascript"></script>
- 
+   
 </head>
 <body>
     <?php
@@ -146,7 +133,7 @@ $_SESSION['sc']=$sc;
                                                 while($req_data=mysqli_fetch_array($req))
                                                 {
                                                     $logid=$req_data['lid'];
-                                                    $emp_data=mysqli_query($con,"select * from tbl_employee where login_id=$logid and sc_id=$sc");
+                                                    $emp_data=mysqli_query($con,"select * from tbl_employee where login_id=$logid and sc_id=$sc and district_id=$sp_dis");
                                                     if(mysqli_num_rows($emp_data)>0)
                                                             {
                                                         while($r=mysqli_fetch_array($emp_data))
@@ -241,7 +228,7 @@ $_SESSION['sc']=$sc;
                                     <tbody>
                                         <?php 
                                             
-                                            $bkname="select * from tbl_booking where sc_id=$sc and employee_id=0 and status=1 and servicecompleted=0";
+                                            $bkname="select * from tbl_booking where sc_id=$sc and status=1 and servicecompleted=0 and aproval_status=0";
                                             $bkquery=mysqli_query($con,$bkname);
                                             while($bkdata=mysqli_fetch_array($bkquery))
                                             {
@@ -252,16 +239,19 @@ $_SESSION['sc']=$sc;
                                                 $cust="select * from tbl_customer where customer_id=$custid";
                                                 $custquery=mysqli_query($con,$cust);
                                                 $custn=mysqli_fetch_array($custquery);
+                                                $cust_dis_id=$custn['district_id'];
+                                                if($cust_dis_id==$sp_dis)
+                                                {
                                         ?>
                                         <tr>
                                             <td>
                                                 <div class="table-data__info">
-                                                    <h6>
+                                                    <h5>
                                                         <span class="cus"><?php echo $custn['customer_name']; ?></span>
-                                                    </h6>
-                                                    <span>
-                                                        <a href="#"><?php echo $custn['customer_email'];  ?></a>
-                                                    </span>
+                                                    </h5>
+                                                    <p style="color:blue">
+                                                        <?php echo $custn['customer_email'];  ?>
+                                                    </p>
                                                 </div>
                                             </td>
                                             <td>
@@ -294,7 +284,7 @@ $_SESSION['sc']=$sc;
                                             </td>
                                         </tr>
                                             <?php
-                                                }
+                                             } }
                                             ?>
                                 </tbody>
                             </table>
@@ -388,10 +378,10 @@ $(document).on('click','.assign',function()
         {
             var serv=$(this).closest('tr').find('td:eq(1)').text().trim();
             var dist=$(this).closest('tr').find('td:eq(2)').text().trim();
-            var cust=$(this).closest('tr').find('td:first h6').text().trim();
+            var cust=$(this).closest('tr').find('td:first p').text().trim();
             var loca=$(this).closest('tr').find('td:eq(3)').text().trim();
             var datee=$(this).closest('tr').find('td:eq(4)').text().trim();
-            
+           
             $.ajax({
                 url: "assignstaff.php",
                 method:"POST",
@@ -410,7 +400,7 @@ $(document).on('click','.assign',function()
                         $(this).closest("tr").remove();
                         console.log(data);
                         $.ajax({
-                          url: "assignstaff.php",
+                          url: "approvestaff.php",
                           method:"POST",
                           data :{
                             dat :data,
@@ -418,13 +408,14 @@ $(document).on('click','.assign',function()
                             dis : dist,
                             loc : loca,
                             date:datee,
-                            cust:cust,
+                            cust:cust
                             
                         },
                           success: function(result){
-                              $('#msg').html(result);
-                            $("#msg").css("display","inline");
-                            $("#msg").delay(1000).fadeOut();
+                              alert(result);
+                            //   $('#msg').html(result);
+                            // $("#msg").css("display","inline");
+                            // $("#msg").delay(1000).fadeOut();
                           }
                         });
                     });
