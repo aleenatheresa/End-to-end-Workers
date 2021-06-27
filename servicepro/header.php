@@ -81,8 +81,8 @@ require('../DbConnection.php');
                                     <div class="col-lg-12 px-2">
                                     <div class="submenu-box">
                                         <ul class="list-unstyled m-0">
-                                        <li><a href="admin_sc.php">Customer Feedback</a></li>
-                                        <li><a href="admin_sc.php">Complaint</a></li>
+                                        <li><a href="spfeedbackview.php">Customer Feedback</a></li>
+                                        <!-- <li><a href="admin_sc.php">Complaint</a></li> -->
                                         </ul>
                                     </div>
                                     </div>
@@ -105,6 +105,28 @@ require('../DbConnection.php');
                                         <ul class="list-unstyled m-0">
                                         <!-- <li><a href="wreport.php">Weekly Report</a></li> -->
                                         <li><a href="wreport.php">Monthly Report</a></li>
+                                        </ul>
+                                    </div>
+                                    </div>
+
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="has-sub">
+                        <a class="nav-link collapsed text-left active" href="#earning" role="button" data-toggle="collapse" >
+                        <i class="flaticon-user"></i>   Earnings
+                        </a>
+                        <div class="collapse menu mega-dropdown" id="earning">
+                        <div class="dropmenu" aria-labelledby="navbarDropdown">
+                        <div class="container-fluid ">
+                                <div class="row">
+                                    <div class="col-lg-12 px-2">
+                                    <div class="submenu-box">
+                                        <ul class="list-unstyled m-0">
+                                        <!-- <li><a href="wreport.php">Weekly Report</a></li> -->
+                                        <li><a href="spearning.php">Earnings</a></li>
                                         </ul>
                                     </div>
                                     </div>

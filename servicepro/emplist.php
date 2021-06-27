@@ -18,6 +18,7 @@ $sc=$_SESSION['sc'];
          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link href="../css/admin_stylesheet.css"  rel="stylesheet" media="all">
         <link href="../css/theme.css" rel="stylesheet" media="all">
+        <link rel="stylesheet" href="../css/rating.css">
         <!-- <link href="../css/sp_style.css" rel="stylesheet" media="all"> -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -32,6 +33,17 @@ $sc=$_SESSION['sc'];
     <?php 
     include("header.php");
     ?>
+                <div class="container">
+                    <div class="alert au-alert-success alert-dismissible fade show au-alert au-alert--70per" role="alert" style="display:none" id="notif">
+                        <i class="zmdi zmdi-check-circle"></i>
+                        <span class="content"  tabindex="1" id="msg"></span>
+                        <button class="close" type="button" data-dismiss="alert" id="dismiss" aria-label="Close">
+                            <span aria-hidden="true">
+                                <i class="zmdi zmdi-close-circle"></i>
+                            </span>
+                        </button>
+                    </div>
+                </div>
         <div class="container">
             <div class="row">
                 <?php
@@ -45,6 +57,7 @@ $sc=$_SESSION['sc'];
                                 $emp=mysqli_query($con,"select * from tbl_employee where login_id=$id and sc_id=$sc");
                                 while($e=mysqli_fetch_array($emp))
                                 {
+                                $empid=$e['employee_id'];
                                 $loc=$e['location_id'];
                                 $ser=$e['service_id'];
                                 $loca=mysqli_query($con,"select * from tbl_location where location_id=$loc");
@@ -54,6 +67,10 @@ $sc=$_SESSION['sc'];
                                 $d=mysqli_fetch_array($dis);
                                 $serv=mysqli_query($con,"select * from tbl_services where service_id=$ser");
                                 $s=mysqli_fetch_array($serv);
+                                $rating=mysqli_query($con,"select avg(stars) as stars from tbl_rating where employee_id=$empid");
+                                $star=mysqli_fetch_array($rating);
+                                $numstar=$star['stars'];
+                                $rnd=round($numstar);
                     ?>
                 <div class="col-md-4">
                     <div class="card">
@@ -65,6 +82,22 @@ $sc=$_SESSION['sc'];
                                         <h5 class="text-sm-center mt-2 mb-1"><?php echo $e['employee_phone']; ?></h5>
                                        
                                         <p class="text-sm-center"><?php echo $s['service_name']; ?></p>
+                                        <center>
+                                            <span class="badge">
+                                                <div class="rating">
+                                                <?php
+                                            for ($i=0; $i <$rnd ; $i++) { ?>
+                                            <i class="rating__star fas fa-star"></i>
+                                            <?php }
+                                            ?>
+                                            <?php
+                                            for ($i=0; $i <5-$rnd ; $i++) { ?>
+                                            <i class="rating__star far fa-star"></i>
+                                            <?php }
+                                            ?>
+                                                </div>
+                                            </span> 
+                                        </center>
                                         <hr>
                                          <div class="text-sm-center">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
@@ -73,6 +106,10 @@ $sc=$_SESSION['sc'];
                                             <?php echo $d['district_name'] ?>,<?php echo $locat['location'];?>
                                         </div>
                                         
+                                        <hr>
+                                        <div class="text-sm-center">
+                                            <button type="button" class="btn btn-danger blk" id="blk" value="<?php echo $id;?>">Block</button>
+                                        </div>
                                         
                                     </div>
                                 </div>
@@ -102,6 +139,21 @@ $sc=$_SESSION['sc'];
     <?php
         include("footer.php");
     ?>
-
+<script>
+$('.blk').on('click',function(){
+    var data=$(this).val();
+    $.ajax({
+                url: "blockemp.php",
+                method:"POST",
+                data :{
+                dat:data
+                },
+                success: function(result){
+                    $('#notif').css('display','block');
+                    $('#msg').text(result);
+                }
+            });
+});
+</script>
 </body>
 </html>

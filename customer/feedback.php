@@ -107,8 +107,7 @@ function refreshPage(){
                           },
                             success: function(result){
                               $("#date-msg").html(result);
-                           
-                              
+                              location.window.href = "customer_index.php";
                             }
                         });
               });

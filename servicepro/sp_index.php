@@ -24,6 +24,7 @@ $spdetail="select * from tbl_serviceproviders where login_id=$logid";
 $sp_query=mysqli_query($con,$spdetail);
 $sp=mysqli_fetch_array($sp_query);
 $sp_dis=$sp['district_id'];
+$_SESSION['dis']=$sp_dis;
 $sp_id=$sp['sp_id'];
 $_SESSION['sp']=$sp_id;
 $val=$sp['sp_email'];
@@ -133,7 +134,7 @@ $_SESSION['sc']=$sc;
                                                 while($req_data=mysqli_fetch_array($req))
                                                 {
                                                     $logid=$req_data['lid'];
-                                                    $emp_data=mysqli_query($con,"select * from tbl_employee where login_id=$logid and sc_id=$sc and district_id=$sp_dis");
+                                                    $emp_data=mysqli_query($con,"select * from tbl_employee where login_id=$logid and sc_id=$sc and district_id=$sp_dis and aproval_status=0");
                                                     if(mysqli_num_rows($emp_data)>0)
                                                             {
                                                         while($r=mysqli_fetch_array($emp_data))
@@ -187,16 +188,29 @@ $_SESSION['sc']=$sc;
                                     <div class="table-responsive">
                                         <table class="table table-top-campaign">
                                             <tbody>
-                                                <tr>
-                                                    <td>1.Chippy</td>
-                                                    <td></td>
+                                            <?php 
+                                            $top=mysqli_query($con,"SELECT AVG(stars) as star,employee_id from tbl_rating GROUP BY employee_id ORDER BY star ASC LIMIT 5");
+                                            while($t=mysqli_fetch_array($top))
+                                            {
+                                            $eid=$t['employee_id'];
+                                            $num=$t['star'];
+                                            $emp=mysqli_query($con,"select * from tbl_employee where employee_id=$eid");
+                                            $em=mysqli_fetch_array($emp);
+                                            $ename=$em['employee_name'];
+                                            $roundnum=round($num);
+                                             ?>
+                                                <?php
+                                                   
+                                                ?><tr>
+                                                    <td style="text-align:left;">
+                                                        <?php 
+                                                            echo $ename;
+                                                        ?>
+                                                    </td>
                                                     
                                                 </tr>
-                                                <tr>
-                                                    <td>2.Manas</td>
-                                                    <td></td>
-                                                </tr>
-                                                
+                                               
+                                             <?php  } ?>
                                                
                                             </tbody>
                                         </table>
@@ -343,10 +357,10 @@ $('.emp_approve').on('click',function(){
                     details: det
                 },
                 success: function(result){
+                    
                 $("#noti").css('dispaly','block');
-                $('#msg').html(result);
-                $('#msg').css("display","block");
-                $('#msg').fadeIn().delay(500).fadeOut();
+                $('#msg').text(result);
+                $('#noti').fadeIn().delay(500).fadeOut();
                 }
     });
    
@@ -365,10 +379,9 @@ $('.emp_reject').on('click',function()
                     det: d
                 },
                 success: function(result){
-                    
-                $('#msg').html(result);
-                $('#msg').css("display","block");
-                $('#msg').fadeIn().delay(500).fadeOut();
+                $("#noti").css('dispaly','block');
+                $('#msg').text(result);
+                $('#noti').fadeIn().delay(500).fadeOut();
                 }
     });
 

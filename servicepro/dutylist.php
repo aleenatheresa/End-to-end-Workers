@@ -47,7 +47,7 @@ td
                         </thead>
                         <tbody>
                         <?php
-                            $emp_apr=mysqli_query($con,"select * from tbl_booking where aproval_status=1 and servicecompleted=0");
+                            $emp_apr=mysqli_query($con,"select * from tbl_booking where aproval_status=1 and servicecompleted=0 and sc_id=$sc");
                                 if(mysqli_num_rows($emp_apr))
                                 {
                                     while($apr=mysqli_fetch_array($emp_apr))

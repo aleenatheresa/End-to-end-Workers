@@ -1,17 +1,19 @@
 <?php
 // $con=mysqli_connect("localhost","root","","projectdb");
+session_start();
 require('../DbConnection.php');
 if(isset($_POST['name']))
 {
     $n=$_POST['name'];
     $d=$_POST['details'];
+    $spid= $_SESSION['sp'];
     $apr=mysqli_query($con,"select * from tbl_employee where employee_name='$n' and employee_email='$d'");
     $r=mysqli_fetch_array($apr);
     $lid=$r['login_id'];
     $update=mysqli_query($con,"update tbl_login set aproval_status=1 where lid=$lid");
-    $avail=mysqli_query($con,"update tbl_employee set is_available=1,aproval_status=1 where login_id=$lid");
-    echo "<p>Sucesfully added an employee</p>";
-}
+    $avail=mysqli_query($con,"update tbl_employee set is_available=1,aproval_status=1,sp_id=$spid where login_id=$lid");
+    echo "Sucesfully added an employee";
+   }
 if(isset($_POST['nam']))
 {
     $name=$_POST['nam'];
@@ -20,7 +22,7 @@ if(isset($_POST['nam']))
     $ro=mysqli_fetch_array($apro);
     $logid=$ro['login_id'];
     $updatee=mysqli_query($con,"update tbl_login set is_delete=0 where lid=$logid");
-    echo "<p>Sucesfully Removed an employee</p>";
+    echo "Sucesfully Removed an employee";
 }
 if(isset($_POST['dat']))
     {
