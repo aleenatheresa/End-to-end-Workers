@@ -228,7 +228,7 @@ if(isset($_POST['insert_serv'])){
                                               <div class="d-flex align-items-center">
                                                       <div class="">
                                                           <label class="m-b-0 font-16"> <?php
-                                                              $district="select * from tbl_district where district_id=$loc";
+                                                              $district="select * from tbl_district where district_id=$dis";
                                                               $dis_query=mysqli_query($con,$district);
                                                               $district_name=mysqli_fetch_array($dis_query);
                                                               echo $district_name['district_name'];
